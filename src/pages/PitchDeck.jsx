@@ -15,7 +15,7 @@ const PitchDeck = () => {
         </div>
       </section>
     </>
-  >
+  )
 }
 
 export default PitchDeck
