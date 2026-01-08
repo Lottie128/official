@@ -1,80 +1,94 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  * {
-    @apply border-border;
+  html {
+    @apply scroll-smooth;
   }
   
   body {
-    @apply bg-primary-light dark:bg-primary-dark text-primary-dark dark:text-primary-light;
     @apply font-sans antialiased;
-    @apply transition-colors duration-300;
   }
-
-  html {
-    @apply scroll-smooth;
+  
+  * {
+    @apply transition-colors duration-200;
   }
 }
 
 @layer components {
-  /* Glass effect utility */
-  .glass {
-    @apply backdrop-blur-xl bg-glass-light dark:bg-glass-dark;
-    @apply border border-white/20 dark:border-black/20;
-    @apply shadow-lg;
-  }
-
-  .glass-card {
-    @apply glass rounded-2xl p-6;
-    @apply hover:shadow-2xl transition-all duration-300;
-  }
-
-  /* Button styles */
+  /* Button Styles */
   .btn-primary {
-    @apply px-6 py-3 rounded-full font-medium;
-    @apply bg-primary-dark dark:bg-primary-light;
-    @apply text-primary-light dark:text-primary-dark;
-    @apply hover:scale-105 active:scale-95;
-    @apply transition-all duration-200;
-    @apply shadow-md hover:shadow-xl;
+    @apply px-6 py-3 bg-light-accent dark:bg-dark-accent text-white rounded-lg font-medium
+           hover:shadow-lift transform hover:scale-105 transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-light-accent dark:focus:ring-dark-accent;
   }
-
+  
   .btn-secondary {
-    @apply px-6 py-3 rounded-full font-medium;
-    @apply border-2 border-primary-dark dark:border-primary-light;
-    @apply text-primary-dark dark:text-primary-light;
-    @apply hover:bg-primary-dark dark:hover:bg-primary-light;
-    @apply hover:text-primary-light dark:hover:text-primary-dark;
-    @apply transition-all duration-200;
+    @apply px-6 py-3 bg-transparent border-2 border-light-text dark:border-dark-text
+           text-light-text dark:text-dark-text rounded-lg font-medium
+           hover:bg-light-text hover:text-light-bg dark:hover:bg-dark-text dark:hover:text-dark-bg
+           transform hover:scale-105 transition-all duration-200
+           focus:outline-none focus:ring-2 focus:ring-offset-2;
   }
-
-  /* Section spacing */
-  .section {
-    @apply py-16 md:py-24 px-4 md:px-8;
+  
+  /* Card Styles */
+  .card {
+    @apply bg-light-surface dark:bg-dark-surface rounded-xl p-6 shadow-subtle
+           border border-light-border dark:border-dark-border
+           hover:shadow-lift transition-shadow duration-300;
   }
-
+  
+  .glass-card {
+    @apply glass dark:glass-dark rounded-xl p-6 shadow-glass dark:shadow-glass-dark;
+  }
+  
+  /* Container */
   .container-custom {
-    @apply max-w-7xl mx-auto;
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
-
-  /* Heading styles */
-  .heading-1 {
-    @apply text-4xl md:text-6xl font-bold tracking-tight;
+  
+  /* Section */
+  .section {
+    @apply py-16 md:py-24;
   }
-
-  .heading-2 {
-    @apply text-3xl md:text-5xl font-bold tracking-tight;
+  
+  /* Heading Styles */
+  .heading-xl {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight;
   }
-
-  .heading-3 {
-    @apply text-2xl md:text-3xl font-semibold;
+  
+  .heading-lg {
+    @apply text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight;
+  }
+  
+  .heading-md {
+    @apply text-2xl md:text-3xl font-bold;
+  }
+  
+  .heading-sm {
+    @apply text-xl md:text-2xl font-semibold;
   }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  /* Custom scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-light-bg dark:bg-dark-bg;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-light-border dark:bg-dark-border rounded-full;
+  }
+  
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-light-textSecondary dark:bg-dark-textSecondary;
   }
 }
