@@ -1,0 +1,80 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-primary-light dark:bg-primary-dark text-primary-dark dark:text-primary-light;
+    @apply font-sans antialiased;
+    @apply transition-colors duration-300;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+}
+
+@layer components {
+  /* Glass effect utility */
+  .glass {
+    @apply backdrop-blur-xl bg-glass-light dark:bg-glass-dark;
+    @apply border border-white/20 dark:border-black/20;
+    @apply shadow-lg;
+  }
+
+  .glass-card {
+    @apply glass rounded-2xl p-6;
+    @apply hover:shadow-2xl transition-all duration-300;
+  }
+
+  /* Button styles */
+  .btn-primary {
+    @apply px-6 py-3 rounded-full font-medium;
+    @apply bg-primary-dark dark:bg-primary-light;
+    @apply text-primary-light dark:text-primary-dark;
+    @apply hover:scale-105 active:scale-95;
+    @apply transition-all duration-200;
+    @apply shadow-md hover:shadow-xl;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 rounded-full font-medium;
+    @apply border-2 border-primary-dark dark:border-primary-light;
+    @apply text-primary-dark dark:text-primary-light;
+    @apply hover:bg-primary-dark dark:hover:bg-primary-light;
+    @apply hover:text-primary-light dark:hover:text-primary-dark;
+    @apply transition-all duration-200;
+  }
+
+  /* Section spacing */
+  .section {
+    @apply py-16 md:py-24 px-4 md:px-8;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto;
+  }
+
+  /* Heading styles */
+  .heading-1 {
+    @apply text-4xl md:text-6xl font-bold tracking-tight;
+  }
+
+  .heading-2 {
+    @apply text-3xl md:text-5xl font-bold tracking-tight;
+  }
+
+  .heading-3 {
+    @apply text-2xl md:text-3xl font-semibold;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
