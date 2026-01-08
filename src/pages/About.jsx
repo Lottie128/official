@@ -80,7 +80,7 @@ const About = () => {
               <p className="text-light-textSecondary dark:text-dark-textSecondary">
                 Founded by <strong>Lottie Mukuka</strong>, an international entrepreneur and AI
                 specialist, we operate with a dual focus on industrial automation and educational
-                innovation — blending engineering precision with scalable technology.
+                innovation - blending engineering precision with scalable technology.
               </p>
               <p className="text-light-textSecondary dark:text-dark-textSecondary">
                 Operating from <strong>India</strong> with global collaborations in{' '}
@@ -149,7 +149,7 @@ const About = () => {
                 icon: FaFlask,
                 title: 'Research & Development',
                 description:
-                  'Cutting-edge research in applied AI, energy-efficient robotics, IoT systems, and futuristic mobility concepts. Pushing the boundaries of what's possible in automation and intelligent systems.',
+                  'Cutting-edge research in applied AI, energy-efficient robotics, IoT systems, and futuristic mobility concepts. Pushing the boundaries of what is possible in automation and intelligent systems.',
               },
             ].map((division, index) => (
               <motion.div
