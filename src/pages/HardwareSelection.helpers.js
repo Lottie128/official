@@ -1,0 +1,128 @@
+export const formatINR = (amount) => {
+  if (!amount || amount === 0) return '₹0';
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).format(amount);
+};
+
+export const HARDWARE_CATEGORIES = [
+  {
+    id: 'tier1',
+    name: 'Tier 1: Ignition Lab',
+    subtitle: 'Foundation Stage - Budget ₹0.5L - ₹2.5L',
+    maxBudget: 250000,
+    color: '#10b981',
+    hardware: [
+      {
+        category: 'Desktop Workstation',
+        items: [
+          { type: 'Basic', name: 'Intel i3 / 4GB RAM / 128GB SSD', description: 'Entry-level desktop for basic coding', benefit: 'Best for beginners, Arduino IDE, block coding', priceMin: 25000, priceMax: 30000, notes: 'Economical, reliable' },
+          { type: 'Mid', name: 'Intel i5 / 8GB RAM / 256GB SSD', description: 'Standard workstation for robot control', benefit: 'Smooth multitasking, faster compilation', priceMin: 35000, priceMax: 45000, notes: 'Recommended for schools' },
+          { type: 'Advanced', name: 'Intel i5 / 16GB / 512GB SSD + Monitor', description: 'High-performance with display', benefit: 'Future-proof, 3D design capable', priceMin: 50000, priceMax: 65000, notes: 'Complete workstation' }
+        ]
+      },
+      {
+        category: '3D Printer',
+        items: [
+          { type: 'Basic', name: 'Creality Ender 3 V3 / Anycubic Kobra', description: 'Entry FDM, 220x220x250mm', benefit: 'Basic prototyping, small parts', priceMin: 15000, priceMax: 35000, notes: 'Very reliable, economical' },
+          { type: 'Mid', name: 'Flashforge Adventurer 3', description: 'Enclosed, auto-leveling', benefit: 'Safer, better quality', priceMin: 35000, priceMax: 55000, notes: 'Great for classrooms' },
+          { type: 'Advanced', name: 'Flashforge Adventurer 5M Pro', description: 'Fast, dual cooling, larger', benefit: 'Professional results', priceMin: 55000, priceMax: 85000, notes: 'Advanced projects' }
+        ]
+      },
+      {
+        category: 'Arduino Robotics Kit',
+        items: [
+          { type: 'Basic', name: 'Standard UNO Starter', description: 'UNO, sensors, motors', benefit: 'Simple projects', priceMin: 2000, priceMax: 3500, notes: 'For beginners' },
+          { type: 'Mid', name: 'Advanced Arduino Kit', description: 'LCD, RFID, relays', benefit: 'Competitions', priceMin: 4500, priceMax: 9000, notes: 'More sensors' },
+          { type: 'Advanced', name: 'Engineering Kit', description: 'Full robotics lab', benefit: 'STEM curriculum', priceMin: 24000, priceMax: 35000, notes: 'Engineering grade' }
+        ]
+      },
+      {
+        category: 'IoT Kit (ESP32)',
+        items: [
+          { type: 'Basic', name: 'ESP32 Dev Board', description: 'Wi-Fi/BLE onboard', benefit: 'Smart automation', priceMin: 2300, priceMax: 4500, notes: 'Most affordable' },
+          { type: 'Mid', name: 'ESP32 Complete Kit', description: 'LCD, relays, sensors', benefit: 'Smart home projects', priceMin: 6000, priceMax: 11000, notes: 'Full featured' },
+          { type: 'Advanced', name: 'Professional IoT Kit', description: 'Multiple ESP32s', benefit: 'Scalable IoT', priceMin: 15000, priceMax: 25000, notes: 'Lab ready' }
+        ]
+      },
+      {
+        category: 'Smart Projector',
+        items: [
+          { type: 'Basic', name: 'Portable Mini Projector', description: 'LED, 480p', benefit: 'Basic demos', priceMin: 8000, priceMax: 12000, notes: 'Budget friendly' },
+          { type: 'Mid', name: 'Smart HD Projector', description: '1080p, Wi-Fi', benefit: 'Better visuals', priceMin: 15000, priceMax: 25000, notes: 'Classroom ready' },
+          { type: 'Advanced', name: 'Interactive Projector', description: 'Touch-enabled', benefit: 'Interactive lessons', priceMin: 30000, priceMax: 45000, notes: 'Premium' }
+        ]
+      },
+      {
+        category: 'Lab Furniture',
+        items: [
+          { type: 'Basic', name: '2 Desks + 4 Chairs', description: 'Standard furniture', benefit: 'Comfortable workspace', priceMin: 15000, priceMax: 20000, notes: 'Essential' },
+          { type: 'Mid', name: '4 Desks + 8 Chairs', description: 'Ergonomic', benefit: 'Better posture', priceMin: 35000, priceMax: 45000, notes: 'Comfortable' },
+          { type: 'Advanced', name: '6 Workstations + Storage', description: 'Complete setup', benefit: 'Professional', priceMin: 60000, priceMax: 80000, notes: 'Full infrastructure' }
+        ]
+      },
+      {
+        category: 'Safety & Tool Kit',
+        items: [
+          { type: 'Basic', name: 'Basic Safety Kit', description: 'Goggles, gloves, tools', benefit: 'Essential safety', priceMin: 3000, priceMax: 5000, notes: 'Minimum required' },
+          { type: 'Mid', name: 'Complete Tool Kit', description: 'Soldering, multimeter', benefit: 'Professional assembly', priceMin: 8000, priceMax: 12000, notes: 'Everything needed' },
+          { type: 'Advanced', name: 'Professional Safety Kit', description: 'Fire extinguisher, first aid', benefit: 'Full compliance', priceMin: 15000, priceMax: 20000, notes: 'Maximum safety' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'tier2',
+    name: 'Tier 2: Evolution Lab',
+    subtitle: 'Discovery Stage - Budget ₹3L - ₹5L',
+    maxBudget: 500000,
+    color: '#667eea',
+    hardware: [
+      { category: '3D Printer', items: [{ type: 'Basic', name: 'Creality Ender 3 V3', description: 'Entry FDM, 220x220mm', benefit: 'Basic prototyping', priceMin: 15000, priceMax: 35000, notes: 'Reliable' }, { type: 'Mid', name: 'Flashforge X-Smart 3', description: 'Enclosed, touchscreen', benefit: 'Bigger, safer', priceMin: 55000, priceMax: 135000, notes: 'Better finish' }, { type: 'Advanced', name: '3idea Max 200', description: 'Dual extruder, huge', benefit: 'Large projects', priceMin: 150000, priceMax: 250000, notes: 'Professional' }] },
+      { category: 'Laser Engraver/Cutter', items: [{ type: 'Basic', name: 'TWOTREES TTS-20 Pro', description: '20W desktop', benefit: 'Nameplates, PCB', priceMin: 20000, priceMax: 35000, notes: 'Entry level' }, { type: 'Mid', name: 'CO₂ 40W Desktop', description: 'Wood/acrylic', benefit: 'School logos', priceMin: 120000, priceMax: 200000, notes: 'More power' }, { type: 'Advanced', name: 'Fiber/CO₂ 60W+ Industrial', description: 'Faster, deeper cuts', benefit: 'Mass prototyping', priceMin: 200000, priceMax: 300000, notes: 'Heavy duty' }] },
+      { category: 'Robotics/Arduino Kit', items: [{ type: 'Basic', name: 'Standard UNO Kit', description: 'Basic sensors', benefit: 'Simple projects', priceMin: 2000, priceMax: 3500, notes: 'Beginners' }, { type: 'Mid', name: 'Advanced Arduino Kit', description: 'LCD, RFID, relays', benefit: 'Competitions', priceMin: 4500, priceMax: 9000, notes: 'More features' }, { type: 'Advanced', name: 'Engineering Kit', description: 'Full robotics', benefit: 'Advanced STEM', priceMin: 24000, priceMax: 35000, notes: 'Complete' }] },
+      { category: 'IoT Kit (ESP32)', items: [{ type: 'Basic', name: 'ESP32 Dev Board', description: 'Wi-Fi/BLE', benefit: 'Automation basics', priceMin: 2300, priceMax: 4500, notes: 'Affordable' }, { type: 'Mid', name: 'ESP32 Complete Kit', description: 'LCD, relays', benefit: 'Smart home', priceMin: 6000, priceMax: 11000, notes: 'Full kit' }, { type: 'Advanced', name: 'Professional IoT', description: 'Multiple ESP32s', benefit: 'Scalable', priceMin: 15000, priceMax: 25000, notes: 'Lab ready' }] },
+      { category: 'Smart Lighting System', items: [{ type: 'Basic', name: '9W Wi-Fi RGB (4-pack)', description: 'Mobile app control', benefit: 'Visual IoT', priceMin: 1800, priceMax: 3600, notes: '₹450-900 each' }, { type: 'Mid', name: 'High-Watt RGB (6-pack)', description: 'Music sync, voice', benefit: 'Multi-room', priceMin: 5700, priceMax: 8400, notes: '₹950-1400 each' }, { type: 'Advanced', name: 'Multi-bulb Kit (10+)', description: 'Full integration', benefit: 'Large automation', priceMin: 11000, priceMax: 18000, notes: 'Complete system' }] },
+      { category: 'Touchscreen Kiosk', items: [{ type: 'Entry', name: '19" Touch Display', description: 'Basic Android', benefit: 'Run lessons', priceMin: 35000, priceMax: 45000, notes: 'Affordable' }, { type: 'Mid', name: '21.5" Touch Kiosk', description: 'Larger, stronger', benefit: 'Interactive', priceMin: 55000, priceMax: 70000, notes: 'Central location' }, { type: 'Advanced', name: '24"+ Professional', description: 'Windows/Android', benefit: 'Digital noticeboard', priceMin: 70000, priceMax: 120000, notes: 'Long-term' }] },
+      { category: 'AI & ML Kit', items: [{ type: 'Basic', name: 'Raspberry Pi 4B', description: 'RPi, camera, sensors', benefit: 'Computer vision', priceMin: 8000, priceMax: 12000, notes: 'Entry AI' }, { type: 'Mid', name: 'AI Vision Kit', description: 'HD camera, display', benefit: 'Object recognition', priceMin: 15000, priceMax: 22000, notes: 'AI ready' }, { type: 'Advanced', name: 'Jetson Nano AI', description: 'NVIDIA GPU', benefit: 'Real-time AI', priceMin: 25000, priceMax: 40000, notes: 'Professional' }] },
+      { category: 'Safety Enclosure', items: [{ type: 'Basic', name: 'Acrylic Desktop Cover', description: 'For 3D/engraver', benefit: 'Prevents accidents', priceMin: 5000, priceMax: 7000, notes: 'One device' }, { type: 'Mid', name: 'Customized Multi Cover', description: 'Bigger, durable', benefit: 'Multiple machines', priceMin: 8000, priceMax: 12000, notes: 'All desktop' }, { type: 'Advanced', name: 'Industrial Enclosure', description: 'Large, ventilated', benefit: 'Maximum safety', priceMin: 15000, priceMax: 20000, notes: 'All machines' }] }
+    ]
+  },
+  {
+    id: 'tier3',
+    name: 'Tier 3: Intelligence Lab',
+    subtitle: 'Innovation Stage - Budget ₹5L - ₹8L',
+    maxBudget: 800000,
+    color: '#a855f7',
+    hardware: [
+      { category: 'Advanced Workstations', items: [{ type: 'Basic', name: 'i7 / 16GB / 512GB SSD', description: 'Mid-range AI', benefit: 'AI model training', priceMin: 55000, priceMax: 70000, notes: 'Starting AI' }, { type: 'Mid', name: 'i7 / 32GB / 1TB + GTX 1650', description: 'GPU workstation', benefit: 'Faster training', priceMin: 80000, priceMax: 110000, notes: 'Recommended' }, { type: 'Advanced', name: 'i9 / 64GB / 2TB + RTX 3060', description: 'Professional AI/ML', benefit: 'Deep learning', priceMin: 150000, priceMax: 200000, notes: 'Top tier' }] },
+      { category: 'Industrial 3D Printer', items: [{ type: 'Basic', name: 'Flashforge Creator Pro 2', description: 'Dual extruder', benefit: 'Strong prototypes', priceMin: 80000, priceMax: 120000, notes: 'Industrial entry' }, { type: 'Mid', name: 'Raise3D E2', description: 'Large, high precision', benefit: 'Professional parts', priceMin: 200000, priceMax: 300000, notes: 'Industry standard' }, { type: 'Advanced', name: 'Stratasys F170', description: 'Engineering-grade', benefit: 'Production quality', priceMin: 400000, priceMax: 600000, notes: 'Manufacturing' }] },
+      { category: 'PLC Trainer Kit', items: [{ type: 'Basic', name: 'Basic PLC Kit', description: 'Ladder logic trainer', benefit: 'Automation intro', priceMin: 25000, priceMax: 40000, notes: 'Fundamentals' }, { type: 'Mid', name: 'Siemens S7-1200', description: 'Industry standard', benefit: 'Real automation', priceMin: 60000, priceMax: 100000, notes: 'Industry recognized' }, { type: 'Advanced', name: 'Complete PLC Lab', description: 'Multiple PLCs, SCADA', benefit: 'Full training', priceMin: 150000, priceMax: 250000, notes: 'Professional lab' }] },
+      { category: 'AR/VR Headsets', items: [{ type: 'Basic', name: 'VR Box (5 units)', description: 'Mobile VR', benefit: 'VR intro', priceMin: 5000, priceMax: 10000, notes: '₹1000-2000 each' }, { type: 'Mid', name: 'Meta Quest 2 (2-3)', description: 'Standalone VR', benefit: 'Virtual design', priceMin: 60000, priceMax: 90000, notes: '₹30k each' }, { type: 'Advanced', name: 'Meta Quest Pro (4-5)', description: 'Premium VR', benefit: 'Advanced simulation', priceMin: 150000, priceMax: 250000, notes: '₹50k each' }] },
+      { category: 'Digital Dashboard', items: [{ type: 'Basic', name: '32" TV + RPi', description: 'IoT display', benefit: 'Data display', priceMin: 20000, priceMax: 30000, notes: 'Simple' }, { type: 'Mid', name: '43" 4K + Mini PC', description: 'Interactive touch', benefit: 'Live visualization', priceMin: 45000, priceMax: 65000, notes: 'Professional' }, { type: 'Advanced', name: '55" Video Wall', description: 'Multi-screen', benefit: 'Real-time monitoring', priceMin: 100000, priceMax: 150000, notes: 'Enterprise' }] },
+      { category: 'Drone/Robotics Platform', items: [{ type: 'Basic', name: 'DIY Quadcopter (2)', description: 'Basic drone kit', benefit: 'Drone assembly', priceMin: 15000, priceMax: 25000, notes: 'Entry level' }, { type: 'Mid', name: 'ArduPilot Drone (2-3)', description: 'GPS, telemetry', benefit: 'Autonomous flight', priceMin: 40000, priceMax: 70000, notes: 'Professional' }, { type: 'Advanced', name: 'Research Platform', description: 'Complete drone lab', benefit: 'AI navigation', priceMin: 120000, priceMax: 200000, notes: 'Research grade' }] },
+      { category: 'CNC Machine', items: [{ type: 'Basic', name: 'Desktop CNC 3020', description: 'PCB, wood', benefit: 'Precision cutting', priceMin: 30000, priceMax: 50000, notes: 'Entry CNC' }, { type: 'Mid', name: 'CNC 6040 Router', description: 'Larger area', benefit: 'Professional prototyping', priceMin: 80000, priceMax: 150000, notes: 'Fabrication' }, { type: 'Advanced', name: 'Industrial CNC Mill', description: 'Multi-axis', benefit: 'Production-grade', priceMin: 250000, priceMax: 400000, notes: 'Workshop' }] },
+      { category: 'Safety & Environmental', items: [{ type: 'Basic', name: 'Basic Safety Sensors', description: 'Smoke, temp, motion', benefit: 'Lab monitoring', priceMin: 8000, priceMax: 12000, notes: 'Essential alerts' }, { type: 'Mid', name: 'Environmental Monitor', description: 'Gas, fire, air quality', benefit: 'Comprehensive safety', priceMin: 20000, priceMax: 35000, notes: 'Full monitoring' }, { type: 'Advanced', name: 'Smart Safety System', description: 'Auto-response', benefit: 'Automated shutdowns', priceMin: 50000, priceMax: 80000, notes: 'Maximum safety' }] }
+    ]
+  },
+  {
+    id: 'tier4',
+    name: 'Tier 4: Singularity Lab',
+    subtitle: 'Future Stage - Budget ₹8L - ₹15L+',
+    maxBudget: 1500000,
+    color: '#00d9ff',
+    hardware: [
+      { category: 'AI Workstation/Server', items: [{ type: 'Basic', name: 'Dual Xeon / 128GB / RTX 3060', description: 'Entry AI server', benefit: 'Multi-user platform', priceMin: 200000, priceMax: 300000, notes: 'Team projects' }, { type: 'Mid', name: 'GPU Cluster (2x RTX 3090)', description: 'Deep learning server', benefit: 'Fast AI training', priceMin: 400000, priceMax: 600000, notes: 'Professional AI' }, { type: 'Advanced', name: 'AI Server (4x A6000)', description: 'Enterprise AI', benefit: 'Large-scale research', priceMin: 800000, priceMax: 1500000, notes: 'University level' }] },
+      { category: 'Autonomous Service Robot', items: [{ type: 'Basic', name: 'Custom Mobile Robot', description: 'DIY autonomous', benefit: 'Learning platform', priceMin: 80000, priceMax: 150000, notes: 'Educational' }, { type: 'Mid', name: 'Semi-Pro Service Robot', description: 'Navigation, AI', benefit: 'Demo robot', priceMin: 200000, priceMax: 400000, notes: 'Showcase' }, { type: 'Advanced', name: 'Pepper/NAO Humanoid', description: 'Commercial humanoid', benefit: 'Reception, tours', priceMin: 500000, priceMax: 1000000, notes: 'Top tier' }] },
+      { category: 'Smart Glass Display', items: [{ type: 'Basic', name: 'DIY Smart Mirror (32")', description: 'RPi-based', benefit: 'Weather, notifications', priceMin: 25000, priceMax: 40000, notes: 'Custom display' }, { type: 'Mid', name: 'Professional Glass (43")', description: 'Touch, Android', benefit: 'Interactive info', priceMin: 80000, priceMax: 120000, notes: 'Commercial grade' }, { type: 'Advanced', name: 'AR Glass Wall (55"+)', description: 'AR overlays, AI', benefit: 'Futuristic center', priceMin: 200000, priceMax: 350000, notes: 'Cutting edge' }] },
+      { category: 'Home Assistant System', items: [{ type: 'Basic', name: 'Basic Smart Home', description: '10 smart devices', benefit: 'Voice control', priceMin: 30000, priceMax: 50000, notes: 'Entry automation' }, { type: 'Mid', name: 'Complete Automation', description: '25+ devices', benefit: 'Full lab automation', priceMin: 80000, priceMax: 150000, notes: 'Smart lab' }, { type: 'Advanced', name: 'Enterprise System', description: '50+ devices, AI', benefit: 'Building automation', priceMin: 200000, priceMax: 400000, notes: 'Building-wide' }] },
+      { category: 'Smart Workstations', items: [{ type: 'Basic', name: '4 Smart Desks', description: 'Motion sensors', benefit: 'Auto controls', priceMin: 80000, priceMax: 120000, notes: 'Smart basics' }, { type: 'Mid', name: '6 Advanced Stations', description: 'Height-adjustable', benefit: 'Ergonomic', priceMin: 150000, priceMax: 250000, notes: 'Premium' }, { type: 'Advanced', name: '10 AI Workstations', description: 'Biometric, AI', benefit: 'Future workplace', priceMin: 300000, priceMax: 500000, notes: 'Next-gen' }] },
+      { category: 'VR Robotics Training', items: [{ type: 'Basic', name: 'VR Setup (2 headsets)', description: 'Quest 2, software', benefit: 'Virtual practice', priceMin: 70000, priceMax: 100000, notes: 'Entry VR' }, { type: 'Mid', name: 'VR Lab (5 headsets)', description: 'Custom apps', benefit: 'Multi-user training', priceMin: 200000, priceMax: 350000, notes: 'Complete lab' }, { type: 'Advanced', name: 'Enterprise VR (10)', description: 'Motion, haptics', benefit: 'Advanced simulation', priceMin: 500000, priceMax: 800000, notes: 'Professional' }] },
+      { category: 'Smart Security System', items: [{ type: 'Basic', name: 'CCTV + Access', description: '4 cameras, locks', benefit: 'Basic security', priceMin: 40000, priceMax: 60000, notes: 'Essential' }, { type: 'Mid', name: 'AI Security', description: '8 AI cameras, face rec', benefit: 'Smart access', priceMin: 100000, priceMax: 180000, notes: 'Intelligent' }, { type: 'Advanced', name: 'Complete AI Suite', description: '16+ cameras, biometric', benefit: 'Enterprise security', priceMin: 250000, priceMax: 400000, notes: 'Maximum' }] },
+      { category: 'Robotic Arm', items: [{ type: 'Basic', name: 'Educational 6-DOF', description: 'Arduino-based', benefit: 'Learn kinematics', priceMin: 35000, priceMax: 60000, notes: 'Teaching' }, { type: 'Mid', name: 'Cobot (Dobot/UR3)', description: 'Collaborative robot', benefit: 'Pick-and-place', priceMin: 150000, priceMax: 300000, notes: 'Industry standard' }, { type: 'Advanced', name: 'Industrial Arm (ABB)', description: 'High-precision', benefit: 'Manufacturing research', priceMin: 400000, priceMax: 800000, notes: 'Professional' }] }
+    ]
+  }
+];
