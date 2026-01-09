@@ -14,6 +14,8 @@ import PitchDeck from './pages/PitchDeck'
 import EvolutionLab from './pages/EvolutionLab'
 import RoboticsLab from './pages/RoboticsLab'
 import HardwareSelection from './pages/HardwareSelection'
+import BCMProposal from './pages/BCMProposal'
+import RoboticsTraining from './pages/RoboticsTraining'
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
             <Route path="/evolution-lab" element={<EvolutionLab />} />
             <Route path="/robotics-lab" element={<RoboticsLab />} />
             <Route path="/hardware-selection" element={<HardwareSelection />} />
+            <Route path="/bcm-proposal" element={<BCMProposal />} />
+            <Route path="/robotics-training" element={<RoboticsTraining />} />
           </Routes>
         </main>
         <Footer />

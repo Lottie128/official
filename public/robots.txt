@@ -1,0 +1,11 @@
+# Allow all crawlers to index public pages
+User-agent: *
+Allow: /
+
+# Block protected/confidential pages from all crawlers
+Disallow: /business-plan
+Disallow: /bcm-proposal
+Disallow: /robotics-training
+
+# Sitemap
+Sitemap: https://zeroaitech.tech/sitemap.xml
