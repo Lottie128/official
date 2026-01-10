@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
 import axios from 'axios'
-import { FaLock, FaUnlock, FaEye, FaEyeSlash } from 'react-icons/fa'
+import { FaLock, FaUnlock, FaEye, FaEyeSlash, FaDownload } from 'react-icons/fa'
 
 const RoboticsTraining = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -97,6 +97,11 @@ const RoboticsTraining = () => {
     } finally {
       setLoading(false)
     }
+  }
+
+  const handleDownloadPDF = () => {
+    // Trigger browser print dialog with PDF save option
+    window.print()
   }
 
   if (!isAuthenticated) {
@@ -244,8 +249,53 @@ const RoboticsTraining = () => {
         <meta name="googlebot" content="noindex, nofollow" />
       </Helmet>
 
+      {/* Print-specific styles */}
+      <style>{`
+        @media print {
+          body { 
+            background: white !important;
+            color: black !important;
+          }
+          .no-print { display: none !important; }
+          .print-content {
+            background: white !important;
+            box-shadow: none !important;
+            border: none !important;
+          }
+          * {
+            background: white !important;
+            color: black !important;
+            box-shadow: none !important;
+          }
+          .glass-card, .card { 
+            background: white !important;
+            border: 1px solid #ddd !important;
+          }
+          table {
+            border-collapse: collapse !important;
+          }
+          table th, table td {
+            border: 1px solid #333 !important;
+            padding: 8px !important;
+          }
+        }
+      `}</style>
+
       <div className="min-h-screen pt-32 pb-20">
-        <article className="container-custom max-w-5xl">
+        {/* Download Button - Fixed Position */}
+        <div className="fixed top-20 right-6 z-40 no-print">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleDownloadPDF}
+            className="flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary-light to-primary-dark text-white rounded-lg shadow-lg hover:shadow-xl transition-all"
+          >
+            <FaDownload className="w-5 h-5" />
+            Download PDF
+          </motion.button>
+        </div>
+
+        <article className="container-custom max-w-5xl print-content">
           {/* Header with Logo */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
