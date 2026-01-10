@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
-import { HiLockClosed, HiEye, HiEyeOff } from 'react-icons/hi'
+import { HiLockClosed, HiEye, HiEyeOff, HiDownload } from 'react-icons/hi'
 
 const BCMProposal = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -9,6 +9,7 @@ const BCMProposal = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [downloading, setDownloading] = useState(false)
 
   useEffect(() => {
     const auth = sessionStorage.getItem('bcm_proposal_auth')
@@ -64,6 +65,30 @@ const BCMProposal = () => {
       setError('Authentication failed. Please try again.')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const handleDownloadPDF = async () => {
+    setDownloading(true)
+    try {
+      // Dynamically import html2pdf
+      const html2pdf = (await import('html2pdf.js')).default
+      
+      const element = document.getElementById('proposal-content')
+      const opt = {
+        margin: [10, 10],
+        filename: 'BCM_AR-VR_Robotics_Proposal_ZeroAI.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2, useCORS: true, letterRendering: true },
+        jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+      }
+      
+      await html2pdf().set(opt).from(element).save()
+    } catch (error) {
+      console.error('PDF generation failed:', error)
+      alert('Failed to generate PDF. Please try again.')
+    } finally {
+      setDownloading(false)
     }
   }
 
@@ -156,7 +181,21 @@ const BCMProposal = () => {
         <link rel="icon" href="/logo.png" type="image/png" />
       </Helmet>
       <div className="min-h-screen bg-light-bg dark:bg-dark-bg py-12 select-none" style={{userSelect: 'none'}}>
-        <div className="container-custom max-w-5xl">
+        {/* Download Button - Fixed Position */}
+        <div className="fixed top-20 right-6 z-40">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={handleDownloadPDF}
+            disabled={downloading}
+            className="flex items-center gap-2 px-6 py-3 bg-light-accent dark:bg-dark-accent text-white rounded-lg shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <HiDownload className="w-5 h-5" />
+            {downloading ? 'Generating PDF...' : 'Download PDF'}
+          </motion.button>
+        </div>
+
+        <div id="proposal-content" className="container-custom max-w-5xl">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
