@@ -276,7 +276,7 @@ const RoboticsTraining = () => {
               <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-lg p-6">
                 <p className="text-lg mb-4">
                   BCM Schools purchased robotics kits originally designed by ZeroAI Technologies Inc. These kits contain
-                  sophisticated hardware and programming systems that are currently <strong>underutilized</strong> because
+                  custom hardware and non traditional programming approaches that are currently <strong>underutilized</strong> because
                   your teaching staff needs hands-on professional training to:
                 </p>
                 <ul>
@@ -572,7 +572,7 @@ const RoboticsTraining = () => {
                       <td>₹80,000</td>
                     </tr>
                     <tr className="font-bold text-lg">
-                      <td>TOTAL INVESTMENT (10 Trainers)</td>
+                      <td>TOTAL INVESTMENT (5+ Trainers)</td>
                       <td>Complete 3-Month Program + 12-Month Support</td>
                       <td>₹3,50,00,000</td>
                     </tr>
@@ -580,11 +580,6 @@ const RoboticsTraining = () => {
                 </table>
               </div>
 
-              <div className="bg-gradient-to-r from-primary-light/20 to-primary-dark/20 border border-primary-light/30 rounded-lg p-6">
-                <h3 className="text-2xl font-bold mb-2">Per Trainer Cost</h3>
-                <p className="text-3xl font-bold text-primary-light">₹3,50,000 ÷ 10 trainers = ₹35,000 per trainer</p>
-                <p className="mt-2 text-sm">Includes all materials, certification, and full-year support</p>
-              </div>
             </section>
 
             {/* Success Metrics */}
