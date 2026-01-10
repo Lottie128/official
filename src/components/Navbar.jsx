@@ -50,7 +50,7 @@ const Navbar = () => {
               <img 
                 src="/logo.png" 
                 alt="ZeroAI Technologies" 
-                className="h-8 w-auto dark:brightness-100 brightness-90"
+                className="h-8 w-auto dark:invert transition-all"
               />
             </motion.div>
           </Link>
