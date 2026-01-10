@@ -117,6 +117,13 @@ const RoboticsTraining = () => {
             {!showForgotPassword ? (
               <>
                 <div className="text-center mb-8">
+                  {/* Logo */}
+                  <img 
+                    src="/logo.png" 
+                    alt="ZeroAI Technologies" 
+                    className="w-24 h-auto mx-auto mb-6 dark:invert transition-all"
+                  />
+                  
                   <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary-light to-primary-dark mb-4">
                     <FaLock className="text-2xl text-white" />
                   </div>
@@ -170,6 +177,13 @@ const RoboticsTraining = () => {
             ) : (
               <>
                 <div className="text-center mb-8">
+                  {/* Logo for Forgot Password Screen */}
+                  <img 
+                    src="/logo.png" 
+                    alt="ZeroAI Technologies" 
+                    className="w-20 h-auto mx-auto mb-6 dark:invert transition-all"
+                  />
+                  
                   <h2 className="heading-lg mb-2">Reset Password</h2>
                   <p className="text-light-textSecondary dark:text-dark-textSecondary">
                     Enter your email to receive password reset instructions
@@ -232,12 +246,19 @@ const RoboticsTraining = () => {
 
       <div className="min-h-screen pt-32 pb-20">
         <article className="container-custom max-w-5xl">
-          {/* Header */}
+          {/* Header with Logo */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-16"
           >
+            {/* ZeroAI Logo */}
+            <img 
+              src="/logo.png" 
+              alt="ZeroAI Technologies" 
+              className="w-24 h-auto mx-auto mb-6 dark:invert transition-all"
+            />
+            
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary-light/20 to-primary-dark/20 border border-primary-light/30 mb-6">
               <FaUnlock className="text-primary-light" />
               <span className="text-sm font-semibold">Confidential Training Program</span>
