@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom'
-import { FaLinkedin, FaGithub, FaTwitter, FaEnvelope } from 'react-icons/fa'
-import { HiLocationMarker, HiPhone, HiMail } from 'react-icons/hi'
+import { FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa'
+import { FaXTwitter } from 'react-icons/fa6'
+import { HiLocationMarker, HiMail } from 'react-icons/hi'
 
 const Footer = () => {
   const currentYear = new Date().getFullYear()
@@ -27,9 +28,12 @@ const Footer = () => {
           {/* Brand */}
           <div className="space-y-4">
             <Link to="/" className="inline-block">
-              <div className="text-2xl font-bold">
-                <span className="text-light-accent dark:text-dark-accent">Zero</span>
-                <span className="text-light-text dark:text-dark-text">AI</span>
+              <div className="flex items-center space-x-2">
+                <img 
+                  src="/logo.png" 
+                  alt="ZeroAI Technologies" 
+                  className="h-8 w-auto dark:brightness-100 brightness-90"
+                />
               </div>
             </Link>
             <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">
@@ -37,13 +41,31 @@ const Footer = () => {
             </p>
             <div className="flex space-x-4">
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/company/zeroai-technologies-inc"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-light-textSecondary dark:text-dark-textSecondary hover:text-light-accent dark:hover:text-dark-accent transition-colors"
                 aria-label="LinkedIn"
               >
                 <FaLinkedin className="w-5 h-5" />
+              </a>
+              <a
+                href="https://x.com/IncZeroai"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-light-textSecondary dark:text-dark-textSecondary hover:text-light-accent dark:hover:text-dark-accent transition-colors"
+                aria-label="X (Twitter)"
+              >
+                <FaXTwitter className="w-5 h-5" />
+              </a>
+              <a
+                href="https://www.instagram.com/zeroai_technologies_inc/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-light-textSecondary dark:text-dark-textSecondary hover:text-light-accent dark:hover:text-dark-accent transition-colors"
+                aria-label="Instagram"
+              >
+                <FaInstagram className="w-5 h-5" />
               </a>
               <a
                 href="https://github.com/Lottie128"
@@ -53,15 +75,6 @@ const Footer = () => {
                 aria-label="GitHub"
               >
                 <FaGithub className="w-5 h-5" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-light-textSecondary dark:text-dark-textSecondary hover:text-light-accent dark:hover:text-dark-accent transition-colors"
-                aria-label="Twitter"
-              >
-                <FaTwitter className="w-5 h-5" />
               </a>
             </div>
           </div>
