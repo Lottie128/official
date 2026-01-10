@@ -82,6 +82,13 @@ const BCMProposal = () => {
           >
             <div className="glass dark:glass-dark rounded-2xl shadow-2xl p-8 border border-light-border dark:border-dark-border">
               <div className="text-center mb-8">
+                {/* Logo */}
+                <img 
+                  src="/logo.png" 
+                  alt="ZeroAI Technologies" 
+                  className="w-24 h-auto mx-auto mb-6 dark:invert transition-all"
+                />
+                
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-light-accent/10 dark:bg-dark-accent/10 rounded-full mb-4">
                   <HiLockClosed className="w-8 h-8 text-light-accent dark:text-dark-accent" />
                 </div>
@@ -146,6 +153,7 @@ const BCMProposal = () => {
       <Helmet>
         <title>BCM Proposal - Confidential - ZeroAI Technologies</title>
         <meta name="robots" content="noindex, nofollow" />
+        <link rel="icon" href="/logo.png" type="image/png" />
       </Helmet>
       <div className="min-h-screen bg-light-bg dark:bg-dark-bg py-12 select-none" style={{userSelect: 'none'}}>
         <div className="container-custom max-w-5xl">
@@ -156,15 +164,22 @@ const BCMProposal = () => {
             className="glass dark:glass-dark rounded-2xl p-8 mb-8 border border-light-border dark:border-dark-border"
           >
             <div className="flex items-start justify-between mb-6">
-              <div>
-                <h1 className="text-4xl font-bold text-light-text dark:text-dark-text mb-2">
-                  Strategic AR/VR + Robotics Integration Proposal
-                </h1>
-                <p className="text-xl text-light-accent dark:text-dark-accent font-semibold">
-                  BCM Schools Partnership
-                </p>
+              <div className="flex items-center gap-6">
+                <img 
+                  src="/logo.png" 
+                  alt="ZeroAI Technologies" 
+                  className="w-16 h-auto dark:invert transition-all flex-shrink-0"
+                />
+                <div>
+                  <h1 className="text-4xl font-bold text-light-text dark:text-dark-text mb-2">
+                    Strategic AR/VR + Robotics Integration Proposal
+                  </h1>
+                  <p className="text-xl text-light-accent dark:text-dark-accent font-semibold">
+                    BCM Schools Partnership
+                  </p>
+                </div>
               </div>
-              <span className="px-4 py-2 bg-red-500/10 text-red-600 dark:text-red-400 rounded-lg text-sm font-semibold">
+              <span className="px-4 py-2 bg-red-500/10 text-red-600 dark:text-red-400 rounded-lg text-sm font-semibold flex-shrink-0">
                 CONFIDENTIAL
               </span>
             </div>
