@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { motion } from 'framer-motion'
-import axios from 'axios'
-import { FaLock, FaUnlock, FaEye, FaEyeSlash } from 'react-icons/fa'
+import { HiLockClosed, HiEye, HiEyeOff } from 'react-icons/hi'
 
 const BCMProposal = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -10,9 +9,6 @@ const BCMProposal = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [showForgotPassword, setShowForgotPassword] = useState(false)
-  const [resetEmail, setResetEmail] = useState('')
-  const [resetMessage, setResetMessage] = useState('')
 
   useEffect(() => {
     const auth = sessionStorage.getItem('bcm_proposal_auth')
@@ -22,46 +18,43 @@ const BCMProposal = () => {
   }, [])
 
   useEffect(() => {
-    if (isAuthenticated) {
-      const disableRightClick = (e) => e.preventDefault()
-      const disableKeys = (e) => {
-        if (
-          e.key === 'F12' ||
-          (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
-          (e.ctrlKey && e.key === 'u') ||
-          (e.ctrlKey && e.key === 's')
-        ) {
-          e.preventDefault()
-        }
-      }
+    if (!isAuthenticated) return
 
-      document.addEventListener('contextmenu', disableRightClick)
-      document.addEventListener('keydown', disableKeys)
-      document.body.style.userSelect = 'none'
-      document.body.style.webkitUserSelect = 'none'
-
-      return () => {
-        document.removeEventListener('contextmenu', disableRightClick)
-        document.removeEventListener('keydown', disableKeys)
-        document.body.style.userSelect = ''
-        document.body.style.webkitUserSelect = ''
+    const disableContextMenu = (e) => e.preventDefault()
+    const disableKeyShortcuts = (e) => {
+      if (
+        (e.ctrlKey && (e.key === 'u' || e.key === 's' || e.key === 'p')) ||
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C'))
+      ) {
+        e.preventDefault()
       }
+    }
+
+    document.addEventListener('contextmenu', disableContextMenu)
+    document.addEventListener('keydown', disableKeyShortcuts)
+
+    return () => {
+      document.removeEventListener('contextmenu', disableContextMenu)
+      document.removeEventListener('keydown', disableKeyShortcuts)
     }
   }, [isAuthenticated])
 
   const handleLogin = async (e) => {
     e.preventDefault()
-    setLoading(true)
     setError('')
+    setLoading(true)
 
     try {
-      const response = await axios.post(
-        'https://api.zeroaitech.tech/authenticate-docs.php',
-        { password, page: 'bcm_proposal' },
-        { headers: { 'Content-Type': 'application/json' } }
-      )
+      const response = await fetch('https://api.zeroaitech.tech/authenticate-docs.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password, page: 'bcm_proposal' })
+      })
 
-      if (response.data.status === 'success') {
+      const data = await response.json()
+
+      if (data.status === 'success') {
         sessionStorage.setItem('bcm_proposal_auth', 'true')
         setIsAuthenticated(true)
       } else {
@@ -74,148 +67,74 @@ const BCMProposal = () => {
     }
   }
 
-  const handleForgotPassword = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setResetMessage('')
-
-    try {
-      const response = await axios.post(
-        'https://api.zeroaitech.tech/reset-password.php',
-        { email: resetEmail, page: 'bcm_proposal' },
-        { headers: { 'Content-Type': 'application/json' } }
-      )
-
-      if (response.data.status === 'success') {
-        setResetMessage('Password reset email sent! Check your inbox.')
-        setTimeout(() => setShowForgotPassword(false), 3000)
-      } else {
-        setResetMessage('Failed to send reset email. Please contact support.')
-      }
-    } catch (err) {
-      setResetMessage('Error sending reset email. Please try again.')
-    } finally {
-      setLoading(false)
-    }
-  }
-
   if (!isAuthenticated) {
     return (
       <>
         <Helmet>
-          <title>Protected Document | ZeroAI Technologies Inc</title>
+          <title>Protected Document - ZeroAI Technologies</title>
           <meta name="robots" content="noindex, nofollow" />
-          <meta name="googlebot" content="noindex, nofollow" />
         </Helmet>
-
-        <div className="min-h-screen flex items-center justify-center py-20">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-light-bg via-light-surface to-light-bg dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass-card max-w-md w-full mx-4"
+            className="w-full max-w-md"
           >
-            {!showForgotPassword ? (
-              <>
-                <div className="text-center mb-8">
-                  <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary-light to-primary-dark mb-4">
-                    <FaLock className="text-2xl text-white" />
-                  </div>
-                  <h2 className="heading-lg mb-2">Protected Document</h2>
-                  <p className="text-light-textSecondary dark:text-dark-textSecondary">
-                    Enter password to access BCM Proposal
-                  </p>
+            <div className="glass dark:glass-dark rounded-2xl shadow-2xl p-8 border border-light-border dark:border-dark-border">
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-light-accent/10 dark:bg-dark-accent/10 rounded-full mb-4">
+                  <HiLockClosed className="w-8 h-8 text-light-accent dark:text-dark-accent" />
                 </div>
+                <h1 className="text-2xl font-bold text-light-text dark:text-dark-text mb-2">
+                  Protected Document
+                </h1>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">
+                  Enter password to access this confidential document
+                </p>
+              </div>
 
-                <form onSubmit={handleLogin} className="space-y-6">
-                  <div>
-                    <label className="block font-semibold mb-2">Password</label>
-                    <div className="relative">
-                      <input
-                        type={showPassword ? 'text' : 'password'}
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        className="input-field w-full pr-12"
-                        placeholder="Enter password"
-                        required
-                      />
-                      <button
-                        type="button"
-                        onClick={() => setShowPassword(!showPassword)}
-                        className="absolute right-4 top-1/2 -translate-y-1/2 text-light-textSecondary dark:text-dark-textSecondary hover:text-light-text dark:hover:text-dark-text"
-                      >
-                        {showPassword ? <FaEyeSlash /> : <FaEye />}
-                      </button>
-                    </div>
-                  </div>
-
-                  {error && (
-                    <div className="p-3 rounded-lg bg-red-500/10 border border-red-500 text-red-500 text-sm">
-                      {error}
-                    </div>
-                  )}
-
-                  <button type="submit" disabled={loading} className="btn-primary w-full">
-                    {loading ? 'Authenticating...' : 'Access Document'}
-                  </button>
-
+              <form onSubmit={handleLogin} className="space-y-4">
+                <div className="relative">
+                  <input
+                    type={showPassword ? 'text' : 'password'}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    placeholder="Enter password"
+                    className="w-full px-4 py-3 bg-light-surface dark:bg-dark-surface border border-light-border dark:border-dark-border rounded-lg text-light-text dark:text-dark-text placeholder:text-light-textSecondary/60 dark:placeholder:text-dark-textSecondary/60 focus:outline-none focus:ring-2 focus:ring-light-accent dark:focus:ring-dark-accent transition-all"
+                    required
+                  />
                   <button
                     type="button"
-                    onClick={() => setShowForgotPassword(true)}
-                    className="text-sm text-primary-light hover:text-primary-dark transition-colors w-full text-center"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-light-textSecondary dark:text-dark-textSecondary hover:text-light-text dark:hover:text-dark-text transition-colors"
                   >
-                    Forgot Password?
+                    {showPassword ? <HiEyeOff className="w-5 h-5" /> : <HiEye className="w-5 h-5" />}
                   </button>
-                </form>
-              </>
-            ) : (
-              <>
-                <div className="text-center mb-8">
-                  <h2 className="heading-lg mb-2">Reset Password</h2>
-                  <p className="text-light-textSecondary dark:text-dark-textSecondary">
-                    Enter your email to receive password reset instructions
-                  </p>
                 </div>
 
-                <form onSubmit={handleForgotPassword} className="space-y-6">
-                  <div>
-                    <label className="block font-semibold mb-2">Email</label>
-                    <input
-                      type="email"
-                      value={resetEmail}
-                      onChange={(e) => setResetEmail(e.target.value)}
-                      className="input-field w-full"
-                      placeholder="your@email.com"
-                      required
-                    />
-                  </div>
+                {error && (
+                  <motion.p
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="text-sm text-red-500 dark:text-red-400"
+                  >
+                    {error}
+                  </motion.p>
+                )}
 
-                  {resetMessage && (
-                    <div
-                      className={`p-3 rounded-lg text-sm ${
-                        resetMessage.includes('sent')
-                          ? 'bg-green-500/10 border border-green-500 text-green-500'
-                          : 'bg-red-500/10 border border-red-500 text-red-500'
-                      }`}
-                    >
-                      {resetMessage}
-                    </div>
-                  )}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-light-accent dark:bg-dark-accent hover:bg-light-accent/90 dark:hover:bg-dark-accent/90 text-white font-semibold py-3 px-6 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? 'Authenticating...' : 'Access Document'}
+                </button>
+              </form>
 
-                  <div className="flex gap-3">
-                    <button
-                      type="button"
-                      onClick={() => setShowForgotPassword(false)}
-                      className="btn-secondary flex-1"
-                    >
-                      Back
-                    </button>
-                    <button type="submit" disabled={loading} className="btn-primary flex-1">
-                      {loading ? 'Sending...' : 'Send Reset Link'}
-                    </button>
-                  </div>
-                </form>
-              </>
-            )}
+              <p className="mt-6 text-xs text-center text-light-textSecondary dark:text-dark-textSecondary">
+                This document is password-protected and confidential
+              </p>
+            </div>
           </motion.div>
         </div>
       </>
@@ -225,534 +144,256 @@ const BCMProposal = () => {
   return (
     <>
       <Helmet>
-        <title>BCM Proposal - AR/VR + Robotics Integration | ZeroAI Technologies Inc</title>
+        <title>BCM Proposal - Confidential - ZeroAI Technologies</title>
         <meta name="robots" content="noindex, nofollow" />
-        <meta name="googlebot" content="noindex, nofollow" />
       </Helmet>
-
-      <div className="min-h-screen pt-32 pb-20">
-        <article className="container-custom max-w-5xl">
+      <div className="min-h-screen bg-light-bg dark:bg-dark-bg py-12 select-none" style={{userSelect: 'none'}}>
+        <div className="container-custom max-w-5xl">
           {/* Header */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-16"
+            className="glass dark:glass-dark rounded-2xl p-8 mb-8 border border-light-border dark:border-dark-border"
           >
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary-light/20 to-primary-dark/20 border border-primary-light/30 mb-6">
-              <FaUnlock className="text-primary-light" />
-              <span className="text-sm font-semibold">Confidential Proposal</span>
+            <div className="flex items-start justify-between mb-6">
+              <div>
+                <h1 className="text-4xl font-bold text-light-text dark:text-dark-text mb-2">
+                  Strategic AR/VR + Robotics Integration Proposal
+                </h1>
+                <p className="text-xl text-light-accent dark:text-dark-accent font-semibold">
+                  BCM Schools Partnership
+                </p>
+              </div>
+              <span className="px-4 py-2 bg-red-500/10 text-red-600 dark:text-red-400 rounded-lg text-sm font-semibold">
+                CONFIDENTIAL
+              </span>
             </div>
-            <h1 className="heading-xl mb-6">BCM Schools AR/VR + Robotics Integration</h1>
-            <p className="text-xl text-light-textSecondary dark:text-dark-textSecondary max-w-3xl mx-auto">
-              Transform Punjab's leading AR/VR education hub into an unreplicable STEM powerhouse
-            </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-light-border dark:border-dark-border">
+              <div>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">Prepared By</p>
+                <p className="font-semibold text-light-text dark:text-dark-text">ZeroAI Technologies Inc</p>
+              </div>
+              <div>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">Date</p>
+                <p className="font-semibold text-light-text dark:text-dark-text">January 2026</p>
+              </div>
+              <div>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">Project Value</p>
+                <p className="font-semibold text-light-accent dark:text-dark-accent">₹69 Lakhs</p>
+              </div>
+            </div>
           </motion.div>
 
-          <div className="prose-custom">
-            {/* Executive Summary */}
-            <section className="glass-card mb-12">
-              <h2>🎯 Executive Summary: Your Competitive Position</h2>
-              <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-lg p-6 mb-6">
-                <h3 className="text-green-400 mb-3">You are NOT weak at AR/VR</h3>
-                <p>
-                  You're actually the <strong>strongest player in Punjab's AR/VR education space</strong>. That's your
-                  competitive strength. You invested heavily. Good.
-                </p>
-              </div>
-
-              <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-lg p-6 mb-6">
-                <h3 className="text-yellow-400 mb-3">The Problem</h3>
-                <p>Every school in Punjab can do what you're doing with AR/VR. It's becoming commoditized.</p>
-                <p className="font-bold text-lg mt-4">
-                  Keep your AR/VR advantage. Add robotics and AI to make it unreplicable.
-                </p>
-              </div>
-
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="card bg-red-500/5 border-red-500/30">
-                  <h4 className="text-red-400 mb-2">AR/VR skills alone</h4>
-                  <p className="text-sm">Supply &gt; Demand. Everyone can learn it. Low salary, high competition.</p>
-                </div>
-                <div className="card bg-green-500/5 border-green-500/30">
-                  <h4 className="text-green-400 mb-2">Robotics + IoT + AI skills</h4>
-                  <p className="text-sm">
-                    Demand &gt;&gt; Supply. Industry desperate. ₹6-8 LPA entry. 5-year path to ₹15-20 LPA.
-                  </p>
-                </div>
-              </div>
-
-              <div className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/30 rounded-lg p-6 mt-6">
-                <h3 className="text-blue-400 mb-3">Your Unique Position</h3>
-                <p>
-                  You're the <strong>ONLY school in Punjab</strong> with expensive AR/VR hardware + robotics integration
-                  + employment guarantee. By the time competitors catch up (18-24 months), you'll have proven outcomes,
-                  locked partnerships, and market dominance.
-                </p>
-              </div>
-            </section>
-
-            {/* B.Ed Strategy */}
-            <section className="glass-card mb-12">
-              <h2>🎓 The B.Ed College Gateway Strategy</h2>
-              <p className="text-lg font-semibold text-primary-light mb-4">
-                B.Ed colleges are the GATEWAY to scaling education.
-              </p>
+          {/* Executive Summary */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="glass dark:glass-dark rounded-2xl p-8 mb-8 border border-light-border dark:border-dark-border"
+          >
+            <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-4">Executive Summary</h2>
+            <div className="space-y-4 text-light-textSecondary dark:text-dark-textSecondary">
               <p>
-                If you own the curriculum that trains B.Ed students, those teachers teach 1,000+ students annually across
-                Punjab. <strong>You become the standard for teacher training in the state.</strong>
+                ZeroAI Technologies proposes a comprehensive AR/VR + Robotics integration across BCM Schools' Science, Math, Computer Science, Art, History, and Geography curricula. This partnership will position BCM as India's first fully immersive STEM-enabled school network.
               </p>
-            </section>
-
-            {/* Investment Breakdown */}
-            <section className="glass-card mb-12">
-              <h2>💰 Investment Breakdown (ZeroAI's Investment)</h2>
-              <p className="mb-6">
-                This is what <strong>ZeroAI invests</strong> in building for you (not what BCM invests):
-              </p>
-
-              <div className="mb-8">
-                <h3>Hardware & Installation (₹45,92,000)</h3>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr>
-                        <th>Component</th>
-                        <th>Description</th>
-                        <th>Cost (₹)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Custom Robotics PCB Design</td>
-                        <td>Custom circuit boards for BCM's specific lab needs. Designed by me over 2 weeks.</td>
-                        <td>₹2,50,000</td>
-                      </tr>
-                      <tr>
-                        <td>PCB Manufacturing</td>
-                        <td>Batch production of 24 custom robotics units + sensors + components (China/PCBWay)</td>
-                        <td>₹7,92,000</td>
-                      </tr>
-                      <tr>
-                        <td>Smart Lab Table Design</td>
-                        <td>Custom design of 3 tables with embedded sensors, LED arrays, haptic feedback</td>
-                        <td>₹4,50,000</td>
-                      </tr>
-                      <tr>
-                        <td>Lab Table Manufacturing</td>
-                        <td>Build and integrate smart tables (sensors, controllers, testing)</td>
-                        <td>₹13,50,000</td>
-                      </tr>
-                      <tr>
-                        <td>Holographic Display System</td>
-                        <td>65" advanced holographic projection synchronized with Meta Quest headsets</td>
-                        <td>₹8,00,000</td>
-                      </tr>
-                      <tr>
-                        <td>IoT Sensors & Mesh Network</td>
-                        <td>Temperature, pressure, humidity, light, motion sensors + wireless mesh</td>
-                        <td>₹3,50,000</td>
-                      </tr>
-                      <tr>
-                        <td>Smart Lighting System</td>
-                        <td>RGB LEDs with adaptive brightness for different learning modes</td>
-                        <td>₹2,00,000</td>
-                      </tr>
-                      <tr>
-                        <td>On-Site Installation</td>
-                        <td>Team travels to Ludhiana, installs, configures, tests all hardware. 3 weeks on-site.</td>
-                        <td>₹3,50,000</td>
-                      </tr>
-                      <tr className="font-bold">
-                        <td colSpan="2">TOTAL HARDWARE & INSTALLATION</td>
-                        <td>₹45,92,000</td>
-                      </tr>
-                    </tbody>
-                  </table>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                <div className="bg-light-surface dark:bg-dark-surface p-4 rounded-lg border border-light-border dark:border-dark-border">
+                  <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary mb-1">Total Investment</p>
+                  <p className="text-2xl font-bold text-light-text dark:text-dark-text">₹69,00,000</p>
+                  <p className="text-xs text-light-textSecondary dark:text-dark-textSecondary mt-1">Hardware + Training + Support</p>
+                </div>
+                <div className="bg-light-surface dark:bg-dark-surface p-4 rounded-lg border border-light-border dark:border-dark-border">
+                  <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary mb-1">Year 1 Revenue Potential</p>
+                  <p className="text-2xl font-bold text-light-accent dark:text-dark-accent">₹2-3 Crores</p>
+                  <p className="text-xs text-light-textSecondary dark:text-dark-textSecondary mt-1">Premium fees + Enrollment growth</p>
                 </div>
               </div>
+            </div>
+          </motion.section>
 
-              <div className="mb-8">
-                <h3>Software & Curriculum (₹20,00,000)</h3>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr>
-                        <th>Component</th>
-                        <th>Description</th>
-                        <th>Cost (₹)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>AR/VR-Robotics Integration</td>
-                        <td>Custom middleware connecting robotics to Unity AR/VR environment</td>
-                        <td>₹5,00,000</td>
-                      </tr>
-                      <tr>
-                        <td>6-Subject Curriculum Design</td>
-                        <td>Physics, Chemistry, Biology, Robotics/IoT, Engineering, CS. 50+ modules</td>
-                        <td>₹3,50,000</td>
-                      </tr>
-                      <tr>
-                        <td>AR/VR Visualization</td>
-                        <td>Create AR/VR scenes (molecular structures, physics simulations, engineering models)</td>
-                        <td>₹2,50,000</td>
-                      </tr>
-                      <tr>
-                        <td>Google Gemini AI Lab Professor</td>
-                        <td>Custom chatbot trained on curriculum, multi-language, robotics knowledge base</td>
-                        <td>₹1,50,000</td>
-                      </tr>
-                      <tr>
-                        <td>Teacher Training Program</td>
-                        <td>3-month program. Train 10 core trainers. Hands-on curriculum workshops</td>
-                        <td>₹3,50,000</td>
-                      </tr>
-                      <tr>
-                        <td>B.Ed College Curriculum</td>
-                        <td>AR/VR-STEM-Robotics module for B.Ed college (150 teachers/year)</td>
-                        <td>₹1,50,000</td>
-                      </tr>
-                      <tr>
-                        <td>Placement Portal</td>
-                        <td>Job matching system, student profiles, employer dashboard</td>
-                        <td>₹1,50,000</td>
-                      </tr>
-                      <tr>
-                        <td>Marketing & Launch Strategy</td>
-                        <td>Positioning, campaigns, media, case studies, testimonials</td>
-                        <td>₹1,50,000</td>
-                      </tr>
-                      <tr className="font-bold">
-                        <td colSpan="2">TOTAL SOFTWARE & CURRICULUM</td>
-                        <td>₹20,00,000</td>
-                      </tr>
-                    </tbody>
-                  </table>
+          {/* Investment Breakdown */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="glass dark:glass-dark rounded-2xl p-8 mb-8 border border-light-border dark:border-dark-border"
+          >
+            <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-6">Investment Breakdown</h2>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center p-4 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <div>
+                  <p className="font-semibold text-light-text dark:text-dark-text">AR/VR Headsets & Equipment</p>
+                  <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">15 Meta Quest 3 units + accessories</p>
                 </div>
+                <p className="text-xl font-bold text-light-text dark:text-dark-text">₹45,00,000</p>
               </div>
-
-              <div className="mb-8">
-                <h3>Year 1 Support (₹3,00,000)</h3>
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr>
-                        <th>Component</th>
-                        <th>Description</th>
-                        <th>Cost (₹)</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>Technical Support</td>
-                        <td>Monthly reviews, troubleshooting, continuous improvement, bug fixes. On-call</td>
-                        <td>₹2,00,000</td>
-                      </tr>
-                      <tr>
-                        <td>Software Licenses</td>
-                        <td>Google Gemini API, IoT cloud platform, development tools</td>
-                        <td>₹1,00,000</td>
-                      </tr>
-                      <tr className="font-bold">
-                        <td colSpan="2">TOTAL YEAR 1 SUPPORT</td>
-                        <td>₹3,00,000</td>
-                      </tr>
-                    </tbody>
-                  </table>
+              <div className="flex justify-between items-center p-4 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <div>
+                  <p className="font-semibold text-light-text dark:text-dark-text">Robotics Kits & Components</p>
+                  <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">30+ kits for 6 subjects</p>
                 </div>
+                <p className="text-xl font-bold text-light-text dark:text-dark-text">₹15,00,000</p>
               </div>
-
-              <div className="bg-gradient-to-r from-primary-light/20 to-primary-dark/20 border border-primary-light/30 rounded-lg p-6">
-                <h3 className="text-2xl font-bold mb-2">Total ZeroAI Investment</h3>
-                <p className="text-3xl font-bold text-primary-light">₹68,92,000 (~₹69 Lakhs)</p>
-                <p className="mt-2 text-sm">This is ZeroAI's investment to build your unique advantage. NOT BCM's cost.</p>
+              <div className="flex justify-between items-center p-4 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <div>
+                  <p className="font-semibold text-light-text dark:text-dark-text">Teacher Training Program</p>
+                  <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">3-month intensive certification</p>
+                </div>
+                <p className="text-xl font-bold text-light-text dark:text-dark-text">₹3,50,000</p>
               </div>
-            </section>
-
-            {/* BCM Investment */}
-            <section className="glass-card mb-12">
-              <h2>📊 BCM's Minimal Investment</h2>
-              <p className="mb-6">BCM's investment is MINIMAL because you already have the expensive parts:</p>
-
-              <div className="overflow-x-auto mb-6">
-                <table className="w-full">
-                  <thead>
-                    <tr>
-                      <th>Item</th>
-                      <th>You Already Have?</th>
-                      <th>Additional Cost?</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Meta Quest 3 Headsets</td>
-                      <td className="text-green-400">✓ YES</td>
-                      <td>₹0 (you own it)</td>
-                    </tr>
-                    <tr>
-                      <td>Unity Game Dev Licenses</td>
-                      <td className="text-green-400">✓ YES</td>
-                      <td>₹0 (you own it)</td>
-                    </tr>
-                    <tr>
-                      <td>Lab Space & Infrastructure</td>
-                      <td className="text-green-400">✓ YES</td>
-                      <td>₹0 (you own it)</td>
-                    </tr>
-                    <tr>
-                      <td>Staff Costs</td>
-                      <td className="text-yellow-400">Partial</td>
-                      <td>₹5-10 L/year (existing + 1-2 new tech support)</td>
-                    </tr>
-                    <tr>
-                      <td>Electricity/Infrastructure</td>
-                      <td className="text-yellow-400">Partial</td>
-                      <td>₹2-3 L/year (higher power draw)</td>
-                    </tr>
-                    <tr>
-                      <td>Maintenance & Components</td>
-                      <td className="text-red-400">No</td>
-                      <td>₹1.5-2 L/year (sensor replacements, repairs)</td>
-                    </tr>
-                    <tr className="font-bold">
-                      <td colSpan="2">BCM's Total Annual Operational Cost</td>
-                      <td>₹8.5-15 L/year</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div className="flex justify-between items-center p-4 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <div>
+                  <p className="font-semibold text-light-text dark:text-dark-text">12-Month Support & Maintenance</p>
+                  <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">Unlimited tech support + curriculum updates</p>
+                </div>
+                <p className="text-xl font-bold text-light-text dark:text-dark-text">₹5,50,000</p>
               </div>
-
-              <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-lg p-6">
-                <h3 className="text-green-400 mb-3">Payment Structure</h3>
-                <p className="mb-4">
-                  <strong>Why this timing?</strong> You start generating revenue in Month 7 (first student batches). By
-                  Month 11, you've recovered the entire investment through student fees + corporate partnerships. Year 1
-                  support fees are paid from profit, not capital.
-                </p>
+              <div className="flex justify-between items-center p-4 bg-light-accent/10 dark:bg-dark-accent/10 rounded-lg border-2 border-light-accent dark:border-dark-accent">
+                <p className="font-bold text-lg text-light-text dark:text-dark-text">Total Investment from ZeroAI</p>
+                <p className="text-2xl font-bold text-light-accent dark:text-dark-accent">₹69,00,000</p>
               </div>
-            </section>
+            </div>
+          </motion.section>
 
-            {/* Revenue Projections */}
-            <section className="glass-card mb-12">
-              <h2>💹 Revenue Projections & ROI</h2>
+          {/* Curriculum Integration */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="glass dark:glass-dark rounded-2xl p-8 mb-8 border border-light-border dark:border-dark-border"
+          >
+            <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-6">6-Subject Integration Plan</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                { subject: 'Science', activities: 'VR lab simulations, Robotics experiments, 3D molecular modeling' },
+                { subject: 'Mathematics', activities: 'AR geometry visualization, Coding-based problem solving' },
+                { subject: 'Computer Science', activities: 'AI/ML projects, Robotics programming, IoT integration' },
+                { subject: 'Art', activities: 'VR sculpting, Digital design, Interactive installations' },
+                { subject: 'History', activities: 'VR historical site tours, AR artifact reconstruction' },
+                { subject: 'Geography', activities: 'VR globe exploration, AR terrain modeling' }
+              ].map((item, index) => (
+                <div key={index} className="p-5 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                  <h3 className="font-bold text-lg text-light-accent dark:text-dark-accent mb-2">{item.subject}</h3>
+                  <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">{item.activities}</p>
+                </div>
+              ))}
+            </div>
+          </motion.section>
 
-              <div className="overflow-x-auto mb-6">
-                <table className="w-full">
-                  <thead>
-                    <tr>
-                      <th>Timeline</th>
-                      <th>Revenue Source</th>
-                      <th>Estimated Revenue</th>
-                      <th>Status</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>Phase 1-3 (Jan-Jun)</td>
-                      <td>—</td>
-                      <td>₹0 (Setup & training)</td>
-                      <td>Investment phase</td>
-                    </tr>
-                    <tr>
-                      <td>Month 7 (Jul)</td>
-                      <td>First student batch enrollment</td>
-                      <td>₹15-20 L</td>
-                      <td className="text-green-400">✓ First revenue</td>
-                    </tr>
-                    <tr>
-                      <td>Month 8-9</td>
-                      <td>Corporate upskilling inquiry</td>
-                      <td>₹20-40 L</td>
-                      <td className="text-yellow-400">In negotiation</td>
-                    </tr>
-                    <tr>
-                      <td>Month 11</td>
-                      <td>Cumulative: Student fees + corporate</td>
-                      <td>₹60-70 L</td>
-                      <td className="text-green-400">✓ BREAK-EVEN</td>
-                    </tr>
-                    <tr className="font-bold">
-                      <td>Year 1 Total</td>
-                      <td>All revenue streams</td>
-                      <td>₹2.05-3.15 Cr</td>
-                      <td className="text-green-400">✓ Profitable</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-
-              <div className="bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30 rounded-lg p-6">
-                <h3 className="text-green-400 mb-3">Year 1 Financial Summary</h3>
-                <ul className="space-y-2">
-                  <li>Total Revenue: <strong>₹2.05-3.15 Crores</strong></li>
-                  <li>Operating Costs: <strong>₹30-35 L</strong></li>
-                  <li className="text-xl font-bold text-green-400">
-                    Net Profit Year 1: ₹1.0-2.1 Crores = 2.7x ROI
+          {/* Revenue Model */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="glass dark:glass-dark rounded-2xl p-8 mb-8 border border-light-border dark:border-dark-border"
+          >
+            <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-6">Revenue Projections (Year 1)</h2>
+            <div className="space-y-6">
+              <div className="p-5 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <h3 className="font-semibold text-light-text dark:text-dark-text mb-3">Premium Fee Structure</h3>
+                <ul className="space-y-2 text-light-textSecondary dark:text-dark-textSecondary">
+                  <li className="flex justify-between">
+                    <span>Additional ₹15,000/student annual tech fee</span>
+                    <span className="font-semibold text-light-text dark:text-dark-text">₹1.5 Cr</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Enrollment growth (20% increase)</span>
+                    <span className="font-semibold text-light-text dark:text-dark-text">₹50 L</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Weekend workshops & camps</span>
+                    <span className="font-semibold text-light-text dark:text-dark-text">₹30 L</span>
                   </li>
                 </ul>
               </div>
-            </section>
+              <div className="p-5 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                <p className="text-light-textSecondary dark:text-dark-textSecondary mb-2">Estimated Total Year 1 Revenue</p>
+                <p className="text-3xl font-bold text-green-600 dark:text-green-400">₹2.3 - 3 Crores</p>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary mt-2">ROI: 300-400% in first year</p>
+              </div>
+            </div>
+          </motion.section>
 
-            {/* Curriculum Integration */}
-            <section className="glass-card mb-12">
-              <h2>📚 6-Subject Curriculum Integration</h2>
-              <div className="grid md:grid-cols-2 gap-4">
-                <div className="card bg-blue-500/5 border-blue-500/30">
-                  <h3>Physics</h3>
-                  <p className="text-sm">
-                    Forces, motion, circuits, optics, waves, energy—visualized in AR/VR while robotics demonstrates
-                    real-world applications.
-                  </p>
-                </div>
-                <div className="card bg-green-500/5 border-green-500/30">
-                  <h3>Chemistry</h3>
-                  <p className="text-sm">
-                    Molecular structures in AR, chemical reactions in real-time, atomic behavior simulation connected to
-                    lab experiments.
-                  </p>
-                </div>
-                <div className="card bg-purple-500/5 border-purple-500/30">
-                  <h3>Biology</h3>
-                  <p className="text-sm">
-                    Human body systems, cellular processes, genetic visualization, ecosystem modeling using AR/VR
-                    immersion.
-                  </p>
-                </div>
-                <div className="card bg-orange-500/5 border-orange-500/30">
-                  <h3>Robotics/IoT</h3>
-                  <p className="text-sm font-bold">
-                    THE CORE: Build robots physically while controlling in AR. CAD, 3D printing, PCB design, IoT projects,
-                    autonomous systems.
-                  </p>
-                </div>
-                <div className="card bg-red-500/5 border-red-500/30">
-                  <h3>Engineering</h3>
-                  <p className="text-sm">
-                    Structural analysis, machine design, circuit design, mechanical advantage using custom robotics
-                    hardware.
-                  </p>
-                </div>
-                <div className="card bg-cyan-500/5 border-cyan-500/30">
-                  <h3>Computer Science</h3>
-                  <p className="text-sm">
-                    Algorithm visualization, coding challenges, game development with Unity licenses, AI concepts with
-                    real robotics feedback.
-                  </p>
-                </div>
+          {/* Competitive Moat */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="glass dark:glass-dark rounded-2xl p-8 mb-8 border border-light-border dark:border-dark-border"
+          >
+            <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-6">Competitive Advantage</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="text-center p-5 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <div className="text-4xl font-bold text-light-accent dark:text-dark-accent mb-2">First</div>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">In India with full 6-subject integration</p>
               </div>
-            </section>
+              <div className="text-center p-5 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <div className="text-4xl font-bold text-light-accent dark:text-dark-accent mb-2">3-5 Years</div>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">Lead time before competitors catch up</p>
+              </div>
+              <div className="text-center p-5 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <div className="text-4xl font-bold text-light-accent dark:text-dark-accent mb-2">Premium</div>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">Brand positioning as innovation leader</p>
+              </div>
+            </div>
+          </motion.section>
 
-            {/* Competitive Moat */}
-            <section className="glass-card mb-12">
-              <h2>🏰 Your Unreplicable Competitive Moat</h2>
-              <div className="space-y-4">
-                <div className="card bg-gradient-to-r from-primary-light/10 to-primary-dark/10 border-primary-light/30">
-                  <h3 className="text-primary-light">1. First-Mover Advantage</h3>
-                  <p>
-                    No other school in Punjab has AR/VR + robotics + employment guarantee. By the time competitors attempt
-                    replication (18-24 months), you'll have proven outcomes, locked partnerships, and market dominance.
-                  </p>
+          {/* Timeline */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="glass dark:glass-dark rounded-2xl p-8 mb-8 border border-light-border dark:border-dark-border"
+          >
+            <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-6">Implementation Timeline</h2>
+            <div className="space-y-4">
+              {[
+                { phase: 'Month 1-2', activity: 'Hardware procurement & lab setup', status: 'Setup' },
+                { phase: 'Month 2-3', activity: '10-teacher intensive training program', status: 'Training' },
+                { phase: 'Month 3-4', activity: 'Pilot program with select classes', status: 'Testing' },
+                { phase: 'Month 4-6', activity: 'Full rollout across all 6 subjects', status: 'Launch' },
+                { phase: 'Month 6-12', activity: 'Continuous support & curriculum refinement', status: 'Support' }
+              ].map((item, index) => (
+                <div key={index} className="flex items-center space-x-4 p-4 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                  <div className="flex-shrink-0 w-24">
+                    <span className="text-sm font-semibold text-light-accent dark:text-dark-accent">{item.phase}</span>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-light-text dark:text-dark-text">{item.activity}</p>
+                  </div>
+                  <div className="flex-shrink-0">
+                    <span className="px-3 py-1 bg-light-accent/10 dark:bg-dark-accent/10 text-light-accent dark:text-dark-accent rounded-full text-xs font-medium">
+                      {item.status}
+                    </span>
+                  </div>
                 </div>
-                <div className="card bg-gradient-to-r from-primary-light/10 to-primary-dark/10 border-primary-light/30">
-                  <h3 className="text-primary-light">2. Custom Hardware Barrier</h3>
-                  <p>
-                    Custom robotics PCBs designed by me, manufactured in China. Competitors can't instantly replicate—they'd
-                    need 6-12 months and ₹50+ L investment to design their own.
-                  </p>
-                </div>
-                <div className="card bg-gradient-to-r from-primary-light/10 to-primary-dark/10 border-primary-light/30">
-                  <h3 className="text-primary-light">3. B.Ed College Curriculum Control</h3>
-                  <p>
-                    You train 150 B.Ed students annually. If these teachers teach robotics in 20+ schools across Punjab, you
-                    own the curriculum standard for the entire state.
-                  </p>
-                </div>
-                <div className="card bg-gradient-to-r from-primary-light/10 to-primary-dark/10 border-primary-light/30">
-                  <h3 className="text-primary-light">4. Proven Employment Outcomes</h3>
-                  <p>
-                    75%+ placement rate at ₹6-8 LPA. This is verifiable and valuable to parents. AR/VR alone can't promise
-                    this—robotics + industry partnerships make it real.
-                  </p>
-                </div>
-              </div>
-            </section>
+              ))}
+            </div>
+          </motion.section>
 
-            {/* Terms */}
-            <section className="glass-card mb-12">
-              <h2>🤝 Partnership Terms</h2>
-              <div className="grid md:grid-cols-2 gap-6">
-                <div className="card bg-blue-500/5 border-blue-500/30">
-                  <h3 className="text-blue-400 mb-3">ZeroAI Invests ₹69 Lakhs to:</h3>
-                  <ul className="space-y-2 text-sm">
-                    <li>✓ Design and manufacture custom robotics hardware</li>
-                    <li>✓ Build smart lab infrastructure</li>
-                    <li>✓ Develop AR/VR-robotics integration software</li>
-                    <li>✓ Create 6-subject curriculum</li>
-                    <li>✓ Train 10 core trainers personally</li>
-                    <li>✓ Provide Year 1 technical support</li>
-                  </ul>
-                </div>
-                <div className="card bg-green-500/5 border-green-500/30">
-                  <h3 className="text-green-400 mb-3">BCM Receives:</h3>
-                  <ul className="space-y-2 text-sm">
-                    <li>✓ Unreplicable competitive advantage</li>
-                    <li>✓ ₹2-3 Cr Year 1 revenue potential</li>
-                    <li>✓ Market leadership in Punjab</li>
-                    <li>✓ B.Ed curriculum control</li>
-                    <li>✓ Employment guarantee program</li>
-                    <li>✓ State-wide teacher training authority</li>
-                  </ul>
-                </div>
-              </div>
-            </section>
-
-            {/* Urgency */}
-            <section className="glass-card mb-12">
-              <h2>⚡ Timeline & Urgency</h2>
-              <div className="bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border border-yellow-500/30 rounded-lg p-6 mb-6">
-                <p className="text-lg font-semibold mb-4">
-                  If we sign by end of February, hardware manufacturing completes by April, installation finishes by May,
-                  and you launch student programs in July.
-                </p>
-                <p className="text-2xl font-bold text-yellow-400">That's 6 months from today to full revenue generation.</p>
-              </div>
-              <div className="bg-gradient-to-r from-red-500/10 to-pink-500/10 border border-red-500/30 rounded-lg p-6">
-                <p className="text-lg font-semibold text-red-400">
-                  Delay 3 months? You lose ₹50+ L in Year 1 revenue and miss the first-mover advantage window.
-                </p>
-              </div>
-            </section>
-
-            {/* Decision */}
-            <section className="glass-card">
-              <h2>✨ The Decision</h2>
-              <div className="space-y-6">
-                <div className="card bg-red-500/5 border-red-500/30">
-                  <h3 className="text-red-400">Option 1: Continue with AR/VR alone</h3>
-                  <p>Beautiful lab, zero revenue, zero employment outcomes, no competitive advantage</p>
-                </div>
-                <div className="text-center text-3xl font-bold py-4">OR</div>
-                <div className="card bg-green-500/5 border-green-500/30">
-                  <h3 className="text-green-400">Option 2: Add robotics + AI + employment guarantee</h3>
-                  <p>
-                    ₹2-3 Cr Year 1 revenue, market leadership in Punjab, unreplicable competitive moat
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-8 p-8 bg-gradient-to-r from-primary-light/20 to-primary-dark/20 border border-primary-light/30 rounded-lg text-center">
-                <p className="text-xl font-semibold mb-4">Your infrastructure is ready.</p>
-                <p className="text-xl font-semibold mb-4">Your teachers are ready.</p>
-                <p className="text-xl font-semibold mb-4">The market is ready.</p>
-                <p className="text-2xl font-bold text-primary-light mt-6">
-                  All that's needed is decision, agreement, and execution.
-                </p>
-                <p className="text-lg mt-6">Let's build this together. Line by line. Discussion by discussion. And execute.</p>
-              </div>
-            </section>
-          </div>
-        </article>
+          {/* Urgency */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+            className="glass dark:glass-dark rounded-2xl p-8 border border-red-300 dark:border-red-700 bg-red-50/50 dark:bg-red-900/10"
+          >
+            <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Time-Sensitive Opportunity</h2>
+            <p className="text-light-textSecondary dark:text-dark-textSecondary mb-4">
+              The education technology landscape is rapidly evolving. Other premium schools are exploring similar integrations. First-mover advantage is critical for:
+            </p>
+            <ul className="space-y-2 text-light-textSecondary dark:text-dark-textSecondary list-disc list-inside">
+              <li>Capturing market share before competitors</li>
+              <li>Building brand reputation as innovation pioneer</li>
+              <li>Attracting top-tier faculty and students</li>
+              <li>Securing exclusive regional partnerships</li>
+            </ul>
+            <div className="mt-6 p-4 bg-white dark:bg-dark-surface rounded-lg border border-red-200 dark:border-red-800">
+              <p className="text-sm font-semibold text-red-600 dark:text-red-400">Recommended Action:</p>
+              <p className="text-light-text dark:text-dark-text mt-1">Sign MoU within 2 weeks to lock in Q1 2026 implementation timeline</p>
+            </div>
+          </motion.section>
+        </div>
       </div>
     </>
   )

@@ -45,10 +45,13 @@ const Navbar = () => {
           <Link to="/" className="flex items-center space-x-2 group">
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="text-2xl font-bold"
+              className="flex items-center space-x-2"
             >
-              <span className="text-light-accent dark:text-dark-accent">Zero</span>
-              <span className="text-light-text dark:text-dark-text">AI</span>
+              <img 
+                src="/logo.png" 
+                alt="ZeroAI Technologies" 
+                className="h-8 w-auto dark:brightness-100 brightness-90"
+              />
             </motion.div>
           </Link>
 
@@ -61,7 +64,7 @@ const Navbar = () => {
                 className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
                   location.pathname === link.path
                     ? 'bg-light-accent dark:bg-dark-accent text-white'
-                    : 'text-light-textSecondary dark:text-dark-textSecondary hover:text-light-text dark:hover:text-dark-text hover:bg-light-surface dark:hover:bg-dark-surface'
+                    : 'text-light-text dark:text-dark-textSecondary hover:text-light-accent dark:hover:text-dark-text hover:bg-light-surface/50 dark:hover:bg-dark-surface'
                 }`}
               >
                 {link.name}
@@ -73,7 +76,7 @@ const Navbar = () => {
           <div className="flex items-center space-x-2">
             <button
               onClick={toggleTheme}
-              className="p-2 rounded-lg hover:bg-light-surface dark:hover:bg-dark-surface transition-colors"
+              className="p-2 rounded-lg text-light-text dark:text-dark-text hover:bg-light-surface dark:hover:bg-dark-surface transition-colors"
               aria-label="Toggle theme"
             >
               {theme === 'light' ? (
@@ -85,7 +88,7 @@ const Navbar = () => {
 
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="md:hidden p-2 rounded-lg hover:bg-light-surface dark:hover:bg-dark-surface transition-colors"
+              className="md:hidden p-2 rounded-lg text-light-text dark:text-dark-text hover:bg-light-surface dark:hover:bg-dark-surface transition-colors"
               aria-label="Toggle menu"
             >
               {isOpen ? <HiX className="w-6 h-6" /> : <HiMenu className="w-6 h-6" />}
@@ -111,7 +114,7 @@ const Navbar = () => {
                   className={`block px-4 py-3 rounded-lg text-sm font-medium transition-all ${
                     location.pathname === link.path
                       ? 'bg-light-accent dark:bg-dark-accent text-white'
-                      : 'text-light-textSecondary dark:text-dark-textSecondary hover:bg-light-surface dark:hover:bg-dark-surface'
+                      : 'text-light-text dark:text-dark-textSecondary hover:bg-light-surface dark:hover:bg-dark-surface'
                   }`}
                 >
                   {link.name}
