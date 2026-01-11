@@ -576,7 +576,7 @@ const BCMProposal = () => {
                   <div>
                     <p className="font-semibold text-light-text dark:text-dark-text mb-1">4.3 Launch Event & Media Coverage</p>
                     <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
-                      <li>• Host grand opening event: Live humanoid robot demonstration, holographic STEM visualization, student project showcase</li>
+                      <li>• Host grand opening event: Live humanoid robot(ZeroAI Partner Unitree Robotics) demonstration, holographic STEM visualization, student project showcase</li>
                       <li>• Invite local media: Punjab newspapers, TV channels, education magazines</li>
                       <li>• Press release: "BCM Schools Launches India's Most Advanced AI + Robotics + AR/VR STEM Hub"</li>
                       <li>• Influencer partnerships: Education YouTubers, STEM advocates tour the facility</li>
