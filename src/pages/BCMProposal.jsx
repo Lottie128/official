@@ -271,12 +271,14 @@ const BCMProposal = () => {
                   <li>• Physical infrastructure (Smart classrooms, Science labs)</li>
                   <li>• Existing B.Ed college with EdTech lab</li>
                   <li>• Existing Hero Group relationship (medical services)</li>
+                  <li>• Trained AR/VR instructors</li>
                 </ul>
               </div>
               <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-6">
                 <h3 className="font-bold text-lg text-red-700 dark:text-red-400 mb-4">❌ BCM Schools is MISSING:</h3>
                 <ul className="space-y-2 text-light-textSecondary dark:text-dark-textSecondary">
-                  <li>• Trained robotics + AR/VR instructors</li>
+                  <li>• Trained robotics instructors</li>
+                  <li>• Well Implemented AI + Robotics Lab</li>
                   <li>• AR/VR integration systems (holographic displays, VR headsets)</li>
                   <li>• AI-powered teaching assistants (Google Gemini)</li>
                   <li>• Industry-grade curriculum aligned with NEP 2020</li>
@@ -306,7 +308,7 @@ const BCMProposal = () => {
                 <div className="space-y-3 text-sm">
                   <div>
                     <p className="font-semibold text-light-text dark:text-dark-text">Scale:</p>
-                    <p className="text-light-textSecondary dark:text-dark-textSecondary">Upgrade ONE BCM location with complete robotics + AI integration</p>
+                    <p className="text-light-textSecondary dark:text-dark-textSecondary">Upgrade ONE BCM location with complete robotics + AI + AR/VR integration</p>
                   </div>
                   <div>
                     <p className="font-semibold text-light-text dark:text-dark-text">Year 1 Revenue:</p>
