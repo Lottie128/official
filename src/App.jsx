@@ -6,8 +6,7 @@ import ScrollToTop from './components/ScrollToTop'
 import Home from './pages/Home'
 import About from './pages/About'
 import Services from './pages/Services'
-import Products from './pages/Products'
-import Team from './pages/Team'
+import Projects from './pages/Projects'
 import Contact from './pages/Contact'
 import BusinessPlan from './pages/BusinessPlan'
 import PitchDeck from './pages/PitchDeck'
@@ -28,8 +27,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/services" element={<Services />} />
-            <Route path="/products" element={<Products />} />
-            <Route path="/team" element={<Team />} />
+            <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/business-plan" element={<BusinessPlan />} />
             <Route path="/pitch" element={<PitchDeck />} />
