@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { FaLinkedin, FaGithub, FaInstagram } from 'react-icons/fa'
+import { FaLinkedin, FaInstagram } from 'react-icons/fa'
 import { FaXTwitter } from 'react-icons/fa6'
 import { HiLocationMarker, HiMail } from 'react-icons/hi'
 
@@ -10,14 +10,17 @@ const Footer = () => {
     company: [
       { name: 'About Us', path: '/about' },
       { name: 'Services', path: '/services' },
-      { name: 'Products', path: '/products' },
-      { name: 'Team', path: '/team' },
+      { name: 'Projects', path: '/projects' },
+      { name: 'Contact', path: '/contact' },
     ],
     resources: [
       { name: 'Business Plan', path: '/business-plan' },
       { name: 'Pitch Deck', path: '/pitch' },
       { name: 'Evolution Lab', path: '/evolution-lab' },
       { name: 'Robotics Lab', path: '/robotics-lab' },
+    ],
+    sitemap: [
+      { name: 'Sitemap', path: '/sitemap' },
     ],
   }
 
@@ -67,15 +70,6 @@ const Footer = () => {
               >
                 <FaInstagram className="w-5 h-5" />
               </a>
-              <a
-                href="https://github.com/Lottie128"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-light-textSecondary dark:text-dark-textSecondary hover:text-light-accent dark:hover:text-dark-accent transition-colors"
-                aria-label="GitHub"
-              >
-                <FaGithub className="w-5 h-5" />
-              </a>
             </div>
           </div>
 
@@ -101,6 +95,16 @@ const Footer = () => {
             <h3 className="font-semibold mb-4 text-light-text dark:text-dark-text">Resources</h3>
             <ul className="space-y-2">
               {footerLinks.resources.map((link) => (
+                <li key={link.path}>
+                  <Link
+                    to={link.path}
+                    className="text-sm text-light-textSecondary dark:text-dark-textSecondary hover:text-light-accent dark:hover:text-dark-accent transition-colors"
+                  >
+                    {link.name}
+                  </Link>
+                </li>
+              ))}
+              {footerLinks.sitemap.map((link) => (
                 <li key={link.path}>
                   <Link
                     to={link.path}
