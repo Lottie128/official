@@ -19,7 +19,7 @@ const BCMProposal = () => {
 
   useEffect(() => {
     if (!isAuthenticated) return
-    
+
     const disableContextMenu = (e) => e.preventDefault()
     const disableKeyShortcuts = (e) => {
       if (
@@ -33,7 +33,7 @@ const BCMProposal = () => {
 
     document.addEventListener('contextmenu', disableContextMenu)
     document.addEventListener('keydown', disableKeyShortcuts)
-    
+
     return () => {
       document.removeEventListener('contextmenu', disableContextMenu)
       document.removeEventListener('keydown', disableKeyShortcuts)
@@ -51,8 +51,9 @@ const BCMProposal = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password, page: 'bcm_proposal' })
       })
+
       const data = await response.json()
-      
+
       if (data.status === 'success') {
         sessionStorage.setItem('bcm_proposal_auth', 'true')
         setIsAuthenticated(true)
@@ -74,27 +75,33 @@ const BCMProposal = () => {
     return (
       <>
         <Helmet>
-          <title>BCM Schools Partnership Proposal - Protected Document</title>
+          <title>Protected Document - ZeroAI Technologies</title>
           <meta name="robots" content="noindex, nofollow" />
         </Helmet>
-        
-        <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950 flex items-center justify-center p-4">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-light-bg via-light-surface to-light-bg dark:from-dark-bg dark:via-dark-surface dark:to-dark-bg px-4">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="w-full max-w-md"
           >
-            <div className="glass-card text-center">
-              <div className="mx-auto w-16 h-16 bg-neutral-900 dark:bg-white rounded-2xl flex items-center justify-center mb-6">
-                <HiLockClosed className="w-8 h-8 text-white dark:text-neutral-900" />
+            <div className="glass dark:glass-dark rounded-2xl shadow-2xl p-8 border border-light-border dark:border-dark-border">
+              <div className="text-center mb-8">
+                <img 
+                  src="/logo.png" 
+                  alt="ZeroAI Technologies" 
+                  className="w-24 h-auto mx-auto mb-6 dark:invert transition-all"
+                />
+                
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-light-accent/10 dark:bg-dark-accent/10 rounded-full mb-4">
+                  <HiLockClosed className="w-8 h-8 text-light-accent dark:text-dark-accent" />
+                </div>
+                <h1 className="text-2xl font-bold text-light-text dark:text-dark-text mb-2">
+                  Protected Document
+                </h1>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">
+                  Enter password to access this confidential document
+                </p>
               </div>
-              
-              <h1 className="text-2xl font-bold text-neutral-900 dark:text-white mb-2">
-                Protected Document
-              </h1>
-              <p className="text-neutral-600 dark:text-neutral-400 mb-8">
-                Enter password to access this confidential document
-              </p>
 
               <form onSubmit={handleLogin} className="space-y-4">
                 <div className="relative">
@@ -103,14 +110,13 @@ const BCMProposal = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Enter password"
-                    className="input-field pr-12"
-                    disabled={loading}
+                    className="w-full px-4 py-3 bg-white dark:bg-dark-bg border border-light-border dark:border-dark-border rounded-lg text-light-text dark:text-dark-text placeholder:text-light-textSecondary/60 dark:placeholder:text-dark-textSecondary/60 focus:outline-none focus:ring-2 focus:ring-light-accent dark:focus:ring-dark-accent transition-all"
                     required
                   />
                   <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-neutral-400 hover:text-neutral-600 dark:hover:text-neutral-300"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-light-textSecondary dark:text-dark-textSecondary hover:text-light-text dark:hover:text-dark-text transition-colors"
                   >
                     {showPassword ? <HiEyeOff className="w-5 h-5" /> : <HiEye className="w-5 h-5" />}
                   </button>
@@ -120,7 +126,7 @@ const BCMProposal = () => {
                   <motion.p
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    className="text-sm text-red-600 dark:text-red-400"
+                    className="text-sm text-red-500 dark:text-red-400"
                   >
                     {error}
                   </motion.p>
@@ -129,13 +135,13 @@ const BCMProposal = () => {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="btn-primary w-full disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-light-accent dark:bg-dark-accent hover:bg-light-accent/90 dark:hover:bg-dark-accent/90 text-white font-semibold py-3 px-6 rounded-lg transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   {loading ? 'Authenticating...' : 'Access Document'}
                 </button>
               </form>
 
-              <p className="mt-6 text-xs text-neutral-500 dark:text-neutral-600">
+              <p className="mt-6 text-xs text-center text-light-textSecondary dark:text-dark-textSecondary">
                 This document is password-protected and confidential
               </p>
             </div>
@@ -145,223 +151,307 @@ const BCMProposal = () => {
     )
   }
 
-  const budgetData = [
-    { item: 'VR Headsets', desc: '25 Meta Quest 3 units', amount: '₹12,00,000' },
-    { item: 'Robotics Kits', desc: '50 advanced STEM kits', amount: '₹15,00,000' },
-    { item: 'AR Software', desc: 'Enterprise licenses (3 years)', amount: '₹8,00,000' },
-    { item: 'Lab Setup', desc: 'Infrastructure, furniture, networking', amount: '₹18,00,000' },
-    { item: 'Training', desc: '6 months teacher certification', amount: '₹10,00,000' },
-    { item: 'Support', desc: '12-month technical support', amount: '₹6,00,000' }
-  ]
-
-  const revenueData = [
-    { source: 'Premium Fees', activities: 'STEM-focused curriculum premium', amount: '₹80 Lakhs - ₹1.2 Crores' },
-    { source: 'Enrollment Growth', activities: 'New student admissions', amount: '₹60 Lakhs - ₹90 Lakhs' },
-    { source: 'Workshops', activities: 'Weekend programs, summer camps', amount: '₹40 Lakhs - ₹60 Lakhs' },
-    { source: 'Partnerships', activities: 'Tech company collaborations', amount: '₹30 Lakhs - ₹50 Lakhs' }
-  ]
-
-  const competitiveData = [
-    { activity: 'Tech Integration', status: 'First Mover' },
-    { activity: 'STEM Curriculum', status: 'Market Leader' },
-    { activity: 'Teacher Training', status: 'Advanced' },
-    { activity: 'Student Outcomes', status: 'Superior' }
-  ]
-
   return (
     <>
       <Helmet>
-        <title>BCM Schools Partnership Proposal - ZeroAI Technologies</title>
+        <title>BCM Proposal - Confidential - ZeroAI Technologies</title>
         <meta name="robots" content="noindex, nofollow" />
+        <link rel="icon" href="/logo.png" type="image/png" />
       </Helmet>
-
+      
       <style>{`
         @media print {
           @page {
             size: A4;
             margin: 10mm;
           }
-          
-          body {
-            font-size: 7.5pt !important;
+          body { 
+            background: white !important;
+            color: black !important;
+            font-size: 8pt !important;
             line-height: 1.3 !important;
           }
-          
-          h1 { font-size: 16pt !important; margin-bottom: 4px !important; }
-          h2 { font-size: 12pt !important; margin: 8px 0 4px 0 !important; }
-          h3 { font-size: 10pt !important; margin: 6px 0 3px 0 !important; }
-          p { font-size: 8pt !important; margin: 2px 0 !important; }
-          
-          .print-section {
-            padding: 10px 0 !important;
+          .no-print { display: none !important; }
+          .print-content {
+            background: white !important;
+            box-shadow: none !important;
+            border: none !important;
+          }
+          section, .glass, .glass-dark { 
+            background: white !important;
+            padding: 10px !important;
             margin-bottom: 6px !important;
             page-break-inside: avoid !important;
           }
-          
-          table {
-            font-size: 7.5pt !important;
-            margin: 4px 0 !important;
-          }
-          
-          th, td {
-            padding: 4px 6px !important;
-          }
-          
-          .print-grid {
-            display: grid !important;
-            grid-template-columns: 1fr 1fr !important;
-            gap: 8px !important;
-            page-break-inside: avoid !important;
+          h1 { font-size: 14pt !important; margin-bottom: 4px !important; }
+          h2 { font-size: 11pt !important; margin: 6px 0 3px 0 !important; }
+          h3 { font-size: 9pt !important; margin: 4px 0 2px 0 !important; }
+          p, li { font-size: 7.5pt !important; margin: 1px 0 !important; }
+          * {
+            color: black !important;
+            box-shadow: none !important;
           }
         }
       `}</style>
-
-      <div className="min-h-screen bg-neutral-50 dark:bg-neutral-950">
-        <div className="no-print fixed top-24 right-6 z-50">
-          <button
+      
+      <div className="min-h-screen bg-light-bg dark:bg-dark-bg py-12 select-none" style={{userSelect: 'none'}}>
+        {/* FIXED: Explicit button colors for visibility in both themes */}
+        <div className="fixed top-20 right-6 z-40 no-print">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={handleDownloadPDF}
-            className="flex items-center gap-2 px-6 py-3 bg-neutral-900 text-white hover:bg-neutral-800 border border-neutral-700 rounded-xl font-medium text-sm shadow-lg transition-all duration-200"
+            className="flex items-center gap-2 px-6 py-3 bg-neutral-900 text-white hover:bg-neutral-800 border border-neutral-700 rounded-lg shadow-lg hover:shadow-xl transition-all"
           >
             <HiDownload className="w-5 h-5" />
             Download PDF
-          </button>
+          </motion.button>
         </div>
 
-        <div className="container-custom py-12">
-          <div className="max-w-5xl mx-auto">
-            <div className="print-section text-center mb-8">
-              <h1 className="text-4xl font-bold text-neutral-900 dark:text-white mb-3">
-                BCM Schools Partnership Proposal
-              </h1>
-              
-              <div className="grid grid-cols-3 gap-6 mt-6 text-sm">
+        <div className="container-custom max-w-5xl print-content">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="glass dark:glass-dark rounded-2xl p-8 mb-8 border border-light-border dark:border-dark-border"
+          >
+            <div className="flex items-start justify-between mb-6">
+              <div className="flex items-center gap-6">
+                <img 
+                  src="/logo.png" 
+                  alt="ZeroAI Technologies" 
+                  className="w-16 h-auto dark:invert transition-all flex-shrink-0"
+                />
                 <div>
-                  <p className="text-neutral-500 dark:text-neutral-600 mb-1">Prepared By</p>
-                  <p className="font-semibold text-neutral-900 dark:text-white">ZeroAI Technologies Inc</p>
-                </div>
-                <div>
-                  <p className="text-neutral-500 dark:text-neutral-600 mb-1">Date</p>
-                  <p className="font-semibold text-neutral-900 dark:text-white">January 2026</p>
-                </div>
-                <div>
-                  <p className="text-neutral-500 dark:text-neutral-600 mb-1">Project Value</p>
-                  <p className="font-semibold text-neutral-900 dark:text-white">₹69 Lakhs</p>
+                  <h1 className="text-4xl font-bold text-light-text dark:text-dark-text mb-2">
+                    Strategic AR/VR + Robotics Integration Proposal
+                  </h1>
+                  <p className="text-xl text-light-accent dark:text-dark-accent font-semibold">
+                    BCM Schools Partnership
+                  </p>
                 </div>
               </div>
+              <span className="px-4 py-2 bg-red-500/10 text-red-600 dark:text-red-400 rounded-lg text-sm font-semibold flex-shrink-0">
+                CONFIDENTIAL
+              </span>
             </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-6 border-t border-light-border dark:border-dark-border">
+              <div>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">Prepared By</p>
+                <p className="font-semibold text-light-text dark:text-dark-text">ZeroAI Technologies Inc</p>
+              </div>
+              <div>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">Date</p>
+                <p className="font-semibold text-light-text dark:text-dark-text">January 2026</p>
+              </div>
+              <div>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">Project Value</p>
+                <p className="font-semibold text-light-accent dark:text-dark-accent">₹69 Lakhs</p>
+              </div>
+            </div>
+          </motion.div>
 
-            <div className="print-section mb-6">
-              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-3">Executive Summary</h2>
-              <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed">
-                ZeroAI Technologies proposes a comprehensive AR/VR + Robotics integration across BCM Schools' Science, Math, 
-                Computer Science, Art, History, and Geography curricula. This partnership will position BCM as India's first 
-                fully immersive STEM-enabled school network.
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="glass dark:glass-dark rounded-2xl p-8 mb-8 border border-light-border dark:border-dark-border"
+          >
+            <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-4">Executive Summary</h2>
+            <div className="space-y-4 text-light-textSecondary dark:text-dark-textSecondary">
+              <p>
+                ZeroAI Technologies proposes a comprehensive AR/VR + Robotics integration across BCM Schools' Science, Math, Computer Science, Art, History, and Geography curricula. This partnership will position BCM as India's first fully immersive STEM-enabled school network.
               </p>
-            </div>
-
-            <div className="print-grid mb-6">
-              <div className="card">
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Total Investment</h3>
-                <p className="text-3xl font-bold text-neutral-900 dark:text-white">₹69,00,000</p>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">Hardware + Training + Support</p>
-              </div>
-              <div className="card">
-                <h3 className="text-lg font-semibold text-neutral-900 dark:text-white mb-2">Year 1 Revenue Potential</h3>
-                <p className="text-3xl font-bold text-neutral-900 dark:text-white">₹2-3 Crores</p>
-                <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">ROI: 300-400%</p>
-              </div>
-            </div>
-
-            <div className="print-section mb-6">
-              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-3">Investment Breakdown</h2>
-              <div className="overflow-x-auto">
-                <table className="w-full border border-neutral-200 dark:border-neutral-800">
-                  <thead className="bg-neutral-100 dark:bg-neutral-900">
-                    <tr>
-                      <th className="px-4 py-2 text-left font-semibold">Item</th>
-                      <th className="px-4 py-2 text-left font-semibold">Description</th>
-                      <th className="px-4 py-2 text-right font-semibold">Amount</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {budgetData.map((row, idx) => (
-                      <tr key={idx} className="border-t border-neutral-200 dark:border-neutral-800">
-                        <td className="px-4 py-2 font-medium">{row.item}</td>
-                        <td className="px-4 py-2 text-neutral-600 dark:text-neutral-400">{row.desc}</td>
-                        <td className="px-4 py-2 text-right font-semibold">{row.amount}</td>
-                      </tr>
-                    ))}
-                    <tr className="border-t-2 border-neutral-300 dark:border-neutral-700 font-bold bg-neutral-50 dark:bg-neutral-900">
-                      <td className="px-4 py-2">Total Investment</td>
-                      <td className="px-4 py-2"></td>
-                      <td className="px-4 py-2 text-right">₹69,00,000</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
+                <div className="bg-light-surface dark:bg-dark-surface p-4 rounded-lg border border-light-border dark:border-dark-border">
+                  <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary mb-1">Total Investment</p>
+                  <p className="text-2xl font-bold text-light-text dark:text-dark-text">₹69,00,000</p>
+                  <p className="text-xs text-light-textSecondary dark:text-dark-textSecondary mt-1">Hardware + Training + Support</p>
+                </div>
+                <div className="bg-light-surface dark:bg-dark-surface p-4 rounded-lg border border-light-border dark:border-dark-border">
+                  <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary mb-1">Year 1 Revenue Potential</p>
+                  <p className="text-2xl font-bold text-light-accent dark:text-dark-accent">₹2-3 Crores</p>
+                  <p className="text-xs text-light-textSecondary dark:text-dark-textSecondary mt-1">Premium fees + Enrollment growth</p>
+                </div>
               </div>
             </div>
+          </motion.section>
 
-            <div className="print-section mb-6">
-              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-3">Revenue Projections</h2>
-              <div className="overflow-x-auto mb-4">
-                <table className="w-full border border-neutral-200 dark:border-neutral-800">
-                  <thead className="bg-neutral-100 dark:bg-neutral-900">
-                    <tr>
-                      <th className="px-4 py-2 text-left font-semibold">Revenue Source</th>
-                      <th className="px-4 py-2 text-left font-semibold">Activities</th>
-                      <th className="px-4 py-2 text-right font-semibold">Projected Revenue</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {revenueData.map((item, idx) => (
-                      <tr key={idx} className="border-t border-neutral-200 dark:border-neutral-800">
-                        <td className="px-4 py-2 font-medium">{item.source}</td>
-                        <td className="px-4 py-2 text-neutral-600 dark:text-neutral-400">{item.activities}</td>
-                        <td className="px-4 py-2 text-right font-semibold">{item.amount}</td>
-                      </tr>
-                    ))}
-                    <tr className="border-t-2 border-neutral-300 dark:border-neutral-700 font-bold bg-neutral-50 dark:bg-neutral-900">
-                      <td className="px-4 py-2">Estimated Year 1 Revenue</td>
-                      <td className="px-4 py-2"></td>
-                      <td className="px-4 py-2 text-right">₹2.3 - 3 Crores</td>
-                    </tr>
-                  </tbody>
-                </table>
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="glass dark:glass-dark rounded-2xl p-8 mb-8 border border-light-border dark:border-dark-border"
+          >
+            <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-6">Investment Breakdown</h2>
+            <div className="space-y-4">
+              <div className="flex justify-between items-center p-4 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <div>
+                  <p className="font-semibold text-light-text dark:text-dark-text">AR/VR Headsets & Equipment</p>
+                  <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">15 Meta Quest 3 units + accessories</p>
+                </div>
+                <p className="text-xl font-bold text-light-text dark:text-dark-text">₹45,00,000</p>
               </div>
+              <div className="flex justify-between items-center p-4 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <div>
+                  <p className="font-semibold text-light-text dark:text-dark-text">Robotics Kits & Components</p>
+                  <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">30+ kits for 6 subjects</p>
+                </div>
+                <p className="text-xl font-bold text-light-text dark:text-dark-text">₹15,00,000</p>
+              </div>
+              <div className="flex justify-between items-center p-4 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <div>
+                  <p className="font-semibold text-light-text dark:text-dark-text">Teacher Training Program</p>
+                  <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">3-month intensive certification</p>
+                </div>
+                <p className="text-xl font-bold text-light-text dark:text-dark-text">₹3,50,000</p>
+              </div>
+              <div className="flex justify-between items-center p-4 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <div>
+                  <p className="font-semibold text-light-text dark:text-dark-text">12-Month Support & Maintenance</p>
+                  <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">Unlimited tech support + curriculum updates</p>
+                </div>
+                <p className="text-xl font-bold text-light-text dark:text-dark-text">₹5,50,000</p>
+              </div>
+              <div className="flex justify-between items-center p-4 bg-light-accent/10 dark:bg-dark-accent/10 rounded-lg border-2 border-light-accent dark:border-dark-accent">
+                <p className="font-bold text-lg text-light-text dark:text-dark-text">Total Investment from ZeroAI</p>
+                <p className="text-2xl font-bold text-light-accent dark:text-dark-accent">₹69,00,000</p>
+              </div>
+            </div>
+          </motion.section>
 
-              <h3 className="text-xl font-semibold text-neutral-900 dark:text-white mb-2 mt-4">Competitive Advantage</h3>
-              <div className="grid grid-cols-2 gap-3">
-                {competitiveData.map((item, idx) => (
-                  <div key={idx} className="flex justify-between items-center p-2 bg-neutral-100 dark:bg-neutral-900 rounded-lg">
-                    <span className="font-medium text-sm">{item.activity}</span>
-                    <span className="text-xs px-2 py-1 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 rounded">{item.status}</span>
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3 }}
+            className="glass dark:glass-dark rounded-2xl p-8 mb-8 border border-light-border dark:border-dark-border"
+          >
+            <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-6">6-Subject Integration Plan</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {[
+                { subject: 'Science', activities: 'VR lab simulations, Robotics experiments, 3D molecular modeling' },
+                { subject: 'Mathematics', activities: 'AR geometry visualization, Coding-based problem solving' },
+                { subject: 'Computer Science', activities: 'AI/ML projects, Robotics programming, IoT integration' },
+                { subject: 'Art', activities: 'VR sculpting, Digital design, Interactive installations' },
+                { subject: 'History', activities: 'VR historical site tours, AR artifact reconstruction' },
+                { subject: 'Geography', activities: 'VR globe exploration, AR terrain modeling' }
+              ].map((item, index) => (
+                <div key={index} className="p-5 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                  <h3 className="font-bold text-lg text-light-accent dark:text-dark-accent mb-2">{item.subject}</h3>
+                  <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">{item.activities}</p>
+                </div>
+              ))}
+            </div>
+          </motion.section>
+
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
+            className="glass dark:glass-dark rounded-2xl p-8 mb-8 border border-light-border dark:border-dark-border"
+          >
+            <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-6">Revenue Projections (Year 1)</h2>
+            <div className="space-y-6">
+              <div className="p-5 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <h3 className="font-semibold text-light-text dark:text-dark-text mb-3">Premium Fee Structure</h3>
+                <ul className="space-y-2 text-light-textSecondary dark:text-dark-textSecondary">
+                  <li className="flex justify-between">
+                    <span>Additional ₹15,000/student annual tech fee</span>
+                    <span className="font-semibold text-light-text dark:text-dark-text">₹1.5 Cr</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Enrollment growth (20% increase)</span>
+                    <span className="font-semibold text-light-text dark:text-dark-text">₹50 L</span>
+                  </li>
+                  <li className="flex justify-between">
+                    <span>Weekend workshops & camps</span>
+                    <span className="font-semibold text-light-text dark:text-dark-text">₹30 L</span>
+                  </li>
+                </ul>
+              </div>
+              <div className="p-5 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
+                <p className="text-light-textSecondary dark:text-dark-textSecondary mb-2">Estimated Total Year 1 Revenue</p>
+                <p className="text-3xl font-bold text-green-600 dark:text-green-400">₹2.3 - 3 Crores</p>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary mt-2">ROI: 300-400% in first year</p>
+              </div>
+            </div>
+          </motion.section>
+
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.5 }}
+            className="glass dark:glass-dark rounded-2xl p-8 mb-8 border border-light-border dark:border-dark-border"
+          >
+            <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-6">Competitive Advantage</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <div className="text-center p-5 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <div className="text-4xl font-bold text-light-accent dark:text-dark-accent mb-2">First</div>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">In India with full 6-subject integration</p>
+              </div>
+              <div className="text-center p-5 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <div className="text-4xl font-bold text-light-accent dark:text-dark-accent mb-2">3-5 Years</div>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">Lead time before competitors catch up</p>
+              </div>
+              <div className="text-center p-5 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                <div className="text-4xl font-bold text-light-accent dark:text-dark-accent mb-2">Premium</div>
+                <p className="text-sm text-light-textSecondary dark:text-dark-textSecondary">Brand positioning as innovation leader</p>
+              </div>
+            </div>
+          </motion.section>
+
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6 }}
+            className="glass dark:glass-dark rounded-2xl p-8 mb-8 border border-light-border dark:border-dark-border"
+          >
+            <h2 className="text-2xl font-bold text-light-text dark:text-dark-text mb-6">Implementation Timeline</h2>
+            <div className="space-y-4">
+              {[
+                { phase: 'Month 1-2', activity: 'Hardware procurement & lab setup', status: 'Setup' },
+                { phase: 'Month 2-3', activity: '10-teacher intensive training program', status: 'Training' },
+                { phase: 'Month 3-4', activity: 'Pilot program with select classes', status: 'Testing' },
+                { phase: 'Month 4-6', activity: 'Full rollout across all 6 subjects', status: 'Launch' },
+                { phase: 'Month 6-12', activity: 'Continuous support & curriculum refinement', status: 'Support' }
+              ].map((item, index) => (
+                <div key={index} className="flex items-center space-x-4 p-4 bg-light-surface dark:bg-dark-surface rounded-lg border border-light-border dark:border-dark-border">
+                  <div className="flex-shrink-0 w-24">
+                    <span className="text-sm font-semibold text-light-accent dark:text-dark-accent">{item.phase}</span>
                   </div>
-                ))}
-              </div>
+                  <div className="flex-1">
+                    <p className="text-light-text dark:text-dark-text">{item.activity}</p>
+                  </div>
+                  <div className="flex-shrink-0">
+                    <span className="px-3 py-1 bg-light-accent/10 dark:bg-dark-accent/10 text-light-accent dark:text-dark-accent rounded-full text-xs font-medium">
+                      {item.status}
+                    </span>
+                  </div>
+                </div>
+              ))}
             </div>
+          </motion.section>
 
-            <div className="print-section">
-              <h2 className="text-2xl font-bold text-neutral-900 dark:text-white mb-3">Time-Sensitive Opportunity</h2>
-              <p className="text-neutral-700 dark:text-neutral-300 leading-relaxed mb-3">
-                First-mover advantage is critical:
-              </p>
-              <ul className="list-disc list-inside text-neutral-700 dark:text-neutral-300 space-y-1 mb-4 ml-4">
-                <li>Other premium schools exploring similar integrations</li>
-                <li>Limited VR hardware availability in Q1 2026</li>
-                <li>Enrollment season beginning February 2026</li>
-              </ul>
-              <div className="card bg-neutral-900 dark:bg-white text-white dark:text-neutral-900">
-                <h3 className="text-lg font-semibold mb-2">Recommended Action:</h3>
-                <p>Sign MoU within 2 weeks to lock in Q1 2026 implementation</p>
-              </div>
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.7 }}
+            className="glass dark:glass-dark rounded-2xl p-8 border border-red-300 dark:border-red-700 bg-red-50/50 dark:bg-red-900/10"
+          >
+            <h2 className="text-2xl font-bold text-red-600 dark:text-red-400 mb-4">Time-Sensitive Opportunity</h2>
+            <p className="text-light-textSecondary dark:text-dark-textSecondary mb-4">
+              The education technology landscape is rapidly evolving. Other premium schools are exploring similar integrations. First-mover advantage is critical for:
+            </p>
+            <ul className="space-y-2 text-light-textSecondary dark:text-dark-textSecondary list-disc list-inside">
+              <li>Capturing market share before competitors</li>
+              <li>Building brand reputation as innovation pioneer</li>
+              <li>Attracting top-tier faculty and students</li>
+              <li>Securing exclusive regional partnerships</li>
+            </ul>
+            <div className="mt-6 p-4 bg-white dark:bg-dark-surface rounded-lg border border-red-200 dark:border-red-800">
+              <p className="text-sm font-semibold text-red-600 dark:text-red-400">Recommended Action:</p>
+              <p className="text-light-text dark:text-dark-text mt-1">Sign MoU within 2 weeks to lock in Q1 2026 implementation timeline</p>
             </div>
-
-            <div className="text-center mt-8 pt-6 border-t border-neutral-200 dark:border-neutral-800">
-              <p className="text-xs text-neutral-500 dark:text-neutral-600">
-                © 2026 ZeroAI Technologies Inc. Confidential.
-              </p>
-            </div>
-          </div>
+          </motion.section>
         </div>
       </div>
     </>
