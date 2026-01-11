@@ -382,6 +382,336 @@ const BCMProposal = () => {
             </ul>
           </motion.section>
 
+          {/* NEW: IMPLEMENTATION ROADMAP */}
+          <motion.section
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.35 }}
+            className="glass dark:glass-dark rounded-2xl p-8 mb-8 border-2 border-orange-500 dark:border-orange-400"
+          >
+            <div className="flex items-center gap-3 mb-6">
+              <span className="px-4 py-2 bg-orange-500 text-white rounded-lg font-bold">
+                ROADMAP
+              </span>
+              <h2 className="text-2xl font-bold text-light-text dark:text-dark-text">Complete Implementation Strategy</h2>
+            </div>
+
+            <div className="bg-orange-50 dark:bg-orange-900/20 border border-orange-200 dark:border-orange-800 rounded-lg p-6 mb-6">
+              <p className="text-lg font-semibold text-orange-700 dark:text-orange-400 mb-3">
+                ⚠️ IMPORTANT: MoU & Intellectual Property Protection
+              </p>
+              <p className="text-light-textSecondary dark:text-dark-textSecondary mb-3">
+                Before full implementation begins, we will sign a <strong>Memorandum of Understanding (MoU)</strong> that protects:
+              </p>
+              <ul className="space-y-2 text-light-textSecondary dark:text-dark-textSecondary">
+                <li>• <strong>Proprietary Implementation Strategies</strong> - Our unique USPs and methodologies</li>
+                <li>• <strong>Partner Network & Relationships</strong> - Hardware vendors, software partners, industry connections</li>
+                <li>• <strong>Curriculum & AI Integration IP</strong> - Custom-built Google Gemini training modules</li>
+                <li>• <strong>Marketing & Go-to-Market Strategies</strong> - Revenue channel partnerships and positioning tactics</li>
+                <li>• <strong>Teacher Training Frameworks</strong> - Proprietary certification and upskilling programs</li>
+              </ul>
+              <p className="text-orange-700 dark:text-orange-400 font-semibold mt-4">
+                📋 We will discuss this roadmap over a <strong>2-week consultation period</strong> before MoU signing.
+              </p>
+            </div>
+
+            <h3 className="text-xl font-bold text-light-text dark:text-dark-text mb-4">Phase-by-Phase Implementation Timeline</h3>
+            <p className="text-light-textSecondary dark:text-dark-textSecondary mb-6">
+              Below is the complete execution strategy from contract signing to ongoing maintenance. Each phase has been designed based on industry best practices for EdTech deployments.
+            </p>
+
+            <div className="space-y-6">
+              {/* Phase 1: Planning & Preparation */}
+              <div className="bg-light-surface dark:bg-dark-surface rounded-lg p-6 border-l-4 border-blue-500">
+                <div className="flex items-start justify-between mb-3">
+                  <h4 className="text-lg font-bold text-light-text dark:text-dark-text">Phase 1: Strategic Planning & Site Preparation</h4>
+                  <span className="px-3 py-1 bg-blue-500 text-white rounded text-sm font-semibold">Weeks 1-4</span>
+                </div>
+                <p className="text-light-textSecondary dark:text-dark-textSecondary mb-4">
+                  <strong>Objective:</strong> Assess infrastructure, finalize location(s), define success metrics, and establish project governance.
+                </p>
+                <div className="space-y-3">
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">1.1 Needs Assessment & Stakeholder Alignment</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• Conduct site visits to all BCM locations (if Option 2)</li>
+                      <li>• Assess existing robotics equipment and infrastructure readiness</li>
+                      <li>• Identify key stakeholders (principal, STEM coordinators, IT department)</li>
+                      <li>• Define KPIs: student enrollment targets, revenue goals, teacher certification timelines</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">1.2 Location Selection & Space Design</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• <strong>Option 1:</strong> Select single BCM location with highest student engagement potential</li>
+                      <li>• <strong>Option 2:</strong> Identify flagship hub location + 2 satellite locations across BCM campuses</li>
+                      <li>• Confirm electrical capacity, internet bandwidth (minimum 50 Mbps), and HVAC requirements</li>
+                      <li>• Design lab layout: smart table placement, holographic display positioning, robot demo zones</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">1.3 Procurement & Partner Coordination</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• Finalize hardware orders: smart tables, robotics kits, holographic displays, Unitree robots (Option 2)</li>
+                      <li>• Coordinate with Google Gemini API integration partners</li>
+                      <li>• Secure corporate sponsorship commitments (4-5 partners for Option 1, 8-10 for Option 2)</li>
+                      <li>• Schedule teacher training instructors and certification bodies</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Phase 2: Installation & Integration */}
+              <div className="bg-light-surface dark:bg-dark-surface rounded-lg p-6 border-l-4 border-green-500">
+                <div className="flex items-start justify-between mb-3">
+                  <h4 className="text-lg font-bold text-light-text dark:text-dark-text">Phase 2: Hardware Installation & System Integration</h4>
+                  <span className="px-3 py-1 bg-green-500 text-white rounded text-sm font-semibold">Weeks 5-10</span>
+                </div>
+                <p className="text-light-textSecondary dark:text-dark-textSecondary mb-4">
+                  <strong>Objective:</strong> Deploy all hardware, integrate AI/AR/VR systems, and conduct full system testing before teacher training begins.
+                </p>
+                <div className="space-y-3">
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">2.1 Physical Setup (Weeks 5-7)</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• Install smart tables with embedded sensors and haptic feedback systems</li>
+                      <li>• Mount holographic displays and configure projection systems</li>
+                      <li>• Set up robotics workstations with custom PCBs, sensors, and actuators</li>
+                      <li>• Deploy humanoid robots and Unitree robot dogs (Option 2 only)</li>
+                      <li>• Establish IoT mesh network for multi-location synchronization (Option 2)</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">2.2 Software Integration (Weeks 7-9)</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• Deploy Google Gemini AI Lab Professor with real-time code debugging capabilities</li>
+                      <li>• Integrate AR/VR middleware for robotics visualization (students see robot movements in 3D)</li>
+                      <li>• Configure learning management system (LMS) for student progress tracking</li>
+                      <li>• Load 50+ curriculum modules (Option 1) or 100+ modules (Option 2)</li>
+                      <li>• Set up analytics dashboards for teacher performance monitoring</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">2.3 System Testing & Quality Assurance (Week 10)</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• Run end-to-end test scenarios: student builds robotic arm → AI debugs → AR visualization displays 3D model</li>
+                      <li>• Stress-test network with 30+ simultaneous users per location</li>
+                      <li>• Verify holographic display synchronization across locations (Option 2)</li>
+                      <li>• Conduct cybersecurity audit and data privacy compliance check</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Phase 3: Teacher Training */}
+              <div className="bg-light-surface dark:bg-dark-surface rounded-lg p-6 border-l-4 border-purple-500">
+                <div className="flex items-start justify-between mb-3">
+                  <h4 className="text-lg font-bold text-light-text dark:text-dark-text">Phase 3: Teacher Training & Certification Program</h4>
+                  <span className="px-3 py-1 bg-purple-500 text-white rounded text-sm font-semibold">Weeks 11-22 (3 months)</span>
+                </div>
+                <p className="text-light-textSecondary dark:text-dark-textSecondary mb-4">
+                  <strong>Objective:</strong> Upskill 10 trainers (Option 1) or 30 trainers (Option 2) to deliver industry-grade robotics + AI + AR/VR education.
+                </p>
+                <div className="space-y-3">
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">3.1 Intensive Training Curriculum (12 weeks)</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• <strong>Weeks 11-14:</strong> Robotics fundamentals (sensors, actuators, PCB design, motor control)</li>
+                      <li>• <strong>Weeks 15-18:</strong> AI integration (Google Gemini prompting, real-time debugging, adaptive learning)</li>
+                      <li>• <strong>Weeks 19-22:</strong> AR/VR pedagogy (holographic visualization, immersive learning design)</li>
+                      <li>• Weekly hands-on labs: Teachers build projects students will complete (e.g., line-following robot, gesture-controlled arm)</li>
+                      <li>• Certification exam at Week 22: Theory test + practical project demonstration</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">3.2 Pedagogical Training: AI + Human Teacher Synergy</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• How to use AI for <strong>instant feedback</strong> (e.g., code debugging) while teachers focus on <strong>critical thinking</strong></li>
+                      <li>• Real-world problem framing: "Your robot works for 1 unit. How do you scale to 100? What's the cost constraint?"</li>
+                      <li>• Classroom management with 30+ students using smart tables simultaneously</li>
+                      <li>• Differentiated instruction: Beginner vs. Advanced student pathways</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">3.3 B.Ed College Integration (Optional Add-On)</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• Train B.Ed students to assist in robotics labs (150 students × ₹10-15k additional fee)</li>
+                      <li>• Develop "Teaching STEM with AI" module for future educators</li>
+                      <li>• Create case studies for B.Ed curriculum: "How BCM became India's robotics education leader"</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Phase 4: Marketing & Student Recruitment */}
+              <div className="bg-light-surface dark:bg-dark-surface rounded-lg p-6 border-l-4 border-yellow-500">
+                <div className="flex items-start justify-between mb-3">
+                  <h4 className="text-lg font-bold text-light-text dark:text-dark-text">Phase 4: Go-to-Market Strategy & Enrollment Launch</h4>
+                  <span className="px-3 py-1 bg-yellow-500 text-white rounded text-sm font-semibold">Weeks 20-26</span>
+                </div>
+                <p className="text-light-textSecondary dark:text-dark-textSecondary mb-4">
+                  <strong>Objective:</strong> Build market awareness, secure student enrollments, and establish corporate partnerships before program launch.
+                </p>
+                <div className="space-y-3">
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">4.1 Digital Marketing Channels</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• <strong>Social Media:</strong> Instagram/Facebook campaigns showcasing lab setup, teacher training, student testimonials</li>
+                      <li>• <strong>LinkedIn:</strong> Thought leadership posts positioning BCM as India's AI + Robotics education authority</li>
+                      <li>• <strong>YouTube:</strong> Video tours of holographic displays, humanoid robots, student project demos</li>
+                      <li>• <strong>Email Marketing:</strong> Target 10,000+ parents in Ludhiana/Punjab with ₹50-75k program offer</li>
+                      <li>• <strong>Google Ads:</strong> "Best Robotics Training in Punjab" / "AI + Robotics for Class 9-12"</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">4.2 Partnership & Collaboration Strategies</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• <strong>Corporate Sponsorships:</strong> Approach tech companies (TCS, Infosys, local startups) for ₹5-15 L sponsorships</li>
+                      <li>• <strong>School Visit Programs (Option 2):</strong> Invite 100-150 schools for ₹5-10 L lab tour packages</li>
+                      <li>• <strong>Industry Partnerships:</strong> Collaborate with IEEE, Robotics clubs, Maker communities for credibility</li>
+                      <li>• <strong>Government Tie-Ups:</strong> Apply for NEP 2020 STEM lab grants, position as model institution</li>
+                      <li>• <strong>University Collaborations:</strong> Partner with engineering colleges for student internships at BCM labs</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">4.3 Launch Event & Media Coverage</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• Host grand opening event: Live humanoid robot demonstration, holographic STEM visualization, student project showcase</li>
+                      <li>• Invite local media: Punjab newspapers, TV channels, education magazines</li>
+                      <li>• Press release: "BCM Schools Launches India's Most Advanced AI + Robotics + AR/VR STEM Hub"</li>
+                      <li>• Influencer partnerships: Education YouTubers, STEM advocates tour the facility</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">4.4 Student Enrollment Strategy</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• <strong>Target:</strong> 80 students Year 1 (Option 1) or 200+ students (Option 2)</li>
+                      <li>• Early bird discount: First 30 students get ₹10k off ₹50-75k program fee</li>
+                      <li>• Free demo classes: "Build Your First Robot in 2 Hours" weekend workshops</li>
+                      <li>• Parent info sessions: "Why AI + Robotics = ₹6-8 LPA Jobs for Your Child"</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Phase 5: Program Launch */}
+              <div className="bg-light-surface dark:bg-dark-surface rounded-lg p-6 border-l-4 border-red-500">
+                <div className="flex items-start justify-between mb-3">
+                  <h4 className="text-lg font-bold text-light-text dark:text-dark-text">Phase 5: Program Launch & Pilot Batch Execution</h4>
+                  <span className="px-3 py-1 bg-red-500 text-white rounded text-sm font-semibold">Weeks 27-40</span>
+                </div>
+                <p className="text-light-textSecondary dark:text-dark-textSecondary mb-4">
+                  <strong>Objective:</strong> Deliver first cohort of students, iterate based on feedback, and prepare for scale-up.
+                </p>
+                <div className="space-y-3">
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">5.1 Student Onboarding (Week 27)</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• Orientation day: Lab tour, meet instructors, receive robotics kits</li>
+                      <li>• Pre-assessment: Test students' baseline coding/electronics knowledge</li>
+                      <li>• Set learning pathways: Foundation (beginners) vs. Advanced (experienced students)</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">5.2 Weekly Curriculum Delivery (Weeks 28-40)</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• <strong>Weeks 28-32:</strong> Robotics basics (Arduino programming, sensor integration, motor control)</li>
+                      <li>• <strong>Weeks 33-36:</strong> AI-powered robotics (Google Gemini code debugging, voice-controlled robots)</li>
+                      <li>• <strong>Weeks 37-40:</strong> Capstone project (e.g., autonomous warehouse robot, gesture-controlled prosthetic arm)</li>
+                      <li>• AI provides instant feedback, teachers guide strategic thinking</li>
+                      <li>• AR/VR visualization: Students see their robot's movement path before building</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">5.3 Corporate Upskilling Batches (Parallel Track)</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• Launch 2-3 corporate training batches (Option 1) or 5-6 batches (Option 2)</li>
+                      <li>• Target: Mid-career professionals looking to upskill in AI/Robotics</li>
+                      <li>• Pricing: ₹40-75 L per batch (20-30 professionals)</li>
+                      <li>• Weekend-only format: Fridays 6-9 PM, Saturdays 9 AM-5 PM</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">5.4 Continuous Feedback & Iteration</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• Weekly teacher check-ins: What's working? What needs adjustment?</li>
+                      <li>• Student surveys every 4 weeks: Engagement, difficulty level, project satisfaction</li>
+                      <li>• Parent feedback sessions: ROI perception, career readiness confidence</li>
+                      <li>• AI analytics: Which modules have highest completion rates? Where do students struggle?</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              {/* Phase 6: Maintenance & Optimization */}
+              <div className="bg-light-surface dark:bg-dark-surface rounded-lg p-6 border-l-4 border-teal-500">
+                <div className="flex items-start justify-between mb-3">
+                  <h4 className="text-lg font-bold text-light-text dark:text-dark-text">Phase 6: Ongoing Maintenance & Continuous Improvement</h4>
+                  <span className="px-3 py-1 bg-teal-500 text-white rounded text-sm font-semibold">Month 12+</span>
+                </div>
+                <p className="text-light-textSecondary dark:text-dark-textSecondary mb-4">
+                  <strong>Objective:</strong> Sustain long-term excellence, optimize systems, and scale revenue streams.
+                </p>
+                <div className="space-y-3">
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">6.1 Technical Support & System Maintenance</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• <strong>Monthly:</strong> Software updates, AI model improvements, curriculum module additions</li>
+                      <li>• <strong>Quarterly:</strong> Hardware audits (replace worn sensors, recalibrate robots, upgrade holographic displays)</li>
+                      <li>• <strong>Annual:</strong> Full system refresh (new robotics kits, updated AR/VR middleware)</li>
+                      <li>• 24/7 helpdesk for critical issues (robot malfunction, network outage, AI system errors)</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">6.2 Performance Monitoring & Data Analytics</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• Track KPIs: Student completion rates, job placement success (₹6-8 LPA target), corporate client retention</li>
+                      <li>• AI-powered insights: Which teaching methods yield highest student engagement?</li>
+                      <li>• Revenue analytics: Which streams are most profitable? Where to double down?</li>
+                      <li>• Quarterly review meetings: BCM leadership + ZeroAI team alignment</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">6.3 Teacher Continuous Professional Development</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• Annual advanced training: New robotics trends (swarm robotics, soft robotics, bio-inspired robots)</li>
+                      <li>• Peer learning circles: Teachers share best practices, troubleshoot challenges together</li>
+                      <li>• Industry exposure: Teachers visit robotics companies, attend conferences (e.g., IEEE Robotics)</li>
+                      <li>• Certification renewals: Keep credentials up to date with latest AI/Robotics standards</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <p className="font-semibold text-light-text dark:text-dark-text mb-1">6.4 Scale-Up Strategies (Year 2+)</p>
+                    <ul className="text-sm text-light-textSecondary dark:text-dark-textSecondary space-y-1 ml-4">
+                      <li>• <strong>If Option 1:</strong> Expand to 2-3 locations (upgrade to Option 2 scale)</li>
+                      <li>• <strong>If Option 2:</strong> License curriculum to 5-10 additional schools (₹20-30 L per school)</li>
+                      <li>• Franchise model: "BCM-Powered STEM Labs" in other cities (Chandigarh, Delhi, Amritsar)</li>
+                      <li>• International expansion: Target markets in Philippines, Ghana, Zambia (as per your profile)</li>
+                      <li>• Government contracts: Become official NEP 2020 STEM lab supplier for Punjab schools</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-6 mt-8">
+              <h3 className="font-bold text-lg text-green-700 dark:text-green-400 mb-3">✅ Why This Roadmap Works</h3>
+              <p className="text-light-textSecondary dark:text-dark-textSecondary mb-3">
+                This implementation strategy is based on proven EdTech best practices from successful school technology rollouts worldwide. It incorporates:
+              </p>
+              <ul className="space-y-2 text-light-textSecondary dark:text-dark-textSecondary">
+                <li>• <strong>Phased Rollout:</strong> Reduces risk, allows for iteration, prevents overwhelming teachers/students</li>
+                <li>• <strong>Stakeholder Engagement:</strong> Involves principals, teachers, parents from Day 1</li>
+                <li>• <strong>Data-Driven Decisions:</strong> Uses KPIs and analytics to optimize continuously</li>
+                <li>• <strong>Sustainable Growth:</strong> Maintenance plan ensures long-term excellence</li>
+                <li>• <strong>Protected IP:</strong> MoU safeguards your investment in our unique strategies and partnerships</li>
+              </ul>
+              <p className="text-green-700 dark:text-green-400 font-semibold mt-4">
+                📅 Let's discuss this roadmap in detail over the next 2 weeks before finalizing the MoU and implementation plan.
+              </p>
+            </div>
+          </motion.section>
+
           {/* Option 1 Details */}
           <motion.section
             initial={{ opacity: 0, y: 20 }}
