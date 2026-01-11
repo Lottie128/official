@@ -15,6 +15,7 @@ import RoboticsLab from './pages/RoboticsLab'
 import HardwareSelection from './pages/HardwareSelection'
 import BCMProposal from './pages/BCMProposal'
 import RoboticsTraining from './pages/RoboticsTraining'
+import Sitemap from './pages/Sitemap'
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path="/hardware-selection" element={<HardwareSelection />} />
             <Route path="/bcm-proposal" element={<BCMProposal />} />
             <Route path="/robotics-training" element={<RoboticsTraining />} />
+            <Route path="/sitemap" element={<Sitemap />} />
           </Routes>
         </main>
         <Footer />
