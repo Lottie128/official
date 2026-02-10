@@ -15,7 +15,7 @@ const Footer = () => {
     ],
     resources: [
       { name: 'Business Plan', path: '/business-plan' },
-      { name: 'Pitch Deck', path: '/pitch' },
+      { name: 'Pitch Deck', path: '/ZeroAI Technologies Inc Pitch Deck 50L.pdf', external: true },
       { name: 'Evolution Lab', path: '/evolution-lab' },
       { name: 'Robotics Lab', path: '/robotics-lab' },
     ],
@@ -96,12 +96,23 @@ const Footer = () => {
             <ul className="space-y-2">
               {footerLinks.resources.map((link) => (
                 <li key={link.path}>
-                  <Link
-                    to={link.path}
-                    className="text-sm text-light-textSecondary dark:text-dark-textSecondary hover:text-light-accent dark:hover:text-dark-accent transition-colors"
-                  >
-                    {link.name}
-                  </Link>
+                  {link.external ? (
+                    <a
+                      href={link.path}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-light-textSecondary dark:text-dark-textSecondary hover:text-light-accent dark:hover:text-dark-accent transition-colors"
+                    >
+                      {link.name}
+                    </a>
+                  ) : (
+                    <Link
+                      to={link.path}
+                      className="text-sm text-light-textSecondary dark:text-dark-textSecondary hover:text-light-accent dark:hover:text-dark-accent transition-colors"
+                    >
+                      {link.name}
+                    </Link>
+                  )}
                 </li>
               ))}
               {footerLinks.sitemap.map((link) => (

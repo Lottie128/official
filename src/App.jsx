@@ -9,7 +9,6 @@ import Services from './pages/Services'
 import Projects from './pages/Projects'
 import Contact from './pages/Contact'
 import BusinessPlan from './pages/BusinessPlan'
-import PitchDeck from './pages/PitchDeck'
 import EvolutionLab from './pages/EvolutionLab'
 import RoboticsLab from './pages/RoboticsLab'
 import HardwareSelection from './pages/HardwareSelection'
@@ -31,7 +30,6 @@ function App() {
             <Route path="/projects" element={<Projects />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/business-plan" element={<BusinessPlan />} />
-            <Route path="/pitch" element={<PitchDeck />} />
             <Route path="/evolution-lab" element={<EvolutionLab />} />
             <Route path="/robotics-lab" element={<RoboticsLab />} />
             <Route path="/hardware-selection" element={<HardwareSelection />} />
