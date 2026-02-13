@@ -49,11 +49,11 @@ export default function ContactPage() {
             <div ref={infoRef} className="lg:col-span-2 space-y-6">
               <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
 
-              <div className="flex gap-4 items-start bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-                <MapPin className="w-6 h-6 text-green-600 dark:text-green-400 mt-1 flex-shrink-0" />
+              <div className="flex gap-4 items-start bg-card/50 backdrop-blur-sm rounded-lg p-6 border border-border">
+                <MapPin className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold mb-1">Headquarters</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-muted-foreground">
                     {COMPANY_INFO.name}
                     <br />
                     {COMPANY_INFO.locations.headquarters}
@@ -61,21 +61,21 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className="flex gap-4 items-start bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-                <Phone className="w-6 h-6 text-green-600 dark:text-green-400 mt-1 flex-shrink-0" />
+              <div className="flex gap-4 items-start bg-card/50 backdrop-blur-sm rounded-lg p-6 border border-border">
+                <Phone className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold mb-1">Phone</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-muted-foreground">
                     {COMPANY_INFO.contact.phone}
                   </p>
                 </div>
               </div>
 
-              <div className="flex gap-4 items-start bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-                <Mail className="w-6 h-6 text-green-600 dark:text-green-400 mt-1 flex-shrink-0" />
+              <div className="flex gap-4 items-start bg-card/50 backdrop-blur-sm rounded-lg p-6 border border-border">
+                <Mail className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold mb-1">Email</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-muted-foreground">
                     {COMPANY_INFO.contact.email.primary}
                     <br />
                     {COMPANY_INFO.contact.email.secondary}
@@ -83,11 +83,11 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              <div className="flex gap-4 items-start bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 border border-gray-200 dark:border-gray-700">
-                <Globe className="w-6 h-6 text-green-600 dark:text-green-400 mt-1 flex-shrink-0" />
+              <div className="flex gap-4 items-start bg-card/50 backdrop-blur-sm rounded-lg p-6 border border-border">
+                <Globe className="w-6 h-6 text-primary mt-1 flex-shrink-0" />
                 <div>
                   <h4 className="font-semibold mb-1">Website</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                  <p className="text-sm text-muted-foreground">
                     {COMPANY_INFO.contact.website}
                   </p>
                 </div>
@@ -96,10 +96,10 @@ export default function ContactPage() {
 
             {/* Contact Form */}
             <div ref={formRef} className="lg:col-span-3">
-              <form onSubmit={handleSubmit} className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg p-8 border border-gray-200 dark:border-gray-700 space-y-6">
+              <form onSubmit={handleSubmit} className="bg-card/50 backdrop-blur-sm rounded-lg p-8 border border-border space-y-6">
                 {contactMutation.isSuccess && (
-                  <Alert className="bg-green-100 dark:bg-green-900/30 border-green-200 dark:border-green-800">
-                    <AlertDescription className="text-green-800 dark:text-green-200">
+                  <Alert className="bg-accent border-accent">
+                    <AlertDescription className="text-accent-foreground">
                       Thank you! Your message has been sent successfully. We'll get back to you soon!
                     </AlertDescription>
                   </Alert>

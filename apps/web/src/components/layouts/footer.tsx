@@ -7,18 +7,18 @@ export function Footer() {
   const currentYear = new Date().getFullYear()
 
   return (
-    <footer className="bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800">
+    <footer className="bg-muted border-t border-border">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-green-500 to-green-600 dark:from-green-400 dark:to-green-500 rounded-lg flex items-center justify-center">
+              <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">Z</span>
               </div>
               <span className="font-bold text-lg">{COMPANY_INFO.shortName}</span>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
+            <p className="text-sm text-muted-foreground">
               {COMPANY_INFO.description}
             </p>
           </div>
@@ -31,7 +31,7 @@ export function Footer() {
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -48,7 +48,7 @@ export function Footer() {
                 <li key={link.path}>
                   <Link
                     to={link.path}
-                    className="text-sm text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                    className="text-sm text-muted-foreground hover:text-primary transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -61,18 +61,18 @@ export function Footer() {
           <div>
             <h3 className="font-semibold text-sm mb-4">Contact</h3>
             <ul className="space-y-3">
-              <li className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <li className="flex items-start gap-2 text-sm text-muted-foreground">
                 <Mail className="w-4 h-4 mt-0.5 flex-shrink-0" />
                 <div>
                   <div>{COMPANY_INFO.contact.email.primary}</div>
                   <div>{COMPANY_INFO.contact.email.secondary}</div>
                 </div>
               </li>
-              <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Phone className="w-4 h-4 flex-shrink-0" />
                 {COMPANY_INFO.contact.phone}
               </li>
-              <li className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400">
+              <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="w-4 h-4 flex-shrink-0" />
                 {COMPANY_INFO.locations.headquarters}
               </li>
@@ -84,7 +84,7 @@ export function Footer() {
                 href={SOCIAL_MEDIA.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
@@ -92,7 +92,7 @@ export function Footer() {
                 href={SOCIAL_MEDIA.twitter}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors"
               >
                 <Twitter className="w-5 h-5" />
               </a>
@@ -100,7 +100,7 @@ export function Footer() {
                 href={SOCIAL_MEDIA.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-gray-600 dark:text-gray-400 hover:text-green-600 dark:hover:text-green-400 transition-colors"
+                className="text-muted-foreground hover:text-primary transition-colors"
               >
                 <Instagram className="w-5 h-5" />
               </a>
@@ -110,7 +110,7 @@ export function Footer() {
 
         <Separator className="my-8" />
 
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-gray-600 dark:text-gray-400">
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <p>
             © {currentYear} {COMPANY_INFO.name}. All rights reserved.
           </p>

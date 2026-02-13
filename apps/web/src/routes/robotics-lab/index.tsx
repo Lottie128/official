@@ -26,7 +26,7 @@ export default function RoboticsLabPage() {
             {LAB_PACKAGES.map((pkg) => (
               <div
                 key={pkg.id}
-                className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden"
+                className="bg-card rounded-lg border border-border overflow-hidden"
                 style={{ borderTopColor: pkg.color, borderTopWidth: '4px' }}
               >
                 <div className="p-8">
@@ -36,10 +36,10 @@ export default function RoboticsLabPage() {
                         {pkg.tier}
                       </Badge>
                       <h3 className="text-3xl font-bold mb-2">{pkg.name}</h3>
-                      <p className="text-lg text-gray-600 dark:text-gray-400 mb-2">
+                      <p className="text-lg text-muted-foreground mb-2">
                         {pkg.subtitle}
                       </p>
-                      <p className="text-sm text-gray-500 dark:text-gray-500 italic">
+                      <p className="text-sm text-muted-foreground/70 italic">
                         "{pkg.theme}"
                       </p>
                     </div>
@@ -47,7 +47,7 @@ export default function RoboticsLabPage() {
                       <div className="text-3xl font-bold" style={{ color: pkg.color }}>
                         {pkg.price}
                       </div>
-                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                      <p className="text-sm text-muted-foreground mt-1">
                         Setup: {pkg.setupTime}
                       </p>
                     </div>
@@ -55,12 +55,12 @@ export default function RoboticsLabPage() {
 
                   <div className="mb-6">
                     <h4 className="font-semibold mb-2">Purpose:</h4>
-                    <p className="text-gray-600 dark:text-gray-400">{pkg.purpose}</p>
+                    <p className="text-muted-foreground">{pkg.purpose}</p>
                   </div>
 
                   <div className="mb-6">
                     <h4 className="font-semibold mb-2">Ideal For:</h4>
-                    <p className="text-gray-600 dark:text-gray-400">{pkg.ideal}</p>
+                    <p className="text-muted-foreground">{pkg.ideal}</p>
                   </div>
 
                   {/* Components Accordion */}
@@ -74,13 +74,13 @@ export default function RoboticsLabPage() {
                           {pkg.components.map((component, idx) => (
                             <div
                               key={idx}
-                              className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4"
+                              className="bg-muted rounded-lg p-4"
                             >
                               <h5 className="font-semibold mb-1">{component.name}</h5>
-                              <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                              <p className="text-sm text-muted-foreground mb-2">
                                 {component.spec}
                               </p>
-                              <p className="text-xs text-gray-500 dark:text-gray-500">
+                              <p className="text-xs text-muted-foreground/70">
                                 {component.usage}
                               </p>
                             </div>
@@ -97,9 +97,9 @@ export default function RoboticsLabPage() {
                       {pkg.impact.map((item, idx) => (
                         <li
                           key={idx}
-                          className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400"
+                          className="flex items-start gap-2 text-sm text-muted-foreground"
                         >
-                          <span className="text-green-600 dark:text-green-400 mt-1">✓</span>
+                          <span className="text-primary mt-1">✓</span>
                           {item}
                         </li>
                       ))}
@@ -113,17 +113,17 @@ export default function RoboticsLabPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
+            <p className="text-muted-foreground mb-8">
               Contact us to discuss which package best fits your institution's needs and get a
               detailed quote.
             </p>
             <a
               href="/contact"
-              className="inline-block px-8 py-4 bg-green-600 dark:bg-green-500 text-white rounded-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition-colors"
+              className="inline-block px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
             >
               Request a Quote
             </a>

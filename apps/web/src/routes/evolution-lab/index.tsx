@@ -39,7 +39,7 @@ export default function EvolutionLabPage() {
                   >
                     <div className="text-left w-full">
                       <div className="font-bold text-sm">{tier.name.split(':')[1]}</div>
-                      <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                      <div className="text-xs text-muted-foreground/70 mt-1">
                         {tier.subtitle.split('-')[1]}
                       </div>
                     </div>
@@ -51,11 +51,11 @@ export default function EvolutionLabPage() {
                 <TabsContent key={tier.id} value={tier.id} className="mt-8">
                   {/* Tier Header */}
                   <div
-                    className="bg-white dark:bg-gray-800 rounded-lg p-8 border-t-4 border-gray-200 dark:border-gray-700 mb-8"
+                    className="bg-card rounded-lg p-8 border-t-4 border-border mb-8"
                     style={{ borderTopColor: tier.color }}
                   >
                     <h2 className="text-3xl font-bold mb-2">{tier.name}</h2>
-                    <p className="text-gray-600 dark:text-gray-400 mb-4">{tier.subtitle}</p>
+                    <p className="text-muted-foreground mb-4">{tier.subtitle}</p>
                     <div className="flex items-center gap-4">
                       <Badge style={{ backgroundColor: tier.color }}>
                         Max Budget: {formatINR(tier.maxBudget)}
@@ -68,7 +68,7 @@ export default function EvolutionLabPage() {
                     {tier.hardware.map((category, catIdx) => (
                       <div
                         key={catIdx}
-                        className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden"
+                        className="bg-card rounded-lg border border-border overflow-hidden"
                       >
                         <Accordion type="single" collapsible>
                           <AccordionItem value={`category-${catIdx}`} className="border-0">
@@ -83,7 +83,7 @@ export default function EvolutionLabPage() {
                                 {category.items.map((item, itemIdx) => (
                                   <div
                                     key={itemIdx}
-                                    className="bg-gray-50 dark:bg-gray-700/50 rounded-lg p-4 border border-gray-200 dark:border-gray-600"
+                                    className="bg-muted rounded-lg p-4 border border-border"
                                   >
                                     <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-3">
                                       <div className="flex-1">
@@ -93,10 +93,10 @@ export default function EvolutionLabPage() {
                                           </Badge>
                                           <h4 className="font-semibold">{item.name}</h4>
                                         </div>
-                                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-2">
+                                        <p className="text-sm text-muted-foreground mb-2">
                                           {item.description}
                                         </p>
-                                        <p className="text-sm text-green-600 dark:text-green-400 mb-2">
+                                        <p className="text-sm text-primary mb-2">
                                           ✓ {item.benefit}
                                         </p>
                                       </div>
@@ -104,7 +104,7 @@ export default function EvolutionLabPage() {
                                         <div className="font-bold text-lg" style={{ color: tier.color }}>
                                           {formatINR(item.priceMin)} - {formatINR(item.priceMax)}
                                         </div>
-                                        <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                                        <p className="text-xs text-muted-foreground/70 mt-1">
                                           {item.notes}
                                         </p>
                                       </div>
@@ -126,17 +126,17 @@ export default function EvolutionLabPage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-4">Need Help Choosing?</h2>
-            <p className="text-gray-600 dark:text-gray-400 mb-8">
+            <p className="text-muted-foreground mb-8">
               Our experts can help you select the right hardware for your lab based on your budget
               and requirements.
             </p>
             <a
               href="/contact"
-              className="inline-block px-8 py-4 bg-green-600 dark:bg-green-500 text-white rounded-lg font-semibold hover:bg-green-700 dark:hover:bg-green-600 transition-colors"
+              className="inline-block px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
             >
               Get Expert Consultation
             </a>

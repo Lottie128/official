@@ -27,22 +27,22 @@ export default function HomePage() {
     <>
       {/* Hero Section */}
       <section className="pt-32 pb-20 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-green-50/50 to-transparent dark:from-green-900/5" />
+        <div className="absolute inset-0 bg-gradient-to-br from-accent/30 to-transparent" />
         <div className="container mx-auto px-4 relative z-10">
           <div ref={heroRef} className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700">
-              <Award className="text-green-600 dark:text-green-400" />
+            <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 bg-card/50 backdrop-blur-sm rounded-full text-sm font-medium border border-border">
+              <Award className="text-primary" />
               {HOME_CONTENT.hero.badge}
             </div>
 
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6">
               {HOME_CONTENT.hero.title}
-              <span className="block text-green-600 dark:text-green-400 mt-2">
+              <span className="block text-primary mt-2">
                 {HOME_CONTENT.hero.titleAccent}
               </span>
             </h1>
 
-            <p className="text-xl text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+            <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
               {HOME_CONTENT.hero.description}
             </p>
 
@@ -65,7 +65,7 @@ export default function HomePage() {
               {HOME_CONTENT.trustIndicators.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg p-4 text-center border border-gray-200 dark:border-gray-700"
+                  className="bg-card/50 backdrop-blur-sm rounded-lg p-4 text-center border border-border"
                 >
                   <p className="text-sm font-medium">{item.label}</p>
                 </div>
@@ -84,12 +84,12 @@ export default function HomePage() {
               title={HOME_CONTENT.introduction.title}
             />
 
-            <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg p-8 border border-gray-200 dark:border-gray-700 space-y-4 text-center">
+            <div className="bg-card/50 backdrop-blur-sm rounded-lg p-8 border border-border space-y-4 text-center">
               {HOME_CONTENT.introduction.content.map((paragraph, index) => (
                 <p
                   key={index}
                   className={
-                    index === 0 ? 'text-lg' : 'text-gray-600 dark:text-gray-400'
+                    index === 0 ? 'text-lg' : 'text-muted-foreground'
                   }
                 >
                   {paragraph}
@@ -98,7 +98,7 @@ export default function HomePage() {
 
               <div
                 ref={statsRef}
-                className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-gray-200 dark:border-gray-700"
+                className="grid grid-cols-3 gap-4 mt-8 pt-8 border-t border-border"
               >
                 <StatCard number={COMPANY_STATS.projects} label="Automation Projects" />
                 <StatCard number={COMPANY_STATS.solutions} label="Robotics Solutions" />
@@ -110,7 +110,7 @@ export default function HomePage() {
       </section>
 
       {/* Core Offerings */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <SectionHeader
             title="What We Do"
@@ -121,18 +121,18 @@ export default function HomePage() {
             {HOME_CONTENT.offerings.map((offering, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700"
+                className="bg-card rounded-lg p-6 border border-border"
               >
-                <div className="text-6xl font-bold text-gray-200 dark:text-gray-700 mb-4">
+                <div className="text-6xl font-bold text-muted-foreground/30 mb-4">
                   {offering.number}
                 </div>
                 <h3 className="text-xl font-semibold mb-3">{offering.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-4">
+                <p className="text-muted-foreground mb-4">
                   {offering.description}
                 </p>
                 <Link
                   to="/services"
-                  className="inline-flex items-center gap-2 text-green-600 dark:text-green-400 font-medium group"
+                  className="inline-flex items-center gap-2 text-primary font-medium group"
                 >
                   Explore Solutions
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -158,11 +158,11 @@ export default function HomePage() {
               return (
                 <div
                   key={index}
-                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 border border-gray-200 dark:border-gray-700 text-center"
+                  className="bg-card/50 backdrop-blur-sm rounded-lg p-6 border border-border text-center"
                 >
-                  <Icon className="w-10 h-10 mx-auto mb-4 text-green-600 dark:text-green-400" />
+                  <Icon className="w-10 h-10 mx-auto mb-4 text-primary" />
                   <h4 className="font-semibold mb-2">{item.title}</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
+                  <p className="text-sm text-muted-foreground">{item.description}</p>
                 </div>
               )
             })}
@@ -171,7 +171,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-green-600 to-green-500 dark:from-green-500 dark:to-green-600 text-white">
+      <section className="py-20 bg-gradient-to-br from-primary to-primary text-primary-foreground">
         <div className="container mx-auto px-4">
           <div ref={ctaRef} className="max-w-3xl mx-auto text-center">
             <TrendingUp className="w-16 h-16 mx-auto mb-6" />
@@ -182,7 +182,7 @@ export default function HomePage() {
                 <Button
                   size="lg"
                   variant="secondary"
-                  className="bg-white text-green-600 hover:bg-gray-100"
+                  className="bg-background text-primary hover:bg-background/90"
                 >
                   {HOME_CONTENT.cta.actions.primary.label}
                 </Button>
@@ -191,7 +191,7 @@ export default function HomePage() {
                 <Button
                   size="lg"
                   variant="outline"
-                  className="border-white text-white hover:bg-white/10"
+                  className="border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10"
                 >
                   {HOME_CONTENT.cta.actions.secondary.label}
                 </Button>

@@ -33,7 +33,7 @@ export default function AboutPage() {
             {ABOUT_CONTENT.hero.badges.map((badge, idx) => (
               <span
                 key={idx}
-                className="inline-flex items-center gap-2 px-4 py-2 bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-full text-sm font-medium border border-gray-200 dark:border-gray-700"
+                className="inline-flex items-center gap-2 px-4 py-2 bg-card/50 backdrop-blur-sm rounded-full text-sm font-medium border border-border"
               >
                 {badge.label}
               </span>
@@ -51,11 +51,11 @@ export default function AboutPage() {
               title={ABOUT_CONTENT.overview.title}
             />
 
-            <div className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg p-8 border border-gray-200 dark:border-gray-700 space-y-4">
+            <div className="bg-card/50 backdrop-blur-sm rounded-lg p-8 border border-border space-y-4">
               {ABOUT_CONTENT.overview.paragraphs.map((paragraph, idx) => (
                 <p
                   key={idx}
-                  className={idx === 0 ? 'text-lg' : 'text-gray-600 dark:text-gray-400'}
+                  className={idx === 0 ? 'text-lg' : 'text-muted-foreground'}
                 >
                   {paragraph}
                 </p>
@@ -66,21 +66,21 @@ export default function AboutPage() {
       </section>
 
       {/* Mission & Vision */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <div ref={missVisionRef} className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-8 border border-gray-200 dark:border-gray-700 text-center">
+            <div className="bg-card rounded-lg p-8 border border-border text-center">
               <div className="text-5xl mb-4">{ABOUT_CONTENT.mission.icon}</div>
               <h3 className="text-2xl font-bold mb-4">{ABOUT_CONTENT.mission.title}</h3>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-muted-foreground">
                 {ABOUT_CONTENT.mission.description}
               </p>
             </div>
 
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-8 border border-gray-200 dark:border-gray-700 text-center">
+            <div className="bg-card rounded-lg p-8 border border-border text-center">
               <div className="text-5xl mb-4">{ABOUT_CONTENT.vision.icon}</div>
               <h3 className="text-2xl font-bold mb-4">{ABOUT_CONTENT.vision.title}</h3>
-              <p className="text-gray-600 dark:text-gray-400">{ABOUT_CONTENT.vision.description}</p>
+              <p className="text-muted-foreground">{ABOUT_CONTENT.vision.description}</p>
             </div>
           </div>
         </div>
@@ -100,14 +100,14 @@ export default function AboutPage() {
               return (
                 <div
                   key={index}
-                  className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700"
+                  className="bg-card rounded-lg p-6 border border-border"
                 >
-                  <div className="text-6xl font-bold text-gray-200 dark:text-gray-700 mb-4">
+                  <div className="text-6xl font-bold text-muted-foreground/30 mb-4">
                     {division.number}
                   </div>
-                  <Icon className="w-12 h-12 text-green-600 dark:text-green-400 mb-4" />
+                  <Icon className="w-12 h-12 text-primary mb-4" />
                   <h3 className="text-xl font-semibold mb-3">{division.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-400">{division.description}</p>
+                  <p className="text-muted-foreground">{division.description}</p>
                 </div>
               )
             })}
@@ -116,7 +116,7 @@ export default function AboutPage() {
       </section>
 
       {/* Key Metrics */}
-      <section className="py-20 bg-gradient-to-br from-green-50/50 to-transparent dark:from-green-900/5">
+      <section className="py-20 bg-gradient-to-br from-accent/30 to-transparent">
         <div className="container mx-auto px-4">
           <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-5xl mx-auto">
             <StatCard number={COMPANY_STATS.projects} label="Automation Projects" />
@@ -140,12 +140,12 @@ export default function AboutPage() {
               {INFRASTRUCTURE.map((item, index) => (
                 <div
                   key={index}
-                  className="bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm rounded-lg p-6 border border-gray-200 dark:border-gray-700 flex gap-4 items-start"
+                  className="bg-card/50 backdrop-blur-sm rounded-lg p-6 border border-border flex gap-4 items-start"
                 >
                   <div className="text-4xl">{item.icon}</div>
                   <div>
                     <h4 className="font-semibold text-lg mb-2">{item.title}</h4>
-                    <p className="text-gray-600 dark:text-gray-400">{item.description}</p>
+                    <p className="text-muted-foreground">{item.description}</p>
                   </div>
                 </div>
               ))}
@@ -155,7 +155,7 @@ export default function AboutPage() {
       </section>
 
       {/* Target Markets */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <SectionHeader
             title="Target Markets"
@@ -166,7 +166,7 @@ export default function AboutPage() {
             {ABOUT_CONTENT.targetMarkets.map((market, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 text-center"
+                className="bg-card rounded-lg p-6 border border-border text-center"
               >
                 <p className="text-sm font-medium">{market.label}</p>
               </div>
@@ -184,10 +184,10 @@ export default function AboutPage() {
             {ABOUT_CONTENT.achievements.map((achievement, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 text-center"
+                className="bg-card rounded-lg p-6 border border-border text-center"
               >
                 <h3 className="font-semibold mb-2">{achievement.title}</h3>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-sm text-muted-foreground">
                   {achievement.description}
                 </p>
               </div>
@@ -197,7 +197,7 @@ export default function AboutPage() {
       </section>
 
       {/* Core Values */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
+      <section className="py-20 bg-muted">
         <div className="container mx-auto px-4">
           <SectionHeader
             title="Core Values"
@@ -208,11 +208,11 @@ export default function AboutPage() {
             {ABOUT_CONTENT.values.map((value, index) => (
               <div
                 key={index}
-                className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 text-center"
+                className="bg-card rounded-lg p-6 border border-border text-center"
               >
                 <div className="text-4xl mb-3">{value.icon}</div>
                 <h4 className="font-semibold mb-2">{value.title}</h4>
-                <p className="text-xs text-gray-600 dark:text-gray-400">{value.description}</p>
+                <p className="text-xs text-muted-foreground">{value.description}</p>
               </div>
             ))}
           </div>
@@ -229,20 +229,20 @@ export default function AboutPage() {
 
           {/* Founder */}
           <div className="max-w-2xl mx-auto mb-12">
-            <div className="bg-white dark:bg-gray-800 rounded-lg p-8 border border-gray-200 dark:border-gray-700 text-center">
-              <span className="inline-block px-4 py-2 mb-4 text-sm font-medium bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-full">
+            <div className="bg-card rounded-lg p-8 border border-border text-center">
+              <span className="inline-block px-4 py-2 mb-4 text-sm font-medium bg-accent text-accent-foreground rounded-full">
                 {ABOUT_CONTENT.leadership.founder.title}
               </span>
-              <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-green-500 to-green-600 dark:from-green-400 dark:to-green-500 flex items-center justify-center text-white text-3xl font-bold">
+              <div className="w-24 h-24 mx-auto mb-4 rounded-full bg-gradient-to-br from-primary to-primary flex items-center justify-center text-primary-foreground text-3xl font-bold">
                 {ABOUT_CONTENT.leadership.founder.initials}
               </div>
               <h3 className="text-2xl font-bold mb-2">
                 {ABOUT_CONTENT.leadership.founder.name}
               </h3>
-              <p className="text-green-600 dark:text-green-400 font-medium mb-3">
+              <p className="text-primary font-medium mb-3">
                 {ABOUT_CONTENT.leadership.founder.role}
               </p>
-              <p className="text-gray-600 dark:text-gray-400">
+              <p className="text-muted-foreground">
                 {ABOUT_CONTENT.leadership.founder.description}
               </p>
             </div>
@@ -255,13 +255,13 @@ export default function AboutPage() {
               {ABOUT_CONTENT.leadership.advisors.map((advisor, index) => (
                 <div
                   key={index}
-                  className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 text-center"
+                  className="bg-card rounded-lg p-6 border border-border text-center"
                 >
-                  <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-green-100 to-green-50 dark:from-green-900/20 dark:to-green-900/10 flex items-center justify-center text-green-600 dark:text-green-400 text-xl font-bold">
+                  <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-accent/50 to-accent/20 flex items-center justify-center text-primary text-xl font-bold">
                     {advisor.initials}
                   </div>
                   <h4 className="font-semibold mb-1">{advisor.name}</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{advisor.role}</p>
+                  <p className="text-sm text-muted-foreground">{advisor.role}</p>
                 </div>
               ))}
             </div>
@@ -274,13 +274,13 @@ export default function AboutPage() {
               {ABOUT_CONTENT.leadership.executives.map((member, index) => (
                 <div
                   key={index}
-                  className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700 text-center"
+                  className="bg-card rounded-lg p-6 border border-border text-center"
                 >
-                  <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-green-100 to-green-50 dark:from-green-900/20 dark:to-green-900/10 flex items-center justify-center text-green-600 dark:text-green-400 text-xl font-bold">
+                  <div className="w-16 h-16 mx-auto mb-3 rounded-full bg-gradient-to-br from-accent/50 to-accent/20 flex items-center justify-center text-primary text-xl font-bold">
                     {member.initials}
                   </div>
                   <h4 className="font-semibold mb-1">{member.name}</h4>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{member.role}</p>
+                  <p className="text-sm text-muted-foreground">{member.role}</p>
                 </div>
               ))}
             </div>
@@ -289,7 +289,7 @@ export default function AboutPage() {
       </section>
 
       {/* Future Vision */}
-      <section className="py-20 bg-gradient-to-br from-green-600 to-green-500 dark:from-green-500 dark:to-green-600 text-white">
+      <section className="py-20 bg-gradient-to-br from-primary to-primary text-primary-foreground">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
             <div className="text-center mb-8">

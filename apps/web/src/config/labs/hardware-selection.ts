@@ -28,7 +28,7 @@ export const HARDWARE_TIERS: HardwareTier[] = [
     name: 'Tier 1: Ignition Lab',
     subtitle: 'Foundation Stage - Budget ₹0.5L - ₹2.5L',
     maxBudget: 250000,
-    color: '#10b981',
+    color: 'var(--lab-ignition)',
     hardware: [
       {
         category: 'Desktop Workstation',
@@ -261,7 +261,7 @@ export const HARDWARE_TIERS: HardwareTier[] = [
     name: 'Tier 2: Evolution Lab',
     subtitle: 'Discovery Stage - Budget ₹3L - ₹5L',
     maxBudget: 500000,
-    color: '#667eea',
+    color: 'var(--lab-evolution)',
     hardware: [
       {
         category: '3D Printer',
@@ -526,7 +526,7 @@ export const HARDWARE_TIERS: HardwareTier[] = [
     name: 'Tier 3: Intelligence Lab',
     subtitle: 'Innovation Stage - Budget ₹5L - ₹8L',
     maxBudget: 800000,
-    color: '#a855f7',
+    color: 'var(--lab-intelligence)',
     hardware: [
       {
         category: 'Advanced Workstations',
@@ -791,7 +791,7 @@ export const HARDWARE_TIERS: HardwareTier[] = [
     name: 'Tier 4: Singularity Lab',
     subtitle: 'Future Stage - Budget ₹8L - ₹15L+',
     maxBudget: 1500000,
-    color: '#00d9ff',
+    color: 'var(--lab-singularity)',
     hardware: [
       {
         category: 'AI Workstation/Server',

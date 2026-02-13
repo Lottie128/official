@@ -9,7 +9,7 @@ export const LAB_PACKAGES = [
     setupTime: '2-3 days',
     purpose: 'Introduce students to robotics, programming, and problem-solving basics',
     ideal: 'Schools beginning their robotics journey',
-    color: '#10b981',
+    color: 'var(--lab-ignition)',
     components: [
       {
         name: 'Desktop Workstation',
@@ -64,7 +64,7 @@ export const LAB_PACKAGES = [
     setupTime: '5-7 days',
     purpose: 'Expand creativity by combining robotics, 3D design, and smart technology',
     ideal: 'Schools with technical stream or early engineering focus',
-    color: '#667eea',
+    color: 'var(--lab-evolution)',
     components: [
       {
         name: 'Upgraded 3D Printer',
@@ -114,7 +114,7 @@ export const LAB_PACKAGES = [
     purpose:
       'Equip students with advanced tools to create intelligent robots and automation systems',
     ideal: 'Colleges, polytechnics, and research institutions',
-    color: '#a855f7',
+    color: 'var(--lab-intelligence)',
     components: [
       {
         name: 'Advanced Workstations',
@@ -164,7 +164,7 @@ export const LAB_PACKAGES = [
     purpose:
       'Create a fully automated, AI-powered, next-generation robotics lab for advanced innovation',
     ideal: 'Universities, research centers, and innovation hubs',
-    color: '#00d9ff',
+    color: 'var(--lab-singularity)',
     components: [
       {
         name: 'AI Workstation / Server',
@@ -223,7 +223,7 @@ export const LAB_PACKAGES = [
     setupTime: '30+ days',
     purpose: 'Create a bespoke, industry-leading innovation center customized to your vision',
     ideal: 'Large universities, corporate research centers, and innovation hubs',
-    color: '#ff006e',
+    color: 'var(--lab-infinity)',
     components: [
       {
         name: 'Custom Hardware Selection',
