@@ -9,8 +9,6 @@ import { HARDWARE_TIERS, formatINR } from '@/config'
 export default function EvolutionLabPage() {
   const [selectedTier, setSelectedTier] = useState('tier1')
 
-  const currentTier = HARDWARE_TIERS.find((t) => t.id === selectedTier)
-
   return (
     <>
       <PageHeader
