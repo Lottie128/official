@@ -5,6 +5,8 @@ import About from './about'
 import Services from './services'
 import Projects from './projects'
 import Contact from './contact'
+import RoboticsLab from './robotics-lab'
+import EvolutionLab from './evolution-lab'
 import Sitemap from './sitemap'
 
 export const router = createBrowserRouter([
@@ -31,6 +33,14 @@ export const router = createBrowserRouter([
       {
         path: 'contact',
         Component: Contact,
+      },
+      {
+        path: 'robotics-lab',
+        Component: RoboticsLab,
+      },
+      {
+        path: 'evolution-lab',
+        Component: EvolutionLab,
       },
       {
         path: 'sitemap',
