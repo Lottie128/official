@@ -1,0 +1,16 @@
+{
+  "name": "lottie128",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "dev": "bun run --filter './apps/*' dev",
+    "build": "bun run --filter './packages/*' build && bun run --filter './apps/*' build",
+    "test": "bun test"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  }
+}
