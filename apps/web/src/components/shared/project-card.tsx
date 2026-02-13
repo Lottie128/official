@@ -1,7 +1,6 @@
 import { Link } from 'react-router'
 import { ArrowRight } from 'lucide-react'
 import { useHoverLift } from '@/hooks/use-hover-lift'
-import { CATEGORY_COLORS } from '@/config'
 import { Badge } from '@/components/ui/badge'
 
 interface ProjectCardProps {

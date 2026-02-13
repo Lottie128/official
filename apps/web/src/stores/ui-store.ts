@@ -23,8 +23,8 @@ export const useUIStore = create<UIState>()(
       toggleTheme: () =>
         set((state) => ({ theme: state.theme === 'light' ? 'dark' : 'light' })),
       setMobileMenuOpen: (open) => set({ mobileMenuOpen: open }),
-      setQuoteDialogOpen: (open, data = null) =>
-        set({ quoteDialogOpen: open, quoteDialogData: data }),
+      setQuoteDialogOpen: (open, data) =>
+        set({ quoteDialogOpen: open, quoteDialogData: data || null }),
     }),
     {
       name: 'ui-storage',

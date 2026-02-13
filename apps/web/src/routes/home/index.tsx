@@ -3,7 +3,7 @@ import {
   Award,
   Globe,
   Handshake,
-  Certificate,
+  BadgeCheck,
   Lightbulb,
   TrendingUp,
   ArrowRight,
@@ -153,7 +153,7 @@ export default function HomePage() {
 
           <div ref={reasonsRef} className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {HOME_CONTENT.whyChooseUs.reasons.map((item, index) => {
-              const icons = [Lightbulb, Handshake, Certificate, Globe]
+              const icons = [Lightbulb, Handshake, BadgeCheck, Globe]
               const Icon = icons[index]
               return (
                 <div

@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router'
-import { Menu, X, Moon, Sun } from 'lucide-react'
+import { Menu, Moon, Sun } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { useUIStore } from '@/stores/ui-store'
