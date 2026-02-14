@@ -1,0 +1,12 @@
+# Allow all crawlers
+User-agent: *
+Allow: /
+
+# Crawl-delay for rate limiting
+Crawl-delay: 1
+
+# Sitemap location
+Sitemap: https://zeroaitech.tech/sitemap.xml
+
+# Block sensitive paths if needed in future
+# Disallow: /admin
