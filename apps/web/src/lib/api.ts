@@ -18,15 +18,26 @@ interface HardwareQuoteData {
   message?: string
 }
 
-export interface TrainingQuoteData {
+export interface PackageQuoteData {
   name: string
   email: string
-  phone?: string
-  trainingFrequency: 'none' | '1day' | '3days' | '5days'
-  trainerPreference: 'male' | 'female' | 'no-preference'
-  teacherTraining: 'none' | 'no-cert' | 'with-cert'
-  instructorCount: number
-  totalCost: number
+  phone: string
+  organization: string
+  packageId: number
+  packageName: string
+  packageSubtitle: string
+  packageTheme: string
+  packagePrice: string
+  setupTime: string
+  purpose: string
+  ideal: string
+  trainingPlan: string
+  trainerGender: string
+  teacherPlan: string
+  teacherCount: string
+  trainingFee: number
+  teacherFee: number
+  totalAddons: number
 }
 
 export const contactAPI = {
@@ -62,8 +73,8 @@ export const contactAPI = {
     return response.json()
   },
 
-  sendTrainingQuote: async (data: TrainingQuoteData) => {
-    const response = await fetch(`${API_BASE}/send-training-quote.php`, {
+  sendPackageQuote: async (data: PackageQuoteData) => {
+    const response = await fetch(`${API_BASE}/send-package-email.php`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -72,7 +83,7 @@ export const contactAPI = {
     })
 
     if (!response.ok) {
-      throw new Error('Failed to send training quote')
+      throw new Error('Failed to send package quote')
     }
 
     return response.json()

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import type { FormEvent } from 'react'
 import { useScrollFadeIn } from '@/hooks/use-scroll-fade-in'
-import { useTrainingQuoteMutation } from '@/hooks/use-contact-mutation'
+import { usePackageQuoteMutation } from '@/hooks/use-contact-mutation'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -17,25 +17,27 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Separator } from '@/components/ui/separator'
 import { SectionHeader } from '@/components/shared/section-header'
 import { formatINR } from '@/config/labs/hardware-selection'
+import { LAB_PACKAGES } from '@/config'
 
 // Pricing constants
 const TRAINING_COSTS = {
   none: 0,
-  '1day': 50000,
-  '3days': 150000,
-  '5days': 240000,
+  '1d': 50000,
+  '3d': 150000,
+  '5d': 240000,
 }
 
 const TEACHER_TRAINING_COSTS = {
   none: 0,
-  'no-cert': 15000,
-  'with-cert': 35000,
+  no_cert: 15000,
+  with_cert: 35000,
 }
 
 interface FormState {
-  trainingFrequency: 'none' | '1day' | '3days' | '5days'
-  trainerPreference: 'male' | 'female' | 'no-preference'
-  teacherTraining: 'none' | 'no-cert' | 'with-cert'
+  packageId: number
+  trainingFrequency: 'none' | '1d' | '3d' | '5d'
+  trainerPreference: 'male' | 'female' | 'no_preference'
+  teacherTraining: 'none' | 'no_cert' | 'with_cert'
   instructorCount: number
 }
 
@@ -43,15 +45,17 @@ interface ContactInfo {
   name: string
   email: string
   phone: string
+  organization: string
 }
 
 export function QuoteBuilder() {
   const ref = useScrollFadeIn()
-  const mutation = useTrainingQuoteMutation()
+  const mutation = usePackageQuoteMutation()
 
   const [formState, setFormState] = useState<FormState>({
+    packageId: 1,
     trainingFrequency: 'none',
-    trainerPreference: 'no-preference',
+    trainerPreference: 'no_preference',
     teacherTraining: 'none',
     instructorCount: 0,
   })
@@ -60,16 +64,20 @@ export function QuoteBuilder() {
     name: '',
     email: '',
     phone: '',
+    organization: '',
   })
 
-  const [totalCost, setTotalCost] = useState(0)
+  const [trainingFee, setTrainingFee] = useState(0)
+  const [teacherFee, setTeacherFee] = useState(0)
 
-  // Calculate total cost whenever form state changes
+  // Calculate fees whenever form state changes
   useEffect(() => {
-    const trainingCost = TRAINING_COSTS[formState.trainingFrequency]
+    const trainingCost = TRAINING_COSTS[formState.trainingFrequency as keyof typeof TRAINING_COSTS] || 0
     const teacherTrainingCost =
-      TEACHER_TRAINING_COSTS[formState.teacherTraining] * formState.instructorCount
-    setTotalCost(trainingCost + teacherTrainingCost)
+      (TEACHER_TRAINING_COSTS[formState.teacherTraining as keyof typeof TEACHER_TRAINING_COSTS] || 0) *
+      formState.instructorCount
+    setTrainingFee(trainingCost)
+    setTeacherFee(teacherTrainingCost)
   }, [formState])
 
   // Auto-disable and reset instructor count when teacher training is "none"
@@ -82,18 +90,37 @@ export function QuoteBuilder() {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
+    const selectedPackage = LAB_PACKAGES.find((pkg) => pkg.id === formState.packageId)
+    if (!selectedPackage) return
+
+    const totalAddons = trainingFee + teacherFee
+
     mutation.mutate(
       {
         ...contactInfo,
-        ...formState,
-        totalCost,
+        packageId: selectedPackage.id,
+        packageName: selectedPackage.name,
+        packageSubtitle: selectedPackage.subtitle,
+        packageTheme: selectedPackage.theme,
+        packagePrice: selectedPackage.price,
+        setupTime: selectedPackage.setupTime,
+        purpose: selectedPackage.purpose,
+        ideal: selectedPackage.ideal,
+        trainingPlan: formState.trainingFrequency,
+        trainerGender: formState.trainerPreference,
+        teacherPlan: formState.teacherTraining,
+        teacherCount: formState.instructorCount.toString(),
+        trainingFee,
+        teacherFee,
+        totalAddons,
       },
       {
         onSuccess: () => {
           // Reset form on success
           setFormState({
+            packageId: 1,
             trainingFrequency: 'none',
-            trainerPreference: 'no-preference',
+            trainerPreference: 'no_preference',
             teacherTraining: 'none',
             instructorCount: 0,
           })
@@ -101,14 +128,20 @@ export function QuoteBuilder() {
             name: '',
             email: '',
             phone: '',
+            organization: '',
           })
         },
       }
     )
   }
 
+  const totalAddons = trainingFee + teacherFee
   const isSubmitDisabled =
-    totalCost === 0 || !contactInfo.name || !contactInfo.email || mutation.isPending
+    !contactInfo.name ||
+    !contactInfo.email ||
+    !contactInfo.phone ||
+    !contactInfo.organization ||
+    mutation.isPending
 
   return (
     <div ref={ref}>
@@ -118,6 +151,42 @@ export function QuoteBuilder() {
       />
 
       <form onSubmit={handleSubmit} className="max-w-6xl mx-auto space-y-8">
+        {/* Package Selection */}
+        <Card>
+          <CardHeader>
+            <CardTitle>Select Your Lab Package</CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            <div className="space-y-2">
+              <Label htmlFor="package">
+                Lab Package <span className="text-destructive">*</span>
+              </Label>
+              <Select
+                value={formState.packageId.toString()}
+                onValueChange={(value) =>
+                  setFormState((prev) => ({ ...prev, packageId: parseInt(value) }))
+                }
+              >
+                <SelectTrigger id="package">
+                  <SelectValue placeholder="Select a package" />
+                </SelectTrigger>
+                <SelectContent>
+                  {LAB_PACKAGES.map((pkg) => (
+                    <SelectItem key={pkg.id} value={pkg.id.toString()}>
+                      {pkg.name} - {pkg.price}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              {formState.packageId > 0 && (
+                <p className="text-sm text-muted-foreground">
+                  {LAB_PACKAGES.find((p) => p.id === formState.packageId)?.subtitle}
+                </p>
+              )}
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Training Configuration */}
         <Card>
           <CardHeader>
@@ -139,14 +208,14 @@ export function QuoteBuilder() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="none">No trainer required - {formatINR(0)}/year</SelectItem>
-                    <SelectItem value="1day">
-                      1 day/week (full-day) - {formatINR(TRAINING_COSTS['1day'])}/year
+                    <SelectItem value="1d">
+                      1 day/week (full-day) - {formatINR(TRAINING_COSTS['1d'])}/year
                     </SelectItem>
-                    <SelectItem value="3days">
-                      3 days/week (full-day) - {formatINR(TRAINING_COSTS['3days'])}/year
+                    <SelectItem value="3d">
+                      3 days/week (full-day) - {formatINR(TRAINING_COSTS['3d'])}/year
                     </SelectItem>
-                    <SelectItem value="5days">
-                      5 days/week (full-day) - {formatINR(TRAINING_COSTS['5days'])}/year
+                    <SelectItem value="5d">
+                      5 days/week (full-day) - {formatINR(TRAINING_COSTS['5d'])}/year
                     </SelectItem>
                   </SelectContent>
                 </Select>
@@ -166,7 +235,7 @@ export function QuoteBuilder() {
                     <SelectValue placeholder="Select preference" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="no-preference">No Preference</SelectItem>
+                    <SelectItem value="no_preference">No Preference</SelectItem>
                     <SelectItem value="male">Male Trainer</SelectItem>
                     <SelectItem value="female">Female Trainer</SelectItem>
                   </SelectContent>
@@ -189,13 +258,13 @@ export function QuoteBuilder() {
                     <SelectItem value="none">
                       No teacher training - {formatINR(0)}/instructor
                     </SelectItem>
-                    <SelectItem value="no-cert">
+                    <SelectItem value="no_cert">
                       Teacher Training (no IBM cert) -{' '}
-                      {formatINR(TEACHER_TRAINING_COSTS['no-cert'])}/instructor
+                      {formatINR(TEACHER_TRAINING_COSTS.no_cert)}/instructor
                     </SelectItem>
-                    <SelectItem value="with-cert">
+                    <SelectItem value="with_cert">
                       Teacher Training (with IBM cert) -{' '}
-                      {formatINR(TEACHER_TRAINING_COSTS['with-cert'])}/instructor
+                      {formatINR(TEACHER_TRAINING_COSTS.with_cert)}/instructor
                     </SelectItem>
                   </SelectContent>
                 </Select>
@@ -262,8 +331,10 @@ export function QuoteBuilder() {
                 />
               </div>
 
-              <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="phone">Phone (Optional)</Label>
+              <div className="space-y-2">
+                <Label htmlFor="phone">
+                  Phone <span className="text-destructive">*</span>
+                </Label>
                 <Input
                   id="phone"
                   type="tel"
@@ -271,6 +342,22 @@ export function QuoteBuilder() {
                   onChange={(e) =>
                     setContactInfo((prev) => ({ ...prev, phone: e.target.value }))
                   }
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="organization">
+                  Organization <span className="text-destructive">*</span>
+                </Label>
+                <Input
+                  id="organization"
+                  type="text"
+                  value={contactInfo.organization}
+                  onChange={(e) =>
+                    setContactInfo((prev) => ({ ...prev, organization: e.target.value }))
+                  }
+                  required
                 />
               </div>
             </div>
@@ -285,44 +372,37 @@ export function QuoteBuilder() {
           <CardContent className="space-y-4">
             <div className="space-y-3">
               {/* Training Cost Line Item */}
-              {formState.trainingFrequency !== 'none' && (
+              {trainingFee > 0 && (
                 <div className="flex justify-between items-center">
                   <span className="text-muted-foreground">Training Cost (per year)</span>
-                  <span className="font-medium">
-                    {formatINR(TRAINING_COSTS[formState.trainingFrequency])}
-                  </span>
+                  <span className="font-medium">{formatINR(trainingFee)}</span>
                 </div>
               )}
 
               {/* Teacher Training Line Item */}
-              {formState.teacherTraining !== 'none' && formState.instructorCount > 0 && (
+              {teacherFee > 0 && (
                 <div className="flex justify-between items-center">
                   <span className="text-muted-foreground">
                     Teacher Training ({formState.instructorCount}{' '}
                     {formState.instructorCount === 1 ? 'instructor' : 'instructors'})
                   </span>
-                  <span className="font-medium">
-                    {formatINR(
-                      TEACHER_TRAINING_COSTS[formState.teacherTraining] *
-                        formState.instructorCount
-                    )}
-                  </span>
+                  <span className="font-medium">{formatINR(teacherFee)}</span>
                 </div>
               )}
 
-              {totalCost === 0 && (
+              {totalAddons === 0 && (
                 <p className="text-sm text-muted-foreground text-center py-4">
-                  Configure your training options above to see the quote
+                  Configure your training options above to see additional costs
                 </p>
               )}
             </div>
 
-            {totalCost > 0 && (
+            {totalAddons > 0 && (
               <>
                 <Separator />
                 <div className="flex justify-between items-center pt-2">
-                  <span className="text-lg font-semibold">Total Cost</span>
-                  <span className="text-2xl font-bold text-primary">{formatINR(totalCost)}</span>
+                  <span className="text-lg font-semibold">Total Add-ons Cost</span>
+                  <span className="text-2xl font-bold text-primary">{formatINR(totalAddons)}</span>
                 </div>
               </>
             )}

@@ -13,8 +13,8 @@ export function useHardwareQuoteMutation() {
   })
 }
 
-export function useTrainingQuoteMutation() {
+export function usePackageQuoteMutation() {
   return useMutation({
-    mutationFn: contactAPI.sendTrainingQuote,
+    mutationFn: contactAPI.sendPackageQuote,
   })
 }
