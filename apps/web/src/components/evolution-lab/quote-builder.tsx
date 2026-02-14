@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import type { FormEvent } from 'react'
+import { toast } from 'sonner'
 import { useScrollFadeIn } from '@/hooks/use-scroll-fade-in'
 import { usePackageQuoteMutation } from '@/hooks/use-contact-mutation'
 import { Button } from '@/components/ui/button'
@@ -13,7 +14,6 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Separator } from '@/components/ui/separator'
 import { SectionHeader } from '@/components/shared/section-header'
 import { formatINR } from '@/config/labs/hardware-selection'
@@ -116,6 +116,9 @@ export function QuoteBuilder() {
       },
       {
         onSuccess: () => {
+          toast.success('Quote request submitted successfully!', {
+            description: "We'll get back to you soon.",
+          })
           // Reset form on success
           setFormState({
             packageId: 1,
@@ -129,6 +132,11 @@ export function QuoteBuilder() {
             email: '',
             phone: '',
             organization: '',
+          })
+        },
+        onError: () => {
+          toast.error('Failed to submit quote request', {
+            description: 'Please try again or contact us directly.',
           })
         },
       }
@@ -431,23 +439,6 @@ export function QuoteBuilder() {
         <Button type="submit" size="lg" className="w-full" disabled={isSubmitDisabled}>
           {mutation.isPending ? 'Submitting...' : 'Request Quote'}
         </Button>
-
-        {/* Success/Error Alerts */}
-        {mutation.isSuccess && (
-          <Alert className="bg-green-50 dark:bg-green-950 border-green-200 dark:border-green-800">
-            <AlertDescription className="text-green-800 dark:text-green-200">
-              Your quote request has been submitted successfully! We'll get back to you soon.
-            </AlertDescription>
-          </Alert>
-        )}
-
-        {mutation.isError && (
-          <Alert className="bg-red-50 dark:bg-red-950 border-red-200 dark:border-red-800">
-            <AlertDescription className="text-red-800 dark:text-red-200">
-              Failed to submit your quote request. Please try again or contact us directly.
-            </AlertDescription>
-          </Alert>
-        )}
       </form>
     </div>
   )

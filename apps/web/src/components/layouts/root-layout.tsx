@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router'
 import { Navbar } from './navbar'
 import { Footer } from './footer'
+import { Toaster } from '@/components/ui/sonner'
 
 export const RootLayout = () => {
   return (
@@ -10,6 +11,7 @@ export const RootLayout = () => {
         <Outlet />
       </main>
       <Footer />
+      <Toaster />
     </div>
   )
 }
