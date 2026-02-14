@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { useForm } from "@tanstack/react-form";
 import { toast } from "sonner";
+import PhoneInput from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 import { useScrollFadeIn } from "@/hooks/use-scroll-fade-in";
 import { usePackageQuoteMutation } from "@/hooks/use-contact-mutation";
 import { Button } from "@/components/ui/button";
@@ -65,6 +67,7 @@ export function QuoteBuilder({
   const ref = useScrollFadeIn();
   const mutation = usePackageQuoteMutation();
   const [currentStep, setCurrentStep] = useState<1 | 2 | 3 | 4>(1);
+  const [isReviewConfirmed, setIsReviewConfirmed] = useState(false);
 
   const form = useForm({
     defaultValues: {
@@ -120,6 +123,7 @@ export function QuoteBuilder({
             });
             form.reset();
             setCurrentStep(1);
+            setIsReviewConfirmed(false);
             onSuccess?.();
           },
           onError: () => {
@@ -234,6 +238,9 @@ export function QuoteBuilder({
     const valid = await validateStep(currentStep);
     if (valid) {
       setCurrentStep((prev) => Math.min(4, prev + 1) as 1 | 2 | 3 | 4);
+      if (currentStep === 3) {
+        setIsReviewConfirmed(false);
+      }
     }
   };
 
@@ -256,6 +263,14 @@ export function QuoteBuilder({
         onSubmit={(e) => {
           e.preventDefault();
           e.stopPropagation();
+          if (currentStep < 4) {
+            void handleNext();
+            return;
+          }
+          if (!isReviewConfirmed) {
+            toast.error("Please confirm your details before submitting.");
+            return;
+          }
           form.handleSubmit();
         }}
         className={hideHeader ? "space-y-4" : "max-w-6xl mx-auto space-y-8"}
@@ -669,15 +684,27 @@ export function QuoteBuilder({
                       <Label htmlFor="phone" className="text-sm font-medium">
                         Phone <span className="text-destructive">*</span>
                       </Label>
-                      <Input
+                      <PhoneInput
                         id="phone"
-                        type="tel"
-                        value={field.state.value}
-                        onChange={(e) => field.handleChange(e.target.value)}
-                        onBlur={field.handleBlur}
+                        defaultCountry="IN"
+                        international
+                        countryCallingCodeEditable={false}
+                        value={field.state.value || undefined}
+                        onChange={(value) => field.handleChange(value ?? "")}
+                        onBlur={() => field.handleBlur()}
+                        inputComponent={Input}
+                        numberInputProps={{
+                          onBlur: () => field.handleBlur(),
+                          "aria-invalid":
+                            field.state.meta.errors.length > 0 ? "true" : "false",
+                        }}
+                        countrySelectProps={{
+                          className:
+                            "border-input dark:bg-input/30 h-9 rounded-md border bg-transparent px-2 py-1 text-sm shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50",
+                        }}
+                        className="flex w-full items-center gap-2 [&_.PhoneInputInput]:w-full"
                       />
-                      {field.state.meta.isTouched &&
-                        field.state.meta.errors.length > 0 && (
+                      {field.state.meta.errors.length > 0 && (
                           <p className="text-sm text-destructive">
                             {field.state.meta.errors.join(", ")}
                           </p>
@@ -876,6 +903,26 @@ export function QuoteBuilder({
                 </div>
               </CardContent>
             </Card>
+
+            <Card
+              className={hideHeader ? "border-0 shadow-none bg-muted/30" : ""}
+            >
+              <CardContent className="pt-6">
+                <div className="flex items-start gap-3">
+                  <input
+                    id="confirm-review"
+                    type="checkbox"
+                    checked={isReviewConfirmed}
+                    onChange={(e) => setIsReviewConfirmed(e.target.checked)}
+                    className="border-input mt-0.5 h-4 w-4 rounded-sm border accent-primary"
+                  />
+                  <Label htmlFor="confirm-review" className="leading-relaxed">
+                    I confirm the details above are correct and I want to
+                    request this quote.
+                  </Label>
+                </div>
+              </CardContent>
+            </Card>
           </>
         )}
 
@@ -918,7 +965,7 @@ export function QuoteBuilder({
               type="submit"
               size="lg"
               className="flex-1"
-              disabled={mutation.isPending}
+              disabled={mutation.isPending || !isReviewConfirmed}
             >
               {mutation.isPending ? "Submitting..." : "Request Quote"}
             </Button>

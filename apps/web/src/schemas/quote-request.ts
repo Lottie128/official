@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 
 // Training frequency options
 export const trainingFrequencyEnum = z.enum(["none", "1d", "3d", "5d"]);
@@ -13,17 +14,17 @@ export const trainerPreferenceEnum = z.enum([
 // Teacher training options
 export const teacherTrainingEnum = z.enum(["none", "no_cert", "with_cert"]);
 
-// Phone validation: strip spaces/dashes and check 10-15 digits
+// Phone validation using libphonenumber-js core parsing/validity checks
 const phoneSchema = z
   .string()
   .min(1, "Phone number is required")
   .refine(
     (val) => {
-      const digitsOnly = val.replace(/[\s\-]/g, "");
-      return /^\d{10,15}$/.test(digitsOnly);
+      const phoneNumber = parsePhoneNumberFromString(val);
+      return Boolean(phoneNumber?.isValid());
     },
     {
-      message: "Phone must contain 10-15 digits",
+      message: "Please enter a valid phone number",
     }
   );
 
