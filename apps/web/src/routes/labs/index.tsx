@@ -1,23 +1,28 @@
-import { useState } from 'react'
-import { PageHeader } from '@/components/shared/page-header'
-import { SectionHeader } from '@/components/shared/section-header'
-import { useStaggerFadeIn } from '@/hooks/use-stagger-animation'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
+import { useState } from "react";
+import { PageHeader } from "@/components/shared/page-header";
+import { SectionHeader } from "@/components/shared/section-header";
+import { useStaggerFadeIn } from "@/hooks/use-stagger-animation";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { QuoteBuilder } from '@/components/evolution-lab/quote-builder'
-import { LAB_PACKAGES } from '@/config'
+} from "@/components/ui/dialog";
+import { QuoteBuilder } from "@/components/evolution-lab/quote-builder";
+import { LAB_PACKAGES } from "@/config";
 
 export default function LabsPage() {
-  const packagesRef = useStaggerFadeIn()
-  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
+  const packagesRef = useStaggerFadeIn();
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
 
   return (
     <>
@@ -38,12 +43,15 @@ export default function LabsPage() {
               <div
                 key={pkg.id}
                 className="bg-card rounded-lg border border-border overflow-hidden"
-                style={{ borderTopColor: pkg.color, borderTopWidth: '4px' }}
+                style={{ borderTopColor: pkg.color, borderTopWidth: "4px" }}
               >
                 <div className="p-8">
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6">
                     <div>
-                      <Badge className="mb-2" style={{ backgroundColor: pkg.color }}>
+                      <Badge
+                        className="mb-2"
+                        style={{ backgroundColor: pkg.color }}
+                      >
                         {pkg.tier}
                       </Badge>
                       <h3 className="text-3xl font-bold mb-2">{pkg.name}</h3>
@@ -55,7 +63,10 @@ export default function LabsPage() {
                       </p>
                     </div>
                     <div className="mt-4 md:mt-0 text-left md:text-right">
-                      <div className="text-3xl font-bold" style={{ color: pkg.color }}>
+                      <div
+                        className="text-3xl font-bold"
+                        style={{ color: pkg.color }}
+                      >
                         {pkg.price}
                       </div>
                       <p className="text-sm text-muted-foreground mt-1">
@@ -83,11 +94,10 @@ export default function LabsPage() {
                       <AccordionContent>
                         <div className="grid md:grid-cols-2 gap-4 pt-4">
                           {pkg.components.map((component, idx) => (
-                            <div
-                              key={idx}
-                              className="bg-muted rounded-lg p-4"
-                            >
-                              <h5 className="font-semibold mb-1">{component.name}</h5>
+                            <div key={idx} className="bg-muted rounded-lg p-4">
+                              <h5 className="font-semibold mb-1">
+                                {component.name}
+                              </h5>
                               <p className="text-sm text-muted-foreground mb-2">
                                 {component.spec}
                               </p>
@@ -129,8 +139,8 @@ export default function LabsPage() {
           <div className="max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
             <p className="text-muted-foreground mb-8">
-              Contact us to discuss which package best fits your institution's needs and get a
-              detailed quote.
+              Contact us to discuss which package best fits your institution's
+              needs and get a detailed quote.
             </p>
             <Button
               size="lg"
@@ -145,16 +155,26 @@ export default function LabsPage() {
 
       {/* Quote Builder Modal */}
       <Dialog open={isQuoteModalOpen} onOpenChange={setIsQuoteModalOpen}>
-        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Request a Quote</DialogTitle>
-            <DialogDescription>
-              Build your custom quote by selecting a package and configuring training options.
-            </DialogDescription>
-          </DialogHeader>
-          <QuoteBuilder onSuccess={() => setIsQuoteModalOpen(false)} />
+        <DialogContent className="max-w-5xl h-[90vh] flex flex-col p-0 gap-0">
+          {/* Header */}
+          <div className="border-b px-6 py-4 bg-gradient-to-r from-primary/5 to-transparent">
+            <DialogHeader>
+              <DialogTitle className="text-2xl">Request a Quote</DialogTitle>
+              <DialogDescription className="text-base mt-1">
+                Build your custom quote by selecting a package and configuring training options
+              </DialogDescription>
+            </DialogHeader>
+          </div>
+
+          {/* Scrollable Content */}
+          <div className="flex-1 overflow-y-auto px-6 py-4">
+            <QuoteBuilder
+              onSuccess={() => setIsQuoteModalOpen(false)}
+              hideHeader
+            />
+          </div>
         </DialogContent>
       </Dialog>
     </>
-  )
+  );
 }
