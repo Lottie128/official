@@ -3,10 +3,20 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <link rel="preconnect" href="https://api.fontshare.com" crossorigin />
+    <link rel="dns-prefetch" href="//api.fontshare.com" />
     <link
       href="https://api.fontshare.com/v2/css?f[]=satoshi@1,2&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        href="https://api.fontshare.com/v2/css?f[]=satoshi@1,2&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
