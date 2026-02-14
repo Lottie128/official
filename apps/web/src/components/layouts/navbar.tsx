@@ -6,6 +6,7 @@ import { useUIStore } from '@/stores/ui-store'
 import { useTheme } from '@/hooks/use-theme'
 import { NAV_LINKS } from '@/config'
 import { cn } from '@/lib/utils'
+import Logo from '@/assets/logo'
 
 export function Navbar() {
   const location = useLocation()
@@ -22,9 +23,7 @@ export function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">Z</span>
-            </div>
+            <Logo className="w-8 h-8 text-primary" />
             <span className="font-bold text-lg hidden sm:inline">ZeroAI Technologies</span>
             <span className="font-bold text-lg sm:hidden">ZeroAI</span>
           </Link>

@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Badge } from '@/components/ui/badge'
 import { HARDWARE_TIERS, formatINR } from '@/config'
+import { QuoteBuilder } from '@/components/evolution-lab/quote-builder'
 
 export default function EvolutionLabPage() {
   const [selectedTier, setSelectedTier] = useState('tier1')
@@ -122,6 +123,13 @@ export default function EvolutionLabPage() {
               ))}
             </Tabs>
           </div>
+        </div>
+      </section>
+
+      {/* Quote Builder Section */}
+      <section className="py-20 bg-background">
+        <div className="container mx-auto px-4">
+          <QuoteBuilder />
         </div>
       </section>
 

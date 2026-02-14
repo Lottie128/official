@@ -2,6 +2,7 @@ import { Link } from 'react-router'
 import { Mail, Phone, MapPin, Linkedin, Twitter, Instagram } from 'lucide-react'
 import { Separator } from '@/components/ui/separator'
 import { COMPANY_INFO, FOOTER_LINKS, SOCIAL_MEDIA } from '@/config'
+import Logo from '@/assets/logo'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -13,9 +14,7 @@ export function Footer() {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-primary to-primary rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">Z</span>
-              </div>
+              <Logo className="w-8 h-8 text-primary" />
               <span className="font-bold text-lg">{COMPANY_INFO.shortName}</span>
             </div>
             <p className="text-sm text-muted-foreground">

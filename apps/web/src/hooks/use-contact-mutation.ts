@@ -12,3 +12,9 @@ export function useHardwareQuoteMutation() {
     mutationFn: contactAPI.sendHardwareQuote,
   })
 }
+
+export function useTrainingQuoteMutation() {
+  return useMutation({
+    mutationFn: contactAPI.sendTrainingQuote,
+  })
+}
