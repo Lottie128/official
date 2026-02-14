@@ -371,6 +371,24 @@ export function QuoteBuilder() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-3">
+              {/* Lab Package Cost */}
+              {(() => {
+                const selectedPackage = LAB_PACKAGES.find((pkg) => pkg.id === formState.packageId)
+                return selectedPackage ? (
+                  <div className="flex justify-between items-center bg-muted/50 p-3 rounded-lg">
+                    <div className="flex flex-col">
+                      <span className="font-semibold">{selectedPackage.name}</span>
+                      <span className="text-xs text-muted-foreground">
+                        {selectedPackage.subtitle}
+                      </span>
+                    </div>
+                    <span className="font-bold text-primary">{selectedPackage.price}</span>
+                  </div>
+                ) : null
+              })()}
+
+              {(trainingFee > 0 || teacherFee > 0) && <Separator />}
+
               {/* Training Cost Line Item */}
               {trainingFee > 0 && (
                 <div className="flex justify-between items-center">
