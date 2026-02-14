@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react'
-import gsap from 'gsap'
 
 export function useHoverLift() {
   const ref = useRef<HTMLDivElement>(null)
@@ -8,21 +7,39 @@ export function useHoverLift() {
     const element = ref.current
     if (!element) return
 
+    let gsapModule: (typeof import('gsap'))['default'] | null = null
+    let isDisposed = false
+
+    const ensureGsap = async () => {
+      if (!gsapModule) {
+        const { default: gsap } = await import('gsap')
+        if (isDisposed) return null
+        gsapModule = gsap
+      }
+      return gsapModule
+    }
+
     const handleMouseEnter = () => {
-      gsap.to(element, {
-        y: -8,
-        scale: 1.02,
-        duration: 0.3,
-        ease: 'power2.out',
+      void ensureGsap().then((gsap) => {
+        if (!gsap) return
+        gsap.to(element, {
+          y: -8,
+          scale: 1.02,
+          duration: 0.3,
+          ease: 'power2.out',
+        })
       })
     }
 
     const handleMouseLeave = () => {
-      gsap.to(element, {
-        y: 0,
-        scale: 1,
-        duration: 0.3,
-        ease: 'power2.out',
+      void ensureGsap().then((gsap) => {
+        if (!gsap) return
+        gsap.to(element, {
+          y: 0,
+          scale: 1,
+          duration: 0.3,
+          ease: 'power2.out',
+        })
       })
     }
 
@@ -30,6 +47,7 @@ export function useHoverLift() {
     element.addEventListener('mouseleave', handleMouseLeave)
 
     return () => {
+      isDisposed = true
       element.removeEventListener('mouseenter', handleMouseEnter)
       element.removeEventListener('mouseleave', handleMouseLeave)
     }

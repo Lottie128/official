@@ -311,7 +311,7 @@ export function QuoteBuilder({
                     </Label>
                     <Select
                       value={field.state.value.toString()}
-                      onValueChange={(value) => {
+                      onValueChange={(value: string) => {
                         field.handleChange(parseInt(value));
                       }}
                     >
@@ -395,7 +395,7 @@ export function QuoteBuilder({
                       </Label>
                       <Select
                         value={field.state.value}
-                        onValueChange={(value) => {
+                        onValueChange={(value: string) => {
                           field.handleChange(value as typeof field.state.value);
                         }}
                       >
@@ -450,7 +450,7 @@ export function QuoteBuilder({
                       </Label>
                       <Select
                         value={field.state.value}
-                        onValueChange={(value) => {
+                        onValueChange={(value: string) => {
                           field.handleChange(value as typeof field.state.value);
                         }}
                         disabled={trainingFrequency === "none"}
@@ -500,7 +500,7 @@ export function QuoteBuilder({
                       <Label htmlFor="teacher-training">Teacher Training</Label>
                       <Select
                         value={field.state.value}
-                        onValueChange={(value) => {
+                        onValueChange={(value: string) => {
                           field.handleChange(value as typeof field.state.value);
                         }}
                       >
