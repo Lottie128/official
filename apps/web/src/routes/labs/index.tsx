@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Suspense, lazy, useState } from "react";
 import { PageHeader } from "@/components/shared/page-header";
 import { SectionHeader } from "@/components/shared/section-header";
 import { useStaggerFadeIn } from "@/hooks/use-stagger-animation";
@@ -17,12 +17,28 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { QuoteBuilder } from "@/components/evolution-lab/quote-builder";
 import { LAB_PACKAGES } from "@/config";
+
+const loadQuoteBuilder = () => import("@/components/evolution-lab/quote-builder");
+const QuoteBuilder = lazy(() =>
+  loadQuoteBuilder().then((module) => ({ default: module.QuoteBuilder })),
+);
 
 export default function LabsPage() {
   const packagesRef = useStaggerFadeIn();
   const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [shouldRenderQuoteBuilder, setShouldRenderQuoteBuilder] = useState(false);
+
+  const handleQuoteOpenChange = (open: boolean) => {
+    setIsQuoteModalOpen(open);
+    if (open) {
+      setShouldRenderQuoteBuilder(true);
+    }
+  };
+
+  const prefetchQuoteBuilder = () => {
+    void loadQuoteBuilder();
+  };
 
   return (
     <>
@@ -144,7 +160,9 @@ export default function LabsPage() {
             </p>
             <Button
               size="lg"
-              onClick={() => setIsQuoteModalOpen(true)}
+              onMouseEnter={prefetchQuoteBuilder}
+              onFocus={prefetchQuoteBuilder}
+              onClick={() => handleQuoteOpenChange(true)}
               className="px-8 py-4"
             >
               Request a Quote
@@ -154,7 +172,7 @@ export default function LabsPage() {
       </section>
 
       {/* Quote Builder Modal */}
-      <Dialog open={isQuoteModalOpen} onOpenChange={setIsQuoteModalOpen}>
+      <Dialog open={isQuoteModalOpen} onOpenChange={handleQuoteOpenChange}>
         <DialogContent
           className="max-w-5xl h-[90vh] flex flex-col p-0 gap-0"
           aria-labelledby="quote-modal-title"
@@ -174,10 +192,14 @@ export default function LabsPage() {
 
           {/* Scrollable Content */}
           <div className="flex-1 overflow-y-auto px-6 py-4">
-            <QuoteBuilder
-              onSuccess={() => setIsQuoteModalOpen(false)}
-              hideHeader
-            />
+            {shouldRenderQuoteBuilder ? (
+              <Suspense fallback={<div className="py-8" aria-hidden />}>
+                <QuoteBuilder
+                  onSuccess={() => handleQuoteOpenChange(false)}
+                  hideHeader
+                />
+              </Suspense>
+            ) : null}
           </div>
         </DialogContent>
       </Dialog>
