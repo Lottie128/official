@@ -1,12 +1,23 @@
+import { useState } from 'react'
 import { PageHeader } from '@/components/shared/page-header'
 import { SectionHeader } from '@/components/shared/section-header'
 import { useStaggerFadeIn } from '@/hooks/use-stagger-animation'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
+import { QuoteBuilder } from '@/components/evolution-lab/quote-builder'
 import { LAB_PACKAGES } from '@/config'
 
-export default function RoboticsLabPage() {
+export default function LabsPage() {
   const packagesRef = useStaggerFadeIn()
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false)
 
   return (
     <>
@@ -121,15 +132,29 @@ export default function RoboticsLabPage() {
               Contact us to discuss which package best fits your institution's needs and get a
               detailed quote.
             </p>
-            <a
-              href="/contact"
-              className="inline-block px-8 py-4 bg-primary text-primary-foreground rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+            <Button
+              size="lg"
+              onClick={() => setIsQuoteModalOpen(true)}
+              className="px-8 py-4"
             >
               Request a Quote
-            </a>
+            </Button>
           </div>
         </div>
       </section>
+
+      {/* Quote Builder Modal */}
+      <Dialog open={isQuoteModalOpen} onOpenChange={setIsQuoteModalOpen}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Request a Quote</DialogTitle>
+            <DialogDescription>
+              Build your custom quote by selecting a package and configuring training options.
+            </DialogDescription>
+          </DialogHeader>
+          <QuoteBuilder onSuccess={() => setIsQuoteModalOpen(false)} />
+        </DialogContent>
+      </Dialog>
     </>
   )
 }

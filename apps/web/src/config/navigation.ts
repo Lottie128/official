@@ -4,14 +4,7 @@ export const NAV_LINKS = [
   { label: 'Services', path: '/services' },
   { label: 'Projects', path: '/projects' },
   { label: 'Contact', path: '/contact' },
-  {
-    label: 'Labs',
-    path: '/robotics-lab',
-    children: [
-      { label: 'Robotics Lab', path: '/robotics-lab' },
-      { label: 'Evolution Lab', path: '/evolution-lab' },
-    ],
-  },
+  { label: 'Labs', path: '/labs' },
 ]
 
 export const FOOTER_LINKS = {
@@ -23,8 +16,7 @@ export const FOOTER_LINKS = {
     { label: 'Contact', path: '/contact' },
   ],
   resources: [
-    { label: 'Robotics Lab', path: '/robotics-lab' },
-    { label: 'Evolution Lab', path: '/evolution-lab' },
+    { label: 'Labs', path: '/labs' },
     { label: 'Sitemap', path: '/sitemap' },
   ],
 }

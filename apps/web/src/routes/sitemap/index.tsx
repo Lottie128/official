@@ -21,8 +21,7 @@ export default function SitemapPage() {
     {
       title: 'Resources',
       links: [
-        { name: 'Robotics Lab', path: '/robotics-lab', description: 'Advanced robotics research facility' },
-        { name: 'Evolution Lab', path: '/evolution-lab', description: 'Our innovation laboratory' },
+        { name: 'Labs', path: '/labs', description: 'Comprehensive robotics lab packages' },
       ],
     },
   ]

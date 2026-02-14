@@ -48,7 +48,11 @@ interface ContactInfo {
   organization: string
 }
 
-export function QuoteBuilder() {
+interface QuoteBuilderProps {
+  onSuccess?: () => void
+}
+
+export function QuoteBuilder({ onSuccess }: QuoteBuilderProps = {}) {
   const ref = useScrollFadeIn()
   const mutation = usePackageQuoteMutation()
 
@@ -133,6 +137,8 @@ export function QuoteBuilder() {
             phone: '',
             organization: '',
           })
+          // Call the onSuccess callback if provided
+          onSuccess?.()
         },
         onError: () => {
           toast.error('Failed to submit quote request', {

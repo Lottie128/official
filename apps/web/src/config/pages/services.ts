@@ -23,7 +23,7 @@ export const SERVICES = [
     description:
       'AI-driven learning labs, STEM robotics kits, and hands-on workshops for future innovators.',
     features: ['STEM Workshops', 'Robotics Kits', 'AI Training', 'Virtual Labs'],
-    link: '/robotics-lab',
+    link: '/labs',
   },
   {
     id: 'research-development',
