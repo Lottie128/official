@@ -155,12 +155,18 @@ export default function LabsPage() {
 
       {/* Quote Builder Modal */}
       <Dialog open={isQuoteModalOpen} onOpenChange={setIsQuoteModalOpen}>
-        <DialogContent className="max-w-5xl h-[90vh] flex flex-col p-0 gap-0">
+        <DialogContent
+          className="max-w-5xl h-[90vh] flex flex-col p-0 gap-0"
+          aria-labelledby="quote-modal-title"
+          aria-describedby="quote-modal-description"
+        >
           {/* Header */}
           <div className="border-b px-6 py-4 bg-gradient-to-r from-primary/5 to-transparent">
             <DialogHeader>
-              <DialogTitle className="text-2xl">Request a Quote</DialogTitle>
-              <DialogDescription className="text-base mt-1">
+              <DialogTitle id="quote-modal-title" className="text-2xl">
+                Request a Quote
+              </DialogTitle>
+              <DialogDescription id="quote-modal-description" className="text-base mt-1">
                 Build your custom quote by selecting a package and configuring training options
               </DialogDescription>
             </DialogHeader>
