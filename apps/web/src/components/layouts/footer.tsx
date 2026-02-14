@@ -84,6 +84,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Visit ZeroAI Technologies on LinkedIn"
               >
                 <Linkedin className="w-5 h-5" />
               </a>
@@ -92,6 +93,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Visit ZeroAI Technologies on X (Twitter)"
               >
                 <Twitter className="w-5 h-5" />
               </a>
@@ -100,6 +102,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-muted-foreground hover:text-primary transition-colors"
+                aria-label="Visit ZeroAI Technologies on Instagram"
               >
                 <Instagram className="w-5 h-5" />
               </a>

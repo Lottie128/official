@@ -7,6 +7,7 @@ import { useTheme } from '@/hooks/use-theme'
 import { NAV_LINKS } from '@/config'
 import { cn } from '@/lib/utils'
 import Logo from '@/assets/logo'
+import { prefetchRoute } from '@/routes/prefetch'
 
 export function Navbar() {
   const location = useLocation()
@@ -15,6 +16,10 @@ export function Navbar() {
 
   const isActive = (path: string) => {
     return location.pathname === path
+  }
+
+  const handleIntentPrefetch = (path: string) => {
+    prefetchRoute(path)
   }
 
   return (
@@ -34,6 +39,8 @@ export function Navbar() {
               <Link
                 key={link.path}
                 to={link.path}
+                onMouseEnter={() => handleIntentPrefetch(link.path)}
+                onFocus={() => handleIntentPrefetch(link.path)}
                 className={cn(
                   'px-4 py-2 rounded-lg text-sm font-medium transition-colors',
                   isActive(link.path)
@@ -53,6 +60,7 @@ export function Navbar() {
               size="icon"
               onClick={toggleTheme}
               className="rounded-full"
+              aria-label={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
             >
               {theme === 'light' ? (
                 <Moon className="h-5 w-5" />
@@ -65,6 +73,7 @@ export function Navbar() {
             <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
               <SheetTrigger asChild className="md:hidden">
                 <Button variant="ghost" size="icon" className="rounded-full">
+                  <span className="sr-only">Open navigation menu</span>
                   <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
@@ -74,6 +83,8 @@ export function Navbar() {
                     <Link
                       key={link.path}
                       to={link.path}
+                      onMouseEnter={() => handleIntentPrefetch(link.path)}
+                      onFocus={() => handleIntentPrefetch(link.path)}
                       onClick={() => setMobileMenuOpen(false)}
                       className={cn(
                         'px-4 py-3 rounded-lg text-base font-medium transition-colors',
